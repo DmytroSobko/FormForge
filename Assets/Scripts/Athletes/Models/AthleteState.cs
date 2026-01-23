@@ -6,6 +6,7 @@ namespace FormForge.Athletes.Models
         public float Endurance { get; set; }
         public float Mobility { get; set; }
         public float Fatigue { get; set; }
+        public float MaxFatigue { get; set; }
         public int CurrentWeek { get; set; }
     }
 }
