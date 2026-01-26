@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192e644b5a81b48eeb4932e5b046a364, type: 3}
   m_Name: StrengthFocused
   m_EditorClassIdentifier: Assembly-CSharp::FormForge.Data.Athletes.AthleteDefinitionSO
-  id: 
-  displayName: 
-  baseStrength: 0
-  baseEndurance: 0
-  baseMobility: 0
-  baseRecoveryRate: 0
-  maxFatigue: 0
-  consistencyModifier: 0
+  m_Id: strength_focused
+  m_DisplayName: Strength-Focused
+  m_BaseStrength: 65
+  m_BaseEndurance: 40
+  m_BaseMobility: 35
+  m_BaseRecoveryRate: 6
+  m_MaxFatigue: 110
+  m_ConsistencyModifier: 0.95

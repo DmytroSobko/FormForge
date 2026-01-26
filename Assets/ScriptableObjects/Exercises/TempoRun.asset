@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395a0da822b9b4146979b4249a02276e, type: 3}
   m_Name: TempoRun
   m_EditorClassIdentifier: Assembly-CSharp::FormForge.Data.Exercises.ExerciseDefinitionSO
-  m_Id: 
-  m_DisplayName: 
-  m_PrimaryStat: 0
-  m_SecondaryStat: 0
-  m_SecondaryStatWeight: 0
-  m_Intensity: 0
-  m_BaseGain: 0
-  m_FatigueCost: 0
-  m_DurationMinutes: 0
+  m_Id: tempo_run
+  m_DisplayName: Tempo Run
+  m_Description: Bread-and-butter endurance training.
+  m_PrimaryStat: 2
+  m_SecondaryStat: 1
+  m_SecondaryStatWeight: 0.1
+  m_Intensity: 1
+  m_BaseGain: 3.8
+  m_FatigueCost: 9
+  m_DurationMinutes: 40
   m_Icon: {fileID: 0}

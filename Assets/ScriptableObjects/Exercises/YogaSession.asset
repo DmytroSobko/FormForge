@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395a0da822b9b4146979b4249a02276e, type: 3}
   m_Name: YogaSession
   m_EditorClassIdentifier: Assembly-CSharp::FormForge.Data.Exercises.ExerciseDefinitionSO
-  m_Id: 
-  m_DisplayName: 
-  m_PrimaryStat: 0
-  m_SecondaryStat: 0
-  m_SecondaryStatWeight: 0
+  m_Id: yoga_session
+  m_DisplayName: Yoga Session
+  m_Description: Mobility + light endurance, almost free fatigue-wise.
+  m_PrimaryStat: 3
+  m_SecondaryStat: 2
+  m_SecondaryStatWeight: 0.1
   m_Intensity: 0
-  m_BaseGain: 0
-  m_FatigueCost: 0
-  m_DurationMinutes: 0
+  m_BaseGain: 2
+  m_FatigueCost: 2
+  m_DurationMinutes: 30
   m_Icon: {fileID: 0}

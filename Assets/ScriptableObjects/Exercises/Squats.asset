@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395a0da822b9b4146979b4249a02276e, type: 3}
   m_Name: Squats
   m_EditorClassIdentifier: Assembly-CSharp::FormForge.Data.Exercises.ExerciseDefinitionSO
-  m_Id: 
-  m_DisplayName: 
-  m_PrimaryStat: 0
-  m_SecondaryStat: 0
-  m_SecondaryStatWeight: 0
-  m_Intensity: 0
-  m_BaseGain: 0
-  m_FatigueCost: 0
-  m_DurationMinutes: 0
+  m_Id: squats
+  m_DisplayName: Squats
+  m_Description: Heavy compound movement, strong gains, high fatigue.
+  m_PrimaryStat: 1
+  m_SecondaryStat: 3
+  m_SecondaryStatWeight: 0.2
+  m_Intensity: 2
+  m_BaseGain: 5.5
+  m_FatigueCost: 14
+  m_DurationMinutes: 45
   m_Icon: {fileID: 0}
