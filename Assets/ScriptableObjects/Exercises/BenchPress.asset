@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395a0da822b9b4146979b4249a02276e, type: 3}
   m_Name: BenchPress
   m_EditorClassIdentifier: Assembly-CSharp::FormForge.Data.Exercises.ExerciseDefinitionSO
-  m_Id: 
-  m_DisplayName: 
-  m_PrimaryStat: 0
+  m_Id: bench_press
+  m_DisplayName: Bench Press
+  m_Description: Pure strength, slightly less taxing than squats.
+  m_PrimaryStat: 1
   m_SecondaryStat: 0
   m_SecondaryStatWeight: 0
-  m_Intensity: 0
-  m_BaseGain: 0
-  m_FatigueCost: 0
-  m_DurationMinutes: 0
+  m_Intensity: 2
+  m_BaseGain: 5
+  m_FatigueCost: 12
+  m_DurationMinutes: 40
   m_Icon: {fileID: 0}

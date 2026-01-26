@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395a0da822b9b4146979b4249a02276e, type: 3}
   m_Name: IntervalSprints
   m_EditorClassIdentifier: Assembly-CSharp::FormForge.Data.Exercises.ExerciseDefinitionSO
-  m_Id: 
-  m_DisplayName: 
-  m_PrimaryStat: 0
-  m_SecondaryStat: 0
-  m_SecondaryStatWeight: 0
-  m_Intensity: 0
-  m_BaseGain: 0
-  m_FatigueCost: 0
-  m_DurationMinutes: 0
+  m_Id: interval_sprints
+  m_DisplayName: Interval Sprints
+  m_Description: Fast gains, expensive recovery.
+  m_PrimaryStat: 2
+  m_SecondaryStat: 1
+  m_SecondaryStatWeight: 0.15
+  m_Intensity: 2
+  m_BaseGain: 4.8
+  m_FatigueCost: 15
+  m_DurationMinutes: 30
   m_Icon: {fileID: 0}

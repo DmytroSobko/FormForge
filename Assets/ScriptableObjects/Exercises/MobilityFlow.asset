@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395a0da822b9b4146979b4249a02276e, type: 3}
   m_Name: MobilityFlow
   m_EditorClassIdentifier: Assembly-CSharp::FormForge.Data.Exercises.ExerciseDefinitionSO
-  m_Id: 
-  m_DisplayName: 
-  m_PrimaryStat: 0
+  m_Id: mobility_flow
+  m_DisplayName: Mobility Flow
+  m_Description: Low risk, essential recovery support.
+  m_PrimaryStat: 3
   m_SecondaryStat: 0
   m_SecondaryStatWeight: 0
   m_Intensity: 0
-  m_BaseGain: 0
-  m_FatigueCost: 0
-  m_DurationMinutes: 0
+  m_BaseGain: 2.5
+  m_FatigueCost: 3
+  m_DurationMinutes: 25
   m_Icon: {fileID: 0}

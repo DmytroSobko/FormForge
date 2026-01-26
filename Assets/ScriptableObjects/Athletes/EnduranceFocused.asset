@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192e644b5a81b48eeb4932e5b046a364, type: 3}
   m_Name: EnduranceFocused
   m_EditorClassIdentifier: Assembly-CSharp::FormForge.Data.Athletes.AthleteDefinitionSO
-  id: 
-  displayName: 
-  baseStrength: 0
-  baseEndurance: 0
-  baseMobility: 0
-  baseRecoveryRate: 0
-  maxFatigue: 0
-  consistencyModifier: 0
+  m_Id: endurance_focused
+  m_DisplayName: Endurence-Focused
+  m_BaseStrength: 40
+  m_BaseEndurance: 65
+  m_BaseMobility: 40
+  m_BaseRecoveryRate: 8
+  m_MaxFatigue: 105
+  m_ConsistencyModifier: 1.05
