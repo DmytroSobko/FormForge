@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Unity/Packages/com.ubisoft.prime.assetmanagement/Runtime/AssetContext.meta
+guid: 3e494976c8c0e994e99a954dd0e643f0
+========
+guid: 79b9db2ff772c4642b24390d2381b9db
+>>>>>>>> origin/main:Unity/Packages/com.ubisoft.prime.assetmanagement/Runtime/AssetLoader.meta
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
