@@ -22,17 +22,14 @@ namespace FormForge.Simulation
 
     [Serializable]
     public class SimulationResult
-    { 
-        public int Week;
+    {
         public StatSnapshot Before;
         public StatSnapshot After;
         public float Efficiency;
         public List<string> Warnings;
 
-        public SimulationResult(int week, StatSnapshot before, StatSnapshot after, float efficiency,
-            List<string> warnings)
+        public SimulationResult(StatSnapshot before, StatSnapshot after, float efficiency, List<string> warnings)
         {
-            Week = week;
             Before = before;
             After = after;
             Efficiency = efficiency;
