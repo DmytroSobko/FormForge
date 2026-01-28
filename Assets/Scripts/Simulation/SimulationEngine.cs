@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using FormForge.Athletes.Models;
-using FormForge.Core.Domain;
+using FormForge.Configs;
+using FormForge.Core.Services;
+using FormForge.Services.Simulation;
 using FormForge.TrainingPlans.Models;
 using UnityEngine;
 
@@ -8,99 +10,62 @@ namespace FormForge.Simulation
 {
     public class SimulationEngine
     {
-        private const float RestDayRecovery = 15f;
+        private readonly SimulationConfig m_SimulationConfig;
+
+        public SimulationEngine()
+        {
+            m_SimulationConfig = ServiceLocator.GetService<ISimulationService>().Config;
+        }
 
         public SimulationResult SimulateWeek(AthleteState athlete, TrainingPlan plan)
         {
-            var before = CreateSnapshot(athlete);
+            var before = athlete.Snapshot();
 
-            float totalPotentialGain = 0f;
-            float totalActualGain = 0f;
-
+            float totalPotential = 0f;
+            float totalActual = 0f;
             var warnings = new List<string>();
 
-            for (int dayIndex = 0; dayIndex < Constants.DaysInWeek; dayIndex++)
+            foreach (var day in plan.Days)
             {
-                var day = plan.Days[dayIndex];
-
                 if (day.Exercises.Count == 0)
                 {
-                    RecoverFatigue(athlete);
+                    athlete.Fatigue = Mathf.Max(athlete.Fatigue - m_SimulationConfig.RestDayRecovery, 0f);
                     continue;
                 }
 
-                foreach (var exercise in day.Exercises)
+                foreach (var ex in day.Exercises)
                 {
-                    float intensityMultiplier = GetIntensityMultiplier(exercise.Intensity);
-                    float fatiguePenalty = FatigueCalculator.CalculatePenalty(athlete.Fatigue, athlete.MaxFatigue);
+                    string intensityKey = ex.Intensity.ToString().ToLower();
+                    float intensity = m_SimulationConfig.IntensityMultipliers[intensityKey];
+                    float penalty = Mathf.Clamp(athlete.Fatigue / athlete.MaxFatigue, 0f,
+                        m_SimulationConfig.MaxFatiguePenalty);
 
-                    float rawGain = exercise.BaseGain * intensityMultiplier;
-                    float finalGain = StatCalculator.ApplyGain(
-                        exercise.BaseGain,
-                        intensityMultiplier,
-                        fatiguePenalty
+                    float rawGain = ex.BaseGain * intensity;
+                    float finalGain = rawGain * (1f - penalty);
+
+                    athlete.ApplyGain(ex.PrimaryStat, finalGain);
+
+                    athlete.Fatigue += ex.FatigueCost * intensity;
+                    athlete.Fatigue = Mathf.Min(
+                        athlete.Fatigue,
+                        athlete.MaxFatigue
                     );
 
-                    ApplyStatGain(athlete, exercise.PrimaryStat, finalGain);
+                    totalPotential += rawGain;
+                    totalActual += finalGain;
 
-                    athlete.Fatigue += exercise.FatigueCost * intensityMultiplier;
-                    athlete.Fatigue = Mathf.Min(athlete.Fatigue, athlete.MaxFatigue);
-
-                    totalPotentialGain += rawGain;
-                    totalActualGain += finalGain;
-
-                    if (fatiguePenalty > 0.6f)
+                    if (penalty > m_SimulationConfig.HighFatigueThreshold)
                     {
-                        warnings.Add($"High fatigue reduced gains on day {dayIndex + 1}");
+                        warnings.Add("High fatigue reduced gains");
                     }
                 }
             }
 
-            var after = CreateSnapshot(athlete);
+            var after = athlete.Snapshot();
 
-            float efficiency = totalPotentialGain > 0
-                ? totalActualGain / totalPotentialGain
-                : 1f;
+            float efficiency = totalPotential > 0 ? totalActual / totalPotential : 1f;
 
-            return new SimulationResult(athlete.CurrentWeek, before, after, efficiency, warnings);
-        }
-        
-        private void RecoverFatigue(AthleteState athlete)
-        {
-            athlete.Fatigue -= RestDayRecovery;
-            athlete.Fatigue = Mathf.Max(athlete.Fatigue, 0f);
-        }
-
-        private void ApplyStatGain(AthleteState athlete, EStatType stat, float value)
-        {
-            switch (stat)
-            {
-                case EStatType.Strength:
-                    athlete.Strength += value;
-                    break;
-                case EStatType.Endurance:
-                    athlete.Endurance += value;
-                    break;
-                case EStatType.Mobility:
-                    athlete.Mobility += value;
-                    break;
-            }
-        }
-
-        private float GetIntensityMultiplier(EIntensityType intensity)
-        {
-            return intensity switch
-            {
-                EIntensityType.Low => 0.6f,
-                EIntensityType.Medium => 1.0f,
-                EIntensityType.High => 1.4f,
-                _ => 1.0f
-            };
-        }
-
-        private StatSnapshot CreateSnapshot(AthleteState athlete)
-        {
-            return new StatSnapshot(athlete.Strength, athlete.Endurance, athlete.Mobility, athlete.Fatigue);
+            return new SimulationResult(before, after, efficiency, warnings);
         }
     }
 }
