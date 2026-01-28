@@ -33,11 +33,7 @@ namespace FormForge.Infrastructure.Networking
         {
             var json = JsonConvert.JsonConvert.SerializeObject(payload, m_JsonSettings);
 
-            using var content = new StringContent(
-                json,
-                Encoding.UTF8,
-                "application/json"
-            );
+            using var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             using var response = await m_Client.PostAsync(url, content);
             response.EnsureSuccessStatusCode();
