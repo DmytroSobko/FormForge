@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using FormForge.Athletes.Models;
-using FormForge.Configs;
+using FormForge.Configs.Runtime;
 using FormForge.Core.Services;
-using FormForge.Services.Simulation;
+using FormForge.Services;
 using FormForge.TrainingPlans.Models;
 using UnityEngine;
 
@@ -10,11 +10,14 @@ namespace FormForge.Simulation
 {
     public class SimulationEngine
     {
+        private readonly IConfigService m_ConfigService;
         private readonly SimulationConfig m_SimulationConfig;
 
         public SimulationEngine()
         {
-            m_SimulationConfig = ServiceLocator.GetService<ISimulationService>().Config;
+            m_ConfigService = ServiceLocator.GetService<IConfigService>();
+            
+            m_SimulationConfig = m_ConfigService.Simulation;
         }
 
         public SimulationResult SimulateWeek(AthleteState athlete, TrainingPlan plan)
@@ -27,29 +30,28 @@ namespace FormForge.Simulation
 
             foreach (var day in plan.Days)
             {
+                // Rest day
                 if (day.Exercises.Count == 0)
                 {
                     athlete.Fatigue = Mathf.Max(athlete.Fatigue - m_SimulationConfig.RestDayRecovery, 0f);
                     continue;
                 }
 
-                foreach (var ex in day.Exercises)
+                foreach (var planned in day.Exercises)
                 {
-                    string intensityKey = ex.Intensity.ToString().ToLower();
-                    float intensity = m_SimulationConfig.IntensityMultipliers[intensityKey];
-                    float penalty = Mathf.Clamp(athlete.Fatigue / athlete.MaxFatigue, 0f,
-                        m_SimulationConfig.MaxFatiguePenalty);
+                    var exercise = planned.Exercise;
+                    var intensityConfig = m_ConfigService.Intensities[planned.Intensity];
 
-                    float rawGain = ex.BaseGain * intensity;
+                    float fatigueRatio = athlete.Fatigue / athlete.MaxFatigue;
+                    float penalty = Mathf.Clamp(fatigueRatio, 0f, m_SimulationConfig.MaxFatiguePenalty);
+
+                    float rawGain = exercise.BaseGain * intensityConfig.Multiplier;
                     float finalGain = rawGain * (1f - penalty);
 
-                    athlete.ApplyGain(ex.PrimaryStat, finalGain);
+                    athlete.ApplyGain(exercise.PrimaryStat, finalGain);
 
-                    athlete.Fatigue += ex.FatigueCost * intensity;
-                    athlete.Fatigue = Mathf.Min(
-                        athlete.Fatigue,
-                        athlete.MaxFatigue
-                    );
+                    athlete.Fatigue += exercise.FatigueCost * intensityConfig.FatigueMultiplier;
+                    athlete.Fatigue = Mathf.Min(athlete.Fatigue, athlete.MaxFatigue);
 
                     totalPotential += rawGain;
                     totalActual += finalGain;
@@ -63,7 +65,9 @@ namespace FormForge.Simulation
 
             var after = athlete.Snapshot();
 
-            float efficiency = totalPotential > 0 ? totalActual / totalPotential : 1f;
+            float efficiency = totalPotential > 0f
+                ? totalActual / totalPotential
+                : 1f;
 
             return new SimulationResult(before, after, efficiency, warnings);
         }
