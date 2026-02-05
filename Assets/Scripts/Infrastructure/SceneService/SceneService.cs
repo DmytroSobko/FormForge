@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using FormForge.Core.Services;
+using FormForge.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Scripting;
@@ -49,50 +51,77 @@ namespace FormForge.SceneService
 			m_logger = logger;
 		}
 		
-		public void LoadScenes(IEnumerable<string> sceneNames)
+		public async Task LoadScenesAsync(IEnumerable<string> sceneNames)
 		{
 			foreach (string sceneName in sceneNames)
 			{
-				LoadScene(sceneName);
+				await LoadSceneAsync(sceneName);
 			}
 		}
 
-		public void LoadScene(string sceneName)
+		public async Task LoadSceneAsync(string sceneName)
 		{
-			// Remove it from pending to unload since it is requested to load it again.
+			// Remove from pending unload
 			m_loadingScenesToUnload.Remove(sceneName);
 
-			if (!IsSceneLoaded(sceneName) && !IsSceneLoading(sceneName))
-			{
-				LoadSceneAsync(sceneName);
-			}
-			else if (IsSceneUnloading(sceneName))
+			if (IsSceneLoaded(sceneName))
+				return;
+
+			if (IsSceneUnloading(sceneName))
 			{
 				PostponeLoadScene(sceneName);
+				return;
 			}
+
+			if (IsSceneLoading(sceneName))
+			{
+				await m_loadingScenes[sceneName].AsTask();
+				return;
+			}
+
+			AsyncOperation op = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+			m_loadingScenes[sceneName] = op;
+
+			await op.AsTask();
+
+			await OnLoadingOperationCompleted(sceneName);
 		}
 		
-		public void UnloadScenes(IEnumerable<string> sceneNames)
+		public async Task UnloadScenesAsync(IEnumerable<string> sceneNames)
 		{
 			foreach (string sceneName in sceneNames)
 			{
-				UnloadScene(sceneName);
+				await UnloadSceneAsync(sceneName);
 			}
 		}
 
-		public void UnloadScene(string sceneName)
+		public async Task UnloadSceneAsync(string sceneName)
 		{
-			// Remove it from pending to load since it is requested to unload it again.
 			m_unloadingScenesToLoad.Remove(sceneName);
 
-			if (IsSceneLoaded(sceneName) && !IsSceneUnloading(sceneName))
-			{
-				UnloadSceneAsync(sceneName);
-			}
-			else if (m_loadingScenes.ContainsKey(sceneName))
+			if (!IsSceneLoaded(sceneName))
+				return;
+
+			if (IsSceneLoading(sceneName))
 			{
 				PostponeUnloadScene(sceneName);
+				return;
 			}
+
+			if (IsSceneUnloading(sceneName))
+			{
+				await m_unloadingScenes[sceneName].AsTask();
+				return;
+			}
+
+			AsyncOperation op = SceneManager.UnloadSceneAsync(sceneName);
+			m_unloadingScenes[sceneName] = op;
+
+			await op.AsTask();
+
+			m_unloadingScenes.Remove(sceneName);
+			SceneUnloaded?.Invoke(sceneName);
+			LateLoadScene(sceneName);
 		}
 
 		public void SetActiveScene(string sceneName)
@@ -120,40 +149,6 @@ namespace FormForge.SceneService
 		{
 			return m_unloadingScenes.ContainsKey(sceneName);
 		}
-		
-	    private void LoadSceneAsync(string sceneName)
-		{
-			if (string.IsNullOrEmpty(sceneName))
-			{
-				return;
-			}
-			
-			AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-			
-			m_loadingScenes.Add(sceneName, asyncOperation);
-			asyncOperation.completed += _ =>
-			{
-				OnLoadingOperationCompleted(sceneName);
-			};
-		}
-
-		private void UnloadSceneAsync(string sceneName)
-		{
-			if (string.IsNullOrEmpty(sceneName))
-			{
-				return;
-			}
-			
-			AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(sceneName);
-
-			m_unloadingScenes[sceneName] = asyncOperation;
-			asyncOperation.completed += _ =>
-			{
-				m_unloadingScenes.Remove(sceneName);
-				SceneUnloaded?.Invoke(sceneName);
-				LateLoadScene(sceneName);
-			};
-		}
 
 		private void PostponeUnloadScene(string sceneName)
 		{
@@ -171,12 +166,14 @@ namespace FormForge.SceneService
 			}
 		}
 
-		private void OnLoadingOperationCompleted(string sceneName)
+		private async Task OnLoadingOperationCompleted(string sceneName)
 		{
 			m_loadingScenes.Remove(sceneName);
 
 			// Check whether the newly loaded scene must be unloaded.
-			if (LateUnloadScene(sceneName))
+
+			var res = await LateUnloadScene(sceneName);
+			if (res)
 			{
 				return;
 			}
@@ -190,12 +187,12 @@ namespace FormForge.SceneService
 			}
 		}
 
-		private bool LateUnloadScene(string sceneName)
+		private async Task<bool> LateUnloadScene(string sceneName)
 		{
 			// Check whether the newly loaded scene must be unloaded.
 			if (m_loadingScenesToUnload.Remove(sceneName))
 			{
-				UnloadScene(sceneName);
+				await UnloadSceneAsync(sceneName);
 
 				return true;
 			}
@@ -203,12 +200,12 @@ namespace FormForge.SceneService
 			return false;
 		}
 
-		private bool LateLoadScene(string sceneName)
+		private async Task<bool> LateLoadScene(string sceneName)
 		{
 			// Check whether the newly unloaded scene must be loaded.
 			if (m_unloadingScenesToLoad.Remove(sceneName))
 			{
-				LoadScene(sceneName);
+				await LoadSceneAsync(sceneName);
 
 				return true;
 			}
