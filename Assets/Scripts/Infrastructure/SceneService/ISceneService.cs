@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace FormForge.SceneService
@@ -29,25 +30,25 @@ namespace FormForge.SceneService
         /// Start loading a set of scenes
         /// </summary>
         /// <param name="sceneNames">Scenes to load</param>
-        public void LoadScenes(IEnumerable<string> sceneNames);
+        Task LoadScenesAsync(IEnumerable<string> sceneNames);
         
         /// <summary>
         /// Start loading a single scene
         /// </summary>
         /// <param name="sceneName">Scene to load</param>
-        public void LoadScene(string sceneName);
+        Task LoadSceneAsync(string sceneName);
         
         /// <summary>
         /// Start unloading a set of scenes
         /// </summary>
         /// <param name="sceneNames">Scenes to unload</param>
-        public void UnloadScenes(IEnumerable<string> sceneNames);
+        Task UnloadScenesAsync(IEnumerable<string> sceneNames);
         
         /// <summary>
         /// Start unloading a single scene
         /// </summary>
         /// <param name="sceneName">Scene to unload</param>
-        public void UnloadScene(string sceneName);
+        Task UnloadSceneAsync(string sceneName);
         
         /// <summary>
         /// Set a scene as the current active scene
