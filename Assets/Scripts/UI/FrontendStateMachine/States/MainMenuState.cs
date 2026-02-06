@@ -2,21 +2,16 @@ using System.Threading.Tasks;
 
 namespace FormForge.UI.FrontendStateMachine.States
 {
-    public class MainMenuState : FrontendState<MainMenuPayload>
+    public class MainMenuState : IFrontendState
     {
-        public override Task EnterAsync()
+        public Task EnterAsync()
         {
-            throw new System.NotImplementedException();
+            return Task.CompletedTask;
         }
 
-        public override Task ExitAsync()
+        public Task ExitAsync()
         {
-            throw new System.NotImplementedException();
+            return Task.CompletedTask;
         }
-    }
-
-    public class MainMenuPayload : IFrontendStatePayload
-    {
-        public string Message { get; }
     }
 }

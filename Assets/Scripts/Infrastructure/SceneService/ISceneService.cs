@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEngine;
 
-namespace FormForge.SceneService
+namespace FormForge.Infrastructure.SceneService
 {
     /// <summary>
     /// Service to handle the loading and unloading of scenes
@@ -20,12 +19,6 @@ namespace FormForge.SceneService
         /// </summary>
         public event Action<string> SceneUnloaded;
 
-        /// <summary>
-        /// Defines custom logging functionality for the SceneService to use. If not set, the ViewManager will output through Unity's Debug class.
-        /// </summary>
-        /// <param name="logger"></param>
-        public void SetLogger(ILogger logger);
-        
         /// <summary>
         /// Start loading a set of scenes
         /// </summary>

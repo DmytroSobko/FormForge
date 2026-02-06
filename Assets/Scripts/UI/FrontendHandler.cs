@@ -7,7 +7,8 @@ namespace FormForge.UI
     public class FrontendHandler : PersistentSingleton<FrontendHandler>
     {
         [SerializeField] private Transform m_ScreenContainer;
-        
+        [SerializeField] private Transform m_PopupnContainer;
+
         private FrontendStateMachine.FrontendStateMachine m_FrontendStateMachine;
         private ScreenManager m_ScreenManager;
         

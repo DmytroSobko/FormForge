@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.StateMachine.States;
 
 namespace FormForge.Infrastructure.StateMachine
@@ -12,11 +12,13 @@ namespace FormForge.Infrastructure.StateMachine
 
         private bool m_IsTransitioning;
         
+        protected virtual ILogger m_Logger => new UnityLogger(nameof(StateMachine));
+
         protected async Task ChangeStateInternalAsync(TState newState)
         {
             if (m_IsTransitioning)
             {
-                throw new InvalidOperationException("State transition already in progress.");
+                m_Logger?.Log("State transition already in progress.");
             }
 
             m_IsTransitioning = true;
