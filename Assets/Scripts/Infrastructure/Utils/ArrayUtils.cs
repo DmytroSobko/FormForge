@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace FormForge.Utils
+namespace FormForge.Infrastructure.Utils
 {
     public static class ArrayUtils
     {

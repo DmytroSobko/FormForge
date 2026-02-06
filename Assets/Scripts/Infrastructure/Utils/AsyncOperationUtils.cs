@@ -1,13 +1,13 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace FormForge.Utils
+namespace FormForge.Infrastructure.Utils
 {
     public static class AsyncOperationUtils
     {
         public static Task AsTask(this AsyncOperation operation)
         {
-            if (operation.isDone)
+            if (operation == null || operation.isDone)
             {
                 return Task.CompletedTask;
             }

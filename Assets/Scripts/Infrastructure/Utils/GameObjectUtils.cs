@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FormForge.Utils
+namespace FormForge.Infrastructure.Utils
 {
     /// <summary>
     /// Provides utility functions for unity gameobjects.

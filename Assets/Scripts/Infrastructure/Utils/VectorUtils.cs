@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace FormForge.Utils
+namespace FormForge.Infrastructure.Utils
 {
 	/// <summary>
 	/// This is a static utility class which provides extra functions for working with Unity's built in vector types.
