@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FormForge.Utils
+namespace FormForge.Infrastructure.Utils
 {
     /// <summary>
     /// A wrapper of the native <see cref="WeakReference"/> class to allow for us to use it with HashSet. 

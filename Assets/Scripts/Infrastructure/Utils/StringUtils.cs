@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using UnityEngine;
 
-namespace FormForge.Utils
+namespace FormForge.Infrastructure.Utils
 {
     /// <summary>
     /// Provides utility functions for string operations.

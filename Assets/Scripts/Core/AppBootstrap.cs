@@ -5,6 +5,7 @@ using FormForge.Messaging.Interfaces;
 using FormForge.Services.Initialization;
 using FormForge.UI.FrontendStateMachine;
 using FormForge.UI.FrontendStateMachine.Messages;
+using FormForge.UI.FrontendStateMachine.Payloads;
 using UnityEngine;
 using ILogger = FormForge.Infrastructure.Logging.ILogger;
 
@@ -22,7 +23,8 @@ namespace FormForge.Core
             
             await InitializeAsync();
             
-            var message = new SwitchFrontendStateMessage(FrontendStates.LoadMainMenu);
+            var message = new SwitchFrontendStateMessage(FrontendStates.MainMenu, 
+                new MainMenuStatePayload(loadScene: true));
             ServiceLocator.GetService<IMessageService>().Send(message);
         }
         

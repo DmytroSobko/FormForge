@@ -18,7 +18,7 @@ namespace FormForge.Infrastructure.StateMachine
         {
             if (m_IsTransitioning)
             {
-                m_Logger?.Log("State transition already in progress.");
+                throw new KeyNotFoundException($"State machine is transitioning.");
             }
 
             m_IsTransitioning = true;

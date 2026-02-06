@@ -6,6 +6,7 @@ using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.StateMachine;
 using FormForge.Messaging.Interfaces;
 using FormForge.UI.FrontendStateMachine.Messages;
+using FormForge.UI.FrontendStateMachine.Payloads;
 using FormForge.UI.FrontendStateMachine.States;
 
 namespace FormForge.UI.FrontendStateMachine
@@ -23,7 +24,6 @@ namespace FormForge.UI.FrontendStateMachine
         {
             m_States = new Dictionary<string, IFrontendState>
             {
-                {FrontendStates.LoadMainMenu, new LoadMainMenuState()},
                 {FrontendStates.MainMenu, new MainMenuState()},
             };
             
@@ -38,7 +38,7 @@ namespace FormForge.UI.FrontendStateMachine
         
         public async void HandleMessage(SwitchFrontendStateMessage messageData = null)
         {
-            await ChangeStateAsync(messageData.StateName);
+            await ChangeStateAsync(messageData.StateName, messageData.Payload);
         }
 
         private async Task ChangeStateAsync(string newStateId, IFrontendStatePayload payload = null)

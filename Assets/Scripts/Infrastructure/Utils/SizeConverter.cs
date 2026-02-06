@@ -1,4 +1,4 @@
-namespace FormForge.Utils
+namespace FormForge.Infrastructure.Utils
 {
     /// <summary>
     /// A utility class for converting between different data sizes such as
