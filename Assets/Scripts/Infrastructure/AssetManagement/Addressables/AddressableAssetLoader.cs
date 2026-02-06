@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using FormForge.AssetManagement.AssetPolicy;
 using FormForge.AssetManagement.CacheStrategy;
 using FormForge.AssetManagement.DownloadReporter;
-using FormForge.Utils;
+using FormForge.Infrastructure.Utils;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.AddressableAssets.ResourceLocators;

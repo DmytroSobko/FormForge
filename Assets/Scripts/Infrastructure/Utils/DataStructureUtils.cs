@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Unity.Collections;
 
-namespace FormForge.Utils
+namespace FormForge.Infrastructure.Utils
 {
     /// <summary>
     /// Provides utility functions for copying objects, resizing buffers, and sorting collections.
