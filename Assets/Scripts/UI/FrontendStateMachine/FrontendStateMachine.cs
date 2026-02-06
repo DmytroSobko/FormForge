@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FormForge.Core.Services;
+using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.StateMachine;
 using FormForge.Messaging.Interfaces;
 using FormForge.UI.FrontendStateMachine.Messages;
@@ -16,6 +17,8 @@ namespace FormForge.UI.FrontendStateMachine
         private string m_CurrentStateId;
         public string CurrentStateId => m_CurrentStateId;
 
+        protected override ILogger m_Logger => new UnityLogger(nameof(FrontendStateMachine));
+        
         public FrontendStateMachine()
         {
             m_States = new Dictionary<string, IFrontendState>
@@ -40,8 +43,11 @@ namespace FormForge.UI.FrontendStateMachine
 
         private async Task ChangeStateAsync(string newStateId, IFrontendStatePayload payload = null)
         {
+            m_Logger?.Log($"Requested state change: '{m_CurrentStateId ?? "<none>"}' → '{newStateId}'");
+
             if (!m_States.TryGetValue(newStateId, out var newState))
             {
+                m_Logger?.LogError($"State not registered: '{newStateId}'");
                 throw new KeyNotFoundException($"State not registered: {newStateId}");
             }
 
@@ -49,16 +55,24 @@ namespace FormForge.UI.FrontendStateMachine
             {
                 if (newState is IPayloadReceivableState receiver)
                 {
+                    m_Logger?.Log($"Assigning payload '{payload.GetType().Name}' to state '{newStateId}'");
                     receiver.SetPayload(payload);
                 }
                 else
                 {
+                    m_Logger?.LogError($"State '{newStateId}' does not accept payload '{payload.GetType().Name}'");
                     throw new InvalidOperationException($"State '{newStateId}' does not accept payload");
                 }
             }
 
+            var previousStateId = m_CurrentStateId;
             m_CurrentStateId = newStateId;
+
+            m_Logger?.Log($"Transition start: '{previousStateId ?? "<none>"}' → '{newStateId}'");
+
             await ChangeStateInternalAsync(newState);
+
+            m_Logger?.Log($"Transition completed. Active state: '{newStateId}'");
         }
     }
 }

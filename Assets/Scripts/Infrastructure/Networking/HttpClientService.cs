@@ -2,12 +2,16 @@ using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using FormForge.Core.Services;
+using UnityEngine;
 using JsonConvert = Newtonsoft.Json;
 
 namespace FormForge.Infrastructure.Networking
 {
     public sealed class HttpClientService : IHttpClientService
     {
+        public string BaseApiUrl { get; private set; }
+
         private static readonly HttpClient m_Client = new HttpClient
         {
             Timeout = TimeSpan.FromSeconds(10)
@@ -19,23 +23,34 @@ namespace FormForge.Infrastructure.Networking
                 MissingMemberHandling = JsonConvert.MissingMemberHandling.Ignore,
                 NullValueHandling = JsonConvert.NullValueHandling.Ignore
             };
-
-        public async Task<T> GetAsync<T>(string url)
+        
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+        private static void RegisterSelf()
         {
-            using var response = await m_Client.GetAsync(url);
+            ServiceLocator.RegisterService<IHttpClientService, HttpClientService>(ServiceLifespan.LazySingleton);
+        }
+        
+        public void SetBaseApiUrl(string url)
+        {
+            BaseApiUrl = url;
+        }
+
+        public async Task<T> GetAsync<T>(string endpoint)
+        {
+            using var response = await m_Client.GetAsync(BaseApiUrl + endpoint);
             response.EnsureSuccessStatusCode();
 
             var json = await response.Content.ReadAsStringAsync();
             return JsonConvert.JsonConvert.DeserializeObject<T>(json, m_JsonSettings);
         }
 
-        public async Task<TResponse> PostAsync<TRequest, TResponse>(string url, TRequest payload)
+        public async Task<TResponse> PostAsync<TRequest, TResponse>(string endpoint, TRequest payload)
         {
             var json = JsonConvert.JsonConvert.SerializeObject(payload, m_JsonSettings);
 
             using var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            using var response = await m_Client.PostAsync(url, content);
+            using var response = await m_Client.PostAsync(BaseApiUrl + endpoint, content);
             response.EnsureSuccessStatusCode();
 
             var responseJson = await response.Content.ReadAsStringAsync();

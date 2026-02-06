@@ -12,9 +12,4 @@ namespace FormForge.UI.FrontendStateMachine.States
     {
         TPayload Payload { get; }
     }
-    
-    public interface IPayloadReceivableState
-    {
-        void SetPayload(IFrontendStatePayload payload);
-    }
 }
