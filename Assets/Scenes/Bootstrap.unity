@@ -292,12 +292,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1323335003}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1395214757}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1395214755
 GameObject:
@@ -328,8 +328,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083cc0c5508c74297810c3bb025bda61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FrontendHandler
-  m_ScreenContainer: {fileID: 0}
-  m_PopupnContainer: {fileID: 0}
+  m_ScreenContainer: {fileID: 1620982209}
+  m_PopupnContainer: {fileID: 892874985}
 --- !u!4 &1395214757
 Transform:
   m_ObjectHideFlags: 0
@@ -345,6 +345,7 @@ Transform:
   m_Children:
   - {fileID: 1620982209}
   - {fileID: 892874985}
+  - {fileID: 1323335006}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1620982208
@@ -457,6 +458,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1697084419}
+  - component: {fileID: 1697084420}
   m_Layer: 0
   m_Name: AppBootstrap
   m_TagString: Untagged
@@ -479,10 +481,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1697084420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697084418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1301a1d1e374630ae24ae5503007e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FormForge.Core.AppBootstrap
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1697084419}
-  - {fileID: 1323335006}
   - {fileID: 1395214757}
