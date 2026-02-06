@@ -13,8 +13,7 @@ using Object = UnityEngine.Object;
 
 namespace FormForge.Infrastructure.UI.Screens
 {
-	public class ScreenManager : IMessageReceiver<OpenScreenMessage>,
-		IMessageReceiver<CloseScreenMessage>
+	public class ScreenManager : IMessageReceiver<OpenScreenMessage>, IMessageReceiver<CloseScreenMessage>
     {
 	    private Transform m_ScreenContainer;
 		private ScreenPresenter m_CurrentScreen;
@@ -61,7 +60,7 @@ namespace FormForge.Infrastructure.UI.Screens
 			m_OpenTimestamp = DateTime.UtcNow;
 
 			// Get the prefab address via reflection
-			string address = (string)screenType.GetField("s_address")?.GetValue(null);
+			string address = (string)screenType.GetField("s_Address")?.GetValue(null);
 			if (address == null)
 			{
 				Debug.LogError($"The screen {screenType} doesn't define s_address");
