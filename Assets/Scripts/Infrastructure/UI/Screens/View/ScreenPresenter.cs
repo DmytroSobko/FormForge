@@ -16,7 +16,7 @@ namespace FormForge.Infrastructure.UI.Screens.View
 		Closed,      // Screen is created but disabled,
 	}
 	
-    public class ScreenPresenter : MonoBehaviour, IScreenPresenter<IScreenViewModel>
+    public class ScreenPresenter : MonoBehaviour, IScreenPresenter<IScreenViewModel> 
     {
 	    [Tooltip("If checked: this screen will be destroyed when closed." +
 	             " Uncheck it if we intend to visit it again later.")]
@@ -99,16 +99,7 @@ namespace FormForge.Infrastructure.UI.Screens.View
 				m_NeedsToMoveToTop = false;
 			}
 		}
-
-		/// <summary>
-		/// Close the screen (but not necessarily destroying it,
-		/// could be only deactivated and kept in a second plane)
-		/// </summary>
-		public virtual void Close()
-		{
-			ServiceLocator.GetService<IMessageService>().Send(new CloseScreenMessage(typeof(IScreenViewModel)));
-		}
-
+		
 		/// <summary>
 		/// The screen has been just created. This is called once in the screen lifetime.
 		/// </summary>
@@ -126,7 +117,7 @@ namespace FormForge.Infrastructure.UI.Screens.View
 		/// Configure the screen with the given parameters
 		/// </summary>
 		/// <param name="viewModel"></param>
-		public virtual async Task Configure(IScreenViewModel viewModel)
+		public virtual async Task Configure(IScreenViewModel viewModel) 
 		{
 			Debug.Log($"Configure With Params screen \"{GetType().Name}\"");
 			m_IsConfigured = true;
@@ -187,6 +178,15 @@ namespace FormForge.Infrastructure.UI.Screens.View
 
 			// Notify
 			//messengerService.Broadcast(MessengerEvents.ScreenLostFocus, this);
+		}
+		
+		/// <summary>
+		/// Close the screen (but not necessarily destroying it,
+		/// could be only deactivated and kept in a second plane)
+		/// </summary>
+		public virtual void Close()
+		{
+			ServiceLocator.GetService<IMessageService>().Send(new CloseScreenMessage(typeof(IScreenViewModel)));
 		}
 
 		/// <summary>

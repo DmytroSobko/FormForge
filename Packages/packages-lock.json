@@ -144,6 +144,12 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.editorcoroutines": {
+      "version": "file:com.unity.editorcoroutines",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.ext.nunit": {
       "version": "2.0.5",
       "depth": 1,

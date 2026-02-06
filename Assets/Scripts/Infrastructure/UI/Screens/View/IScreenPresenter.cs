@@ -3,9 +3,10 @@ using FormForge.Infrastructure.UI.Screens.Model;
 
 namespace FormForge.Infrastructure.UI.Screens.View
 {
-    public interface IScreenPresenter<TViewModel>: IPresenter where TViewModel: IScreenViewModel
+    public interface IScreenPresenter<in TScreenViewModel>: IPresenter
+        where TScreenViewModel: IScreenViewModel
     {
-        TViewModel ViewModel { get; set; }
+        IScreenViewModel ViewModel { get; set; }
         State ScreenState { get; }
         string ScreenId { get; }
         bool IsInitialized { get; }
@@ -14,7 +15,7 @@ namespace FormForge.Infrastructure.UI.Screens.View
         bool IsOpen { get; }
         bool KeepScreenOpened { get; }
 
-        Task Configure(IScreenViewModel viewModel);
+        Task Configure(TScreenViewModel viewModel);
         Task Initialize();
         void Open();
         void GetFocus();
