@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
+using UnityEngine;
 
 namespace FormForge.AddressableConfiguration.Editor.Helpers
 {
@@ -11,7 +12,7 @@ namespace FormForge.AddressableConfiguration.Editor.Helpers
     {    
         private static readonly AddressableAssetSettings s_addressableSettings =
             AddressableAssetSettingsDefaultObject.Settings;
-        
+
         public static bool CheckIfFolderContainsAddressables(string folderPath)
         {
             if (s_addressableSettings == null)
@@ -114,12 +115,12 @@ namespace FormForge.AddressableConfiguration.Editor.Helpers
         public static bool AreAddressablesConsistent<TRequester>(List<string> folderPaths = null, 
             List<string> ignoredGroups = null)
         {
-            LoggerHelper.Log<TRequester>("Starting address validation...");
+            Debug.Log("Starting address validation...");
             bool inconsistencyFound = false;
 
             if (s_addressableSettings == null)
             {
-                LoggerHelper.LogError<TRequester>("AddressableAssetSettings not found.");
+                Debug.LogError("AddressableAssetSettings not found.");
                 return false;
             }
 
@@ -133,7 +134,7 @@ namespace FormForge.AddressableConfiguration.Editor.Helpers
                     continue;
                 }
                 
-                LoggerHelper.Log<TRequester>($"Validating group: {group.Name}");
+                Debug.Log($"Validating group: {group.Name}");
                 foreach (var entry in group.entries)
                 {
                     if (!filterByFolder || folderSet.Contains(entry.AssetPath) || IsChildOfAnyFolder(entry.AssetPath, folderSet))
@@ -144,7 +145,7 @@ namespace FormForge.AddressableConfiguration.Editor.Helpers
             }
 
             AssetDatabase.SaveAssets();
-            LoggerHelper.Log<TRequester>("Address validation complete.");
+            Debug.Log("Address validation complete.");
             return !inconsistencyFound;
         }
 
@@ -163,14 +164,14 @@ namespace FormForge.AddressableConfiguration.Editor.Helpers
 
             if (!entry.address.Contains("/"))
             {
-                LoggerHelper.LogWarning<TRequester>($"{assetInfo} is not structured under a folder. Fixing...");
+                Debug.LogWarning($"{assetInfo} is not structured under a folder. Fixing...");
                 entry.address = $"Assets/{entry.address}";
                 fixedSomething = true;
             }
 
             if (entry.address.Contains("\\"))
             {
-                LoggerHelper.LogWarning<TRequester>($"{assetInfo} contains backslashes (\\). Replacing...");
+                Debug.LogWarning($"{assetInfo} contains backslashes (\\). Replacing...");
                 entry.address = entry.address.Replace('\\', '/');
                 fixedSomething = true;
             }

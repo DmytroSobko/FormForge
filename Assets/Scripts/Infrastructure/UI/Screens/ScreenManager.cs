@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using FormForge.AssetManagement;
 using FormForge.AssetManagement.AssetPolicy;
 using FormForge.Core.Services;
+using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.UI.Screens.Messages;
 using FormForge.Infrastructure.UI.Screens.Model;
 using FormForge.Infrastructure.UI.Screens.View;
 using FormForge.Messaging.Interfaces;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 using Object = UnityEngine.Object;
+using ILogger = FormForge.Infrastructure.Logging.ILogger;
 
 namespace FormForge.Infrastructure.UI.Screens
 {
@@ -21,6 +22,8 @@ namespace FormForge.Infrastructure.UI.Screens
 		private Dictionary<Type, ScreenPresenter> m_Screens = new Dictionary<Type, ScreenPresenter>();
 
 		private DateTime m_OpenTimestamp;
+		
+		private ILogger m_Logger = new UnityLogger(nameof(ScreenManager));
 
 		public ScreenManager(Transform screenContainer)
 		{
@@ -51,11 +54,10 @@ namespace FormForge.Infrastructure.UI.Screens
 		/// <summary>
 		/// Open a new screen. Reuse it if its already instantiated, or create a new instance otherwise.
 		/// </summary>
-		private async void OpenScreen<TScreenViewModel>(TScreenViewModel viewModel) 
-			where TScreenViewModel : IScreenViewModel
+		private async void OpenScreen(IScreenViewModel viewModel) 
 		{
-			Type screenType = typeof(TScreenViewModel);
-			Debug.Log($"Requesting opening {screenType.Name}...");
+			Type screenType = viewModel.GetType();
+			m_Logger?.Log($"Requesting opening {screenType.Name}...");
 
 			m_OpenTimestamp = DateTime.UtcNow;
 
@@ -63,7 +65,7 @@ namespace FormForge.Infrastructure.UI.Screens
 			string address = (string)screenType.GetField("s_Address")?.GetValue(null);
 			if (address == null)
 			{
-				Debug.LogError($"The screen {screenType} doesn't define s_address");
+				m_Logger?.LogError($"The screen {screenType} doesn't define s_Address");
 				return;
 			}
 
@@ -72,13 +74,13 @@ namespace FormForge.Infrastructure.UI.Screens
 			{
 				ScreenPresenter screenToOpen = m_Screens[screenType];
 				bool focusScreen = false;
-
+				
 				// Close before open
 				if (screenToOpen.CloseOtherScreensOnOpen)
 				{
 					CloseOtherScreens(screenToOpen);
 				}
-
+				
 				// Configure the new screen before opening
 				await screenToOpen.Configure(viewModel);
 
@@ -112,7 +114,7 @@ namespace FormForge.Infrastructure.UI.Screens
 				ScreenPresenter presenter = prefab.GetComponent<ScreenPresenter>();
 				if (presenter == null)
 				{
-					Debug.LogError($"The screen doesn't contain a Screen component");
+					m_Logger?.LogError("The screen doesn't contain a Screen component");
 				}
 				
 				ScreenPresenter loadedScreen = Object.Instantiate(presenter, m_ScreenContainer, false);
@@ -128,10 +130,7 @@ namespace FormForge.Infrastructure.UI.Screens
 					CloseOtherScreens(loadedScreen);
 				}
 
-				if (viewModel != null)
-				{
-					await loadedScreen.Configure(viewModel);
-				}
+				await loadedScreen.Configure(viewModel);
 
 				InternalOpen(loadedScreen);
 
@@ -256,17 +255,17 @@ namespace FormForge.Infrastructure.UI.Screens
 			m_CurrentScreen = newScreen;
 
 			string prev = previousScreen == null ? "none" : previousScreen.GetType().Name;
-			Debug.Log($"Changed focus: {prev} -> {m_CurrentScreen.GetType().Name}");
+			m_Logger?.Log($"Changed focus: {prev} -> {m_CurrentScreen.GetType().Name}");
 
 			// Log opening time for benchmark
 			TimeSpan openingDuration = DateTime.UtcNow - m_OpenTimestamp;
-			Debug.Log($"Screen {newScreen.name} opened in {openingDuration.TotalMilliseconds} ms");
+			m_Logger?.Log($"Screen {newScreen.name} opened in {openingDuration.TotalMilliseconds} ms");
 
 			// Show a warning in console if loading time is too much
 			if (openingDuration.TotalMilliseconds >= 100)
 			{
-				Debug.LogWarning($"Screen {newScreen.name} opened in {openingDuration.TotalMilliseconds} ms!" +
-				                 " Try to use preload or lighten up the screen prefab.");
+				m_Logger?.LogWarning($"Screen {newScreen.name} opened in {openingDuration.TotalMilliseconds} ms!" +
+				                    " Try to use preload or lighten up the screen prefab.");
 			}
 		}
 
@@ -309,7 +308,7 @@ namespace FormForge.Infrastructure.UI.Screens
 					continue;
 				}
 
-				if (key != currentScreen.ViewModel.GetType())
+				if (currentScreen.ViewModel != null && key != currentScreen.ViewModel.GetType())
 				{
 					// Cannot modify the dictionary while iterating
 					otherScreens.Add(key);

@@ -13,12 +13,6 @@ namespace FormForge.AssetManagement.AssetLoader
     public interface IAssetLoader
     {
         /// <summary>
-        /// Defines custom logging functionality for the AssetLoader to use.
-        /// If not set, the AssetLoader will output through Unity's Debug class.
-        /// </summary>
-        void SetLogger(ILogger logger);
-
-        /// <summary>
         /// Loads an asset synchronously using the specified asset policy and cache strategy.
         /// </summary>
         /// <typeparam name="TObject">The type of the asset to load.</typeparam>

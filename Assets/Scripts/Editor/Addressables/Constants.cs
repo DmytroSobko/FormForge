@@ -10,7 +10,7 @@ namespace FormForge.AddressableConfiguration.Editor
         public const string MENU_FOLDER_CONFIGURATION_GROUPS_PREFIX = MENU_FOLDER_CONFIGURATION_PREFIX + "Groups/";
         public const string MENU_FOLDER_CONFIGURATION_ASSETS_PREFIX = MENU_FOLDER_CONFIGURATION_PREFIX + "Assets/";
         
-        public const string ADDRESSABLES_SCRIPTABLE_OBJECTS_CONTEXT_MENU_NAME = "ScriptableObjects/Addressables/";
+        public const string ADDRESSABLES_SCRIPTABLE_OBJECTS_CONTEXT_MENU_NAME = "Scriptable Objects/Addressables/";
         public const string ADDRESSABLES_SCHEMA_CONTEXT_MENU_NAME = ADDRESSABLES_SCRIPTABLE_OBJECTS_CONTEXT_MENU_NAME + "Schema";
         public const string ADDRESSABLES_RULE_CONTEXT_MENU_NAME = ADDRESSABLES_SCRIPTABLE_OBJECTS_CONTEXT_MENU_NAME + "AddressConfigurationRules/";
         

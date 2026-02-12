@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using FormForge.Core.Services;
 using FormForge.Infrastructure.Logging;
 using FormForge.Messaging.Interfaces;
@@ -21,20 +20,15 @@ namespace FormForge.Core
         {
             m_InitializationService = ServiceLocator.GetService<IInitializationService>();
             
-            await InitializeAsync();
-            
-            var message = new SwitchFrontendStateMessage(FrontendStates.MainMenu, 
-                new MainMenuStatePayload(loadScene: true));
-            ServiceLocator.GetService<IMessageService>().Send(message);
-        }
-        
-        private async Task InitializeAsync()
-        {
             m_Logger?.Log("Initialization started");
 
             await m_InitializationService.Initialize();
 
             m_Logger?.Log("Initialization finished");
+            
+            var mainMenuMessage = new SwitchFrontendStateMessage(FrontendStates.MainMenu, 
+                new MainMenuStatePayload(loadScene: true));
+            ServiceLocator.GetService<IMessageService>().Send(mainMenuMessage);
         }
     }
 }

@@ -1,10 +1,12 @@
 using System.Threading.Tasks;
 using FormForge.Core.Services;
+using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.UI.Screens.Messages;
 using FormForge.Infrastructure.UI.Screens.Model;
 using FormForge.Messaging.Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
+using ILogger = FormForge.Infrastructure.Logging.ILogger;
 
 namespace FormForge.Infrastructure.UI.Screens.View
 {
@@ -86,6 +88,8 @@ namespace FormForge.Infrastructure.UI.Screens.View
 
 		// This flag remember if we have blocked the UI, so we dont destroy the screen leaving it blocked
 		private bool m_HasBlockedUI;
+		
+		private ILogger m_Logger;
 
 		protected virtual void LateUpdate()
 		{
@@ -105,7 +109,8 @@ namespace FormForge.Infrastructure.UI.Screens.View
 		/// </summary>
 		public virtual async Task Initialize()
 		{
-			Debug.Log($"Initialize screen \"{GetType().Name}\"");
+			m_Logger = new UnityLogger(GetType().Name);
+			m_Logger?.Log($"Initialize screen \"{GetType().Name}\"");
 			if (!m_IsInitialized)
 			{
 				m_IsInitialized = true;
@@ -119,7 +124,7 @@ namespace FormForge.Infrastructure.UI.Screens.View
 		/// <param name="viewModel"></param>
 		public virtual async Task Configure(IScreenViewModel viewModel) 
 		{
-			Debug.Log($"Configure With Params screen \"{GetType().Name}\"");
+			m_Logger?.Log($"Configure screen with view model \"{GetType().Name}\"");
 			m_IsConfigured = true;
 			ViewModel = viewModel;
 
@@ -131,7 +136,7 @@ namespace FormForge.Infrastructure.UI.Screens.View
 		/// </summary>
 		public void Open()
 		{
-			Debug.Log($"Open screen \"{GetType().Name}\"");
+			m_Logger?.Log($"Open screen \"{GetType().Name}\"");
 			OnOpen();
 		}
 
@@ -140,7 +145,7 @@ namespace FormForge.Infrastructure.UI.Screens.View
 		/// </summary>
 		public void GetFocus()
 		{
-			Debug.Log($"Get Focus screen \"{GetType().Name}\"");
+			m_Logger?.Log($"Get Focus screen \"{GetType().Name}\"");
 			m_IsFocused = true;
 
 			// Invoke internal message
@@ -170,7 +175,7 @@ namespace FormForge.Infrastructure.UI.Screens.View
 		/// </summary>
 		public void LoseFocus()
 		{
-			Debug.Log($"Lose Focus screen \"{GetType().Name}\"");
+			m_Logger?.Log($"Lose Focus screen \"{GetType().Name}\"");
 			m_IsFocused = false;
 
 			// Invoke internal message
@@ -194,7 +199,7 @@ namespace FormForge.Infrastructure.UI.Screens.View
 		/// </summary>
 		public void CloseInternal()
 		{
-			Debug.Log($"Close screen \"{GetType().Name}\"");
+			m_Logger?.Log($"Close screen \"{GetType().Name}\"");
 			
 			// Don't leave UI blocked
 			if (m_HasBlockedUI)
@@ -211,7 +216,7 @@ namespace FormForge.Infrastructure.UI.Screens.View
 		/// </summary>
 		public void Dispose()
 		{
-			Debug.Log($"Dispose screen \"{GetType().Name}\"");
+			m_Logger?.Log($"Dispose screen \"{GetType().Name}\"");
 			
 			// Don't leave UI blocked
 			if (m_HasBlockedUI)

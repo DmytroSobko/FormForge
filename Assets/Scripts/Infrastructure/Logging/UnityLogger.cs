@@ -5,35 +5,30 @@ namespace FormForge.Infrastructure.Logging
     public sealed class UnityLogger : ILogger
     {
         private readonly string m_Tag;
-
+        
         public UnityLogger(string tag = "FormForge")
         {
-            m_Tag = tag;
+            m_Tag = "<b>" + tag + "</b>";
         }
 
         public void Log(string message)
         {
-            Debug.Log(Format(message));
+            Debug.unityLogger.Log(m_Tag, message);
         }
 
         public void LogWarning(string message)
         {
-            Debug.LogWarning(Format(message));
+            Debug.unityLogger.LogWarning(m_Tag, message);
         }
 
         public void LogError(string message)
         {
-            Debug.LogError(Format(message));
+            Debug.unityLogger.LogError(m_Tag, message);
         }
 
         public void LogException(System.Exception exception)
         {
-            Debug.LogException(exception);
-        }
-
-        private string Format(string message)
-        {
-            return $"[{m_Tag}] {message}";
+            Debug.unityLogger.LogException(exception);
         }
     }
 }
