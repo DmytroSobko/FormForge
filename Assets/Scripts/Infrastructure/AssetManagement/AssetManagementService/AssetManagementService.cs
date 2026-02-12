@@ -5,8 +5,10 @@ using FormForge.AssetManagement.AssetContext;
 using FormForge.AssetManagement.AssetLoader;
 using FormForge.AssetManagement.AssetPolicy;
 using FormForge.AssetManagement.CacheStrategy;
+using FormForge.Infrastructure.Logging;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using ILogger = FormForge.Infrastructure.Logging.ILogger;
 
 namespace FormForge.AssetManagement
 {
@@ -15,7 +17,7 @@ namespace FormForge.AssetManagement
     {
         public static bool RegisterContextsAutomatically = true;
 
-        private ILogger m_logger;
+        private ILogger m_Logger = new UnityLogger(nameof(AssetManagementService));
         private readonly IAssetLoader m_assetLoader;
 
         private readonly Dictionary<int, ICacheStrategy> m_cacheStrategyMapping = 
@@ -39,13 +41,7 @@ namespace FormForge.AssetManagement
             m_defaultAssetStrategy = defaultAssetStrategy;
             m_defaultGameObjectStrategy = defaultGameObjectStrategy;
         }
-        
-        public void SetLogger(ILogger logger)
-        {
-            m_logger = logger;
-            m_assetLoader.SetLogger(logger);
-        }
-        
+
         public void RegisterStrategy(IAssetPolicy policy, ICacheStrategy strategy)
         {
             m_cacheStrategyMapping.Add(policy.Id, strategy);
@@ -56,12 +52,12 @@ namespace FormForge.AssetManagement
             var contextType = typeof(TContext);
             if (m_assetContextMapping.TryGetValue(contextType, out var context))
             {
-                LoggerHelper.LogWarning<AssetManagementService>($"Context of type {contextType.Name} already exists.", m_logger);
+                m_Logger?.LogWarning($"Context of type {contextType.Name} already exists.");
                 return;
             }
             context = new TContext();
             m_assetContextMapping[contextType] = context;
-            LoggerHelper.Log<AssetManagementService>($"Context of type {contextType.Name} has been registered.", m_logger);
+            m_Logger?.Log($"Context of type {contextType.Name} has been registered.");
         }
 
         public TObject Load<TObject, TContext>(IAssetPolicy assetPolicy) 
@@ -110,7 +106,7 @@ namespace FormForge.AssetManagement
         {
             if (asset == null)
             {
-                LoggerHelper.LogWarning<AssetManagementService>("Attempted to release a null asset.", m_logger);
+                m_Logger.LogWarning("Attempted to release a null asset.");
                 return;
             }
             UnregisterAssetFromContexts(asset);
@@ -166,7 +162,7 @@ namespace FormForge.AssetManagement
             
             string logMsg =
                 $"All assets from context {typeof(TContext).Name} have been released and the context has been cleared.";
-            LoggerHelper.Log<AssetManagementService>(logMsg, m_logger);
+            m_Logger.Log(logMsg);
         }
 
         public void ReleaseAllContextAssets()
@@ -197,7 +193,7 @@ namespace FormForge.AssetManagement
                 context.UnregisterAsset(asset);
                 
                 string logMsg = $"Asset of type {asset.GetType().Name} removed from context {context.GetType().Name}.";
-                LoggerHelper.Log<AssetManagementService>(logMsg, m_logger);
+                m_Logger.Log(logMsg);
                 break;
             }
         }

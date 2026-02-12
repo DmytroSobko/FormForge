@@ -4,12 +4,14 @@ using System.Threading.Tasks;
 using FormForge.AssetManagement.AssetPolicy;
 using FormForge.AssetManagement.CacheStrategy;
 using FormForge.AssetManagement.DownloadReporter;
+using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.Utils;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.AddressableAssets.ResourceLocators;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
+using ILogger = FormForge.Infrastructure.Logging.ILogger;
 
 namespace FormForge.AssetManagement.Addressable.AssetLoader
 {
@@ -17,8 +19,8 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
     public class AddressableAssetLoader : IAddressableAssetLoader
     {
         private IAssetDownloadReporter m_downloadReporter;
-        private ILogger m_logger;
-        
+        private ILogger m_Logger = new UnityLogger(nameof(AddressableAssetLoader));
+
         private List<IResourceLocator> m_catalogsLocators;
         private HashSet<string> m_addressableMap;
         
@@ -27,11 +29,6 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
             await InitializeAddressablesAsync();
             await UpdateCatalogsAsync();
             LoadMap();
-        }
-        
-        public void SetLogger(ILogger logger)
-        {
-            m_logger = logger;
         }
 
         public void SetAssetDownloadReporter(IAssetDownloadReporter downloadReporter)
@@ -186,7 +183,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
                 downloadSize += getDownloadSizeHandle.Result;
                 string logMsg = $"Download size for label '{label}': " +
                              $"{SizeConverter.BytesToMegabytes(getDownloadSizeHandle.Result)} Mb.";
-                LoggerHelper.Log<AddressableAssetLoader>(logMsg, m_logger);
+                m_Logger?.Log(logMsg);
                 Addressables.Release(getDownloadSizeHandle);
             }
             return SizeConverter.BytesToMegabytes(downloadSize);
@@ -218,7 +215,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
         {
             if (string.IsNullOrEmpty(catalogPath))
             {
-                LoggerHelper.LogError<AddressableAssetLoader>("Catalog path is null or empty.");
+                m_Logger?.LogError("Catalog path is null or empty.");
                 return null;
             }
 
@@ -240,7 +237,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
         {
             if (catalogLocator == null)
             {
-                LoggerHelper.LogError<AddressableAssetLoader>("Catalog locator is null.");
+                m_Logger?.LogError("Catalog locator is null.");
                 return 0;
             }
             
@@ -267,7 +264,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
         {
             if (catalogLocator == null)
             {
-                LoggerHelper.LogError<AddressableAssetLoader>("Catalog locator is null.");
+                m_Logger?.LogError("Catalog locator is null.");
                 return;
             }
             
@@ -336,12 +333,12 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
         {
             if (asset is Component component)
             {
-                LoggerHelper.Log<AssetManagementService>($"Releasing instance of {component.gameObject.name}.", m_logger);
+                m_Logger?.Log($"Releasing instance of {component.gameObject.name}.");
                 Addressables.ReleaseInstance(component.gameObject);
             }
             else
             {
-                LoggerHelper.Log<AssetManagementService>($"Releasing asset of type {typeof(TObject).Name}.", m_logger);
+                m_Logger?.Log($"Releasing asset of type {typeof(TObject).Name}.");
                 Addressables.Release(asset);
             }
         }
@@ -391,7 +388,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
             {
                 return true;
             }
-            LoggerHelper.LogError<AddressableAssetLoader>("No resource locations found.");
+            m_Logger?.LogError("No resource locations found.");
             return false;
         }
         
@@ -406,18 +403,18 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
         {
             if (!handle.IsValid())
             {
-                LoggerHelper.LogError<AddressableAssetLoader>($"{operationName} handle is invalid.");
+                m_Logger?.LogError($"{operationName} handle is invalid.");
                 return false;
             }
 
             if (handle.Status != AsyncOperationStatus.Succeeded)
             {
-                LoggerHelper.LogError<AddressableAssetLoader>($"{operationName} failed with status: {handle.Status}");
+                m_Logger?.LogError($"{operationName} failed with status: {handle.Status}");
                 Addressables.Release(handle);
                 return false;
             }
-
-            LoggerHelper.Log<AddressableAssetLoader>($"{operationName} completed successfully.", m_logger);
+            
+            m_Logger?.Log($"{operationName} completed successfully.");
             return true;
         }
     }

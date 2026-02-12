@@ -20,12 +20,12 @@ namespace FormForge.UI.FrontendStateMachine.States
                 await sceneService.UnloadSceneAsync(SceneIds.Bootstrap);
             }
 
-            ServiceLocator.GetService<IMessageService>().Send(new OpenScreenMessage(new MainMenuViewModel()));
+            ServiceLocator.GetService<IMessageService>().Send(new OpenScreenMessage(new MainMenuScreenViewModel()));
         }
 
         public override Task ExitAsync()
         {
-            ServiceLocator.GetService<IMessageService>().Send(new CloseScreenMessage(typeof(MainMenuViewModel)));
+            ServiceLocator.GetService<IMessageService>().Send(new CloseScreenMessage(typeof(MainMenuScreenViewModel)));
             return Task.CompletedTask;
         }
     }

@@ -12,12 +12,6 @@ namespace FormForge.AssetManagement
     public interface IAssetManagementService
     {
         /// <summary>
-        /// Defines custom logging functionality for the AssetManagementService to use.
-        /// If not set, the AssetManagementService will output through Unity's Debug class.
-        /// </summary>
-        public void SetLogger(ILogger logger);
-        
-        /// <summary>
         /// Registers a caching strategy for a specified asset policy.
         /// </summary>
         /// <param name="policy">The asset policy associated with the caching strategy.</param>

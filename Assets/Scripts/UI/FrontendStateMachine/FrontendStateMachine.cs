@@ -25,6 +25,7 @@ namespace FormForge.UI.FrontendStateMachine
             m_States = new Dictionary<string, IFrontendState>
             {
                 {FrontendStates.MainMenu, new MainMenuState()},
+                {FrontendStates.AthletesScreen, new AthletesScreenState()},
             };
             
             m_MessageService = ServiceLocator.GetService<IMessageService>();
