@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using FormForge.Core.Services;
+using FormForge.Infrastructure.UI.LoadingOverlay.Messages;
 using FormForge.Infrastructure.UI.Screens.Messages;
 using FormForge.Messaging.Interfaces;
 using FormForge.UI.Screens.ViewModels;
@@ -8,9 +9,15 @@ namespace FormForge.UI.FrontendStateMachine.States
 {
     public class AthletesScreenState : IFrontendState
     {
-        public async Task EnterAsync()
+        public Task EnterAsync()
         {
-            ServiceLocator.GetService<IMessageService>().Send(new OpenScreenMessage(new AthletesScreenViewModel()));
+            var messageService = ServiceLocator.GetService<IMessageService>();
+            messageService.Send(new LoadingOverlayShowMessage());
+            messageService.Send(new LoadingOverlaySetProgressMessage(0.5f));
+            messageService.Send(new OpenScreenMessage(new AthletesScreenViewModel()));
+            messageService.Send(new LoadingOverlaySetProgressMessage(1f));
+            messageService.Send(new LoadingOverlayHideMessage());
+            return Task.CompletedTask;
         }
 
         public Task ExitAsync()

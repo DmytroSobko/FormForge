@@ -16,7 +16,7 @@ namespace FormForge.Core
         
         private ILogger m_Logger = new UnityLogger("AppBootstrap");
 
-        private async void Awake()
+        private async void Start()
         {
             m_InitializationService = ServiceLocator.GetService<IInitializationService>();
             

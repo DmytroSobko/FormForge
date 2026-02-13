@@ -6,6 +6,8 @@ using FormForge.Core.Config;
 using FormForge.Core.Services;
 using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.Networking;
+using FormForge.Infrastructure.UI.LoadingOverlay.Messages;
+using FormForge.Messaging.Interfaces;
 using UnityEngine;
 using ILogger = FormForge.Infrastructure.Logging.ILogger;
 
@@ -15,7 +17,8 @@ namespace FormForge.Services.Initialization
     {
         private readonly IHttpClientService m_HttpClient;
         private readonly IConfigService m_ConfigService;
-        
+        private readonly IMessageService m_MessageService;
+
         private ILogger m_Logger = new UnityLogger(nameof(InitializationService));
         
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
@@ -28,28 +31,39 @@ namespace FormForge.Services.Initialization
         {
             m_HttpClient = ServiceLocator.GetService<IHttpClientService>();
             m_ConfigService = ServiceLocator.GetService<IConfigService>();
+            m_MessageService = ServiceLocator.GetService<IMessageService>();
         }
 
         public async Task Initialize()
         {
+            m_MessageService.Send(new LoadingOverlayShowMessage());
+            
             m_Logger?.Log("AssetManagementService Initialization");
 
             IAddressableAssetLoader assetLoader = new AddressableAssetLoader();
             await assetLoader.InitializeAsync();
             
+            m_MessageService.Send(new LoadingOverlaySetProgressMessage(0.25f));
+
             IAssetManagementService assetManagementService = 
                 new AssetManagementService(assetLoader, new DynamicCache(), new NoCache());
             ServiceLocator.RegisterSingletonService(assetManagementService);
+
+            m_MessageService.Send(new LoadingOverlaySetProgressMessage(0.35f));
 
             m_Logger?.Log($"SetBaseApiUrl {EnvironmentConfig.ApiBaseUrl}");
 
             m_HttpClient.SetBaseApiUrl(EnvironmentConfig.ApiBaseUrl);
             
+            m_MessageService.Send(new LoadingOverlaySetProgressMessage(0.5f));
+
             m_Logger?.Log("LoadConfigsAsync Started");
             
             await m_ConfigService.LoadConfigsAsync();
             
             m_Logger?.Log("LoadConfigsAsync Ended");
+            
+            m_MessageService.Send(new LoadingOverlaySetProgressMessage(0.75f));
         }
     }
 }
