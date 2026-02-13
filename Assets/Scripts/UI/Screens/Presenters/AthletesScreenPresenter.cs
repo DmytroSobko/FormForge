@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using FormForge.Infrastructure.UI.Screens.Model;
-using FormForge.Infrastructure.UI.Screens.View;
-using FormForge.UI.Screens.ViewModels;
+using FormForge.Infrastructure.UI.Screens.Models;
+using FormForge.Infrastructure.UI.Screens.Presenters;
+using FormForge.UI.Screens.Models;
 using FormForge.UI.Screens.Views;
 using UnityEngine;
 

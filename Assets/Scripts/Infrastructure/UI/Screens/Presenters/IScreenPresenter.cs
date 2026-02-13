@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using FormForge.Infrastructure.UI.Screens.Model;
+using FormForge.Infrastructure.UI.Screens.Models;
 
-namespace FormForge.Infrastructure.UI.Screens.View
+namespace FormForge.Infrastructure.UI.Screens.Presenters
 {
     public interface IScreenPresenter<in TScreenViewModel>: IPresenter
         where TScreenViewModel: IScreenViewModel
