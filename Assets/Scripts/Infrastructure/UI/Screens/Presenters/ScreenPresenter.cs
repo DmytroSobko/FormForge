@@ -2,13 +2,13 @@ using System.Threading.Tasks;
 using FormForge.Core.Services;
 using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.UI.Screens.Messages;
-using FormForge.Infrastructure.UI.Screens.Model;
+using FormForge.Infrastructure.UI.Screens.Models;
 using FormForge.Messaging.Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
 using ILogger = FormForge.Infrastructure.Logging.ILogger;
 
-namespace FormForge.Infrastructure.UI.Screens.View
+namespace FormForge.Infrastructure.UI.Screens.Presenters
 {
 	public enum State
 	{

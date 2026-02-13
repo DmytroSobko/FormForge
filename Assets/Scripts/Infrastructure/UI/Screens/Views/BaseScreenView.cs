@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FormForge.Infrastructure.UI.Screens.View
+namespace FormForge.Infrastructure.UI.Screens.Views
 {
     public abstract class BaseScreenView : MonoBehaviour
     {

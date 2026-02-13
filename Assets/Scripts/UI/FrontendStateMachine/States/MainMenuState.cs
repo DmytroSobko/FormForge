@@ -6,7 +6,7 @@ using FormForge.Infrastructure.UI.LoadingOverlay.Messages;
 using FormForge.Infrastructure.UI.Screens.Messages;
 using FormForge.Messaging.Interfaces;
 using FormForge.UI.FrontendStateMachine.Payloads;
-using FormForge.UI.Screens.ViewModels;
+using FormForge.UI.Screens.Models;
 
 namespace FormForge.UI.FrontendStateMachine.States
 {

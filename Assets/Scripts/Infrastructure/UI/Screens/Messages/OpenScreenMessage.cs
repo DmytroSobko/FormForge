@@ -1,4 +1,4 @@
-using FormForge.Infrastructure.UI.Screens.Model;
+using FormForge.Infrastructure.UI.Screens.Models;
 
 namespace FormForge.Infrastructure.UI.Screens.Messages
 {
