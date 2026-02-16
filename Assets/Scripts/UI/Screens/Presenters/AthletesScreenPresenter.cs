@@ -2,25 +2,26 @@ using System.Threading.Tasks;
 using FormForge.Infrastructure.UI.Screens.Models;
 using FormForge.Infrastructure.UI.Screens.Presenters;
 using FormForge.UI.Screens.Models;
-using FormForge.UI.Screens.Views;
+using FormForge.UI.Screens.Views.AthleteScreen;
 using UnityEngine;
 
 namespace FormForge.UI.Screens.Presenters
 {
     public class AthletesScreenPresenter : ScreenPresenter
     {
+        private const string k_NoContentMessage = "No athletes have been created yet.";
+
+        private AthletesScreenViewModel TypedViewModel => (AthletesScreenViewModel) ViewModel;
+        
         [SerializeField] private AthletesScreenView m_View;
 
-        public override Task Configure(IScreenViewModel viewModel)
+        public override async Task Configure(IScreenViewModel viewModel)
         {
-            ViewModel = (AthletesScreenViewModel) viewModel;
-            
-            return base.Configure(viewModel);
-        }
+            await base.Configure(viewModel);
 
-        public override Task Initialize()
-        {
-            return base.Initialize();
+            AthletesDataProvider dataProvider = new AthletesDataProvider(TypedViewModel.Athletes);
+            
+            m_View.InitView(dataProvider, k_NoContentMessage);
         }
     }
 }

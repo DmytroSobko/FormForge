@@ -1,0 +1,287 @@
+fileFormatVersion: 2
+guid: d4f09db2a31ce46de885123461be88aa
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2238774587030897157
+    second: athlete_type_icons_0
+  - first:
+      213: -6214863050603700027
+    second: athlete_type_icons_1
+  - first:
+      213: -1592122883408329396
+    second: athlete_type_icons_2
+  - first:
+      213: 228372939597159434
+    second: athlete_type_icons_3
+  - first:
+      213: 3579052955033801851
+    second: athlete_type_icons_4
+  - first:
+      213: 8569333307172364018
+    second: athlete_type_icons_5
+  - first:
+      213: -2757554054132274178
+    second: athlete_type_icons_6
+  - first:
+      213: -6928882000823109807
+    second: athlete_type_icons_7
+  - first:
+      213: 4767108789716679386
+    second: athlete_type_icons_8
+  - first:
+      213: -929405381529228085
+    second: athlete_type_icons_9
+  - first:
+      213: 389789079282774867
+    second: athlete_type_icons_10
+  - first:
+      213: -406784004413736383
+    second: athlete_type_icons_11
+  - first:
+      213: -21071122805102352
+    second: athlete_type_icons_12
+  - first:
+      213: 588186089226392978
+    second: athlete_type_icons_13
+  - first:
+      213: 3447672360519618587
+    second: athlete_type_icons_14
+  - first:
+      213: 7531058870289720953
+    second: athlete_type_icons_15
+  - first:
+      213: -4893217571124112753
+    second: athlete_type_icons_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: athlete_type_icons_0
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 362
+        width: 430
+        height: 430
+      alignment: 9
+      pivot: {x: 0.49999994, y: 0.4534306}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfdf9d7ef564ee0e0800000000000000
+      internalID: -2238774587030897157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: athlete_type_icons_1
+      rect:
+        serializedVersion: 2
+        x: 565
+        y: 363
+        width: 430
+        height: 430
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c0e015bbfe50c9a0800000000000000
+      internalID: -6214863050603700027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: athlete_type_icons_2
+      rect:
+        serializedVersion: 2
+        x: 1062
+        y: 362
+        width: 430
+        height: 430
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c450da74ca4a7e9e0800000000000000
+      internalID: -1592122883408329396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 74af3e59242bc47bdad2c211145a469b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      athlete_type_icons_0: -2238774587030897157
+      athlete_type_icons_1: -6214863050603700027
+      athlete_type_icons_10: 389789079282774867
+      athlete_type_icons_11: -406784004413736383
+      athlete_type_icons_12: -21071122805102352
+      athlete_type_icons_13: 588186089226392978
+      athlete_type_icons_14: 3447672360519618587
+      athlete_type_icons_15: 7531058870289720953
+      athlete_type_icons_16: -4893217571124112753
+      athlete_type_icons_17: 960025880
+      athlete_type_icons_18: -981784411
+      athlete_type_icons_19: -923728611
+      athlete_type_icons_2: -1592122883408329396
+      athlete_type_icons_20: 931748806
+      athlete_type_icons_21: 287584794
+      athlete_type_icons_22: -606007292
+      athlete_type_icons_23: 404542424
+      athlete_type_icons_24: 1434032172
+      athlete_type_icons_25: 1364726440
+      athlete_type_icons_26: 675920672
+      athlete_type_icons_27: 703902313
+      athlete_type_icons_28: -454471168
+      athlete_type_icons_29: 1477847055
+      athlete_type_icons_3: 228372939597159434
+      athlete_type_icons_30: -1890225248
+      athlete_type_icons_31: 976817248
+      athlete_type_icons_32: 1673859876
+      athlete_type_icons_33: 635998019
+      athlete_type_icons_34: 1179996501
+      athlete_type_icons_35: -1389123023
+      athlete_type_icons_36: 600554658
+      athlete_type_icons_37: -156543154
+      athlete_type_icons_4: 3579052955033801851
+      athlete_type_icons_5: 8569333307172364018
+      athlete_type_icons_6: -2757554054132274178
+      athlete_type_icons_7: -6928882000823109807
+      athlete_type_icons_8: 4767108789716679386
+      athlete_type_icons_9: -929405381529228085
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
