@@ -33,6 +33,7 @@ namespace FormForge.Infrastructure.UI.Pagination
             {
                 m_NextButton.gameObject.SetActive(false);
                 m_PrevButton.gameObject.SetActive(false);
+                m_PageIndicatorText.gameObject.SetActive(false);
                 m_NoContentText.gameObject.SetActive(true);
                 m_NoContentText.text = noContentMessage;
             }
