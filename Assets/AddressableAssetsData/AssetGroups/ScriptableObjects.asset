@@ -14,7 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: ScriptableObjects
   m_GUID: 6400578d08e1b48d8a197eed78fd84cc
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 6b4150c88f0ba40b7b27aff8deaed442
+    m_Address: EnduranceFocusedAthleteConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7af04395adcd343109b4b75c3f10e149
+    m_Address: StrengthFocusedAthleteConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d6b348daf6df8433ea4de2abdbe91516
+    m_Address: BalancedAthleteConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 35932fb5b047a4a79ba59fbcad87c79d, type: 2}
   m_SchemaSet:

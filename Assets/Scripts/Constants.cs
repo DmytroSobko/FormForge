@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace FormForge
 {
     public static class Constants
