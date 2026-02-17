@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FormForge.AssetManagement.DownloadReporter;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
@@ -12,11 +13,11 @@ namespace FormForge.AssetManagement
         /// <param name="handle">The async operation handle for the asset download.</param>
         /// <param name="downloadReporter">An optional reporter to track and report the download progress.</param>
         /// <returns>A task that completes when the download operation is finished.</returns>
-        public static async Task DownloadAsync(AsyncOperationHandle handle, IAssetDownloadReporter downloadReporter = null)
+        public static async UniTask DownloadAsync(AsyncOperationHandle handle, IAssetDownloadReporter downloadReporter = null)
         {
             while (!handle.IsDone && handle.IsValid())
             {
-                await Task.Yield();
+                await UniTask.Yield();
                 downloadReporter?.Report(handle.GetDownloadStatus().Percent);
             }
     

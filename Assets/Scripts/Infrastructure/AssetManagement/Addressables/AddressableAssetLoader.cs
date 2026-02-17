@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FormForge.AssetManagement.AssetPolicy;
 using FormForge.AssetManagement.CacheStrategy;
 using FormForge.AssetManagement.DownloadReporter;
@@ -24,7 +24,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
         private List<IResourceLocator> m_catalogsLocators;
         private HashSet<string> m_addressableMap;
         
-        public async Task InitializeAsync()
+        public async UniTask InitializeAsync()
         {
             await InitializeAddressablesAsync();
             await UpdateCatalogsAsync();
@@ -39,10 +39,10 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
         /// <summary>
         /// Asynchronously initializes the addressables system.
         /// </summary>
-        private async Task InitializeAddressablesAsync()
+        private async UniTask InitializeAddressablesAsync()
         {
             AsyncOperationHandle<IResourceLocator> initializeHandle = Addressables.InitializeAsync(false);
-            await initializeHandle.Task;
+            await initializeHandle.ToUniTask();
 
             if (!IsHandleValid(initializeHandle, "Initialization"))
             {
@@ -55,10 +55,10 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
         /// <summary>
         /// Asynchronously checks for updates to the catalogs and updates them if necessary.
         /// </summary>
-        private async Task UpdateCatalogsAsync()
+        private async UniTask UpdateCatalogsAsync()
         {
             AsyncOperationHandle<List<string>> updateCheckHandle = Addressables.CheckForCatalogUpdates(false);
-            await updateCheckHandle.Task;
+            await updateCheckHandle.ToUniTask();
 
             if (!IsHandleValid(updateCheckHandle, "Catalog update check"))
             {
@@ -75,7 +75,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
             }
 
             AsyncOperationHandle<List<IResourceLocator>> updateHandle = Addressables.UpdateCatalogs(catalogsToUpdate, false);
-            await updateHandle.Task;
+            await updateHandle.ToUniTask();
 
             if (!IsHandleValid(updateHandle, "Catalogs update"))
             {
@@ -101,7 +101,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
             }
         }
         
-        public async Task UpdateContentAsync()
+        public async UniTask UpdateContentAsync()
         {
             if (m_catalogsLocators == null)
             {
@@ -120,7 +120,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
         /// Downloads the dependencies for a given list of resource locations.
         /// </summary>
         /// <param name="resourceLocations">A list of resource locations whose dependencies need to be downloaded.</param>
-        private async Task DownloadDependenciesAsync(IList<IResourceLocation> resourceLocations)
+        private async UniTask DownloadDependenciesAsync(IList<IResourceLocation> resourceLocations)
         {
             AsyncOperationHandle downloadHandle = Addressables.DownloadDependenciesAsync(resourceLocations);
             await DownloadHelper.DownloadAsync(downloadHandle, m_downloadReporter);
@@ -131,7 +131,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
             Addressables.Release(downloadHandle);
         }
         
-        public async Task UpdateContentForLabelsAsync(params string[] labels)
+        public async UniTask UpdateContentForLabelsAsync(params string[] labels)
         {
             foreach (string label in labels)
             {
@@ -145,7 +145,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
             }
         }
         
-        public async Task<float> GetContentDownloadSizeAsync()
+        public async UniTask<float> GetContentDownloadSizeAsync()
         {
             IList<IResourceLocation> resourceLocations = await LoadResourceLocationsAsync(m_catalogsLocators);
             if (!HasResourceLocations(resourceLocations))
@@ -154,7 +154,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
             }
 
             AsyncOperationHandle<long> getDownloadSizeHandle = Addressables.GetDownloadSizeAsync(resourceLocations);
-            await getDownloadSizeHandle.Task;
+            await getDownloadSizeHandle.ToUniTask();
 
             if (!IsHandleValid(getDownloadSizeHandle, "Get total download size"))
             {
@@ -166,13 +166,13 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
             return SizeConverter.BytesToMegabytes(downloadSize);
         }
         
-        public async Task<float> GetDownloadSizeForLabelsAsync(params string[] labels)
+        public async UniTask<float> GetDownloadSizeForLabelsAsync(params string[] labels)
         {
             long downloadSize = 0;
             foreach (var label in labels)
             {
                 AsyncOperationHandle<long> getDownloadSizeHandle = Addressables.GetDownloadSizeAsync(label);
-                await getDownloadSizeHandle.Task;
+                await getDownloadSizeHandle.ToUniTask();
 
                 if (!IsHandleValid(getDownloadSizeHandle, 
                         $"Get download size for label '{label}'"))
@@ -194,12 +194,12 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
         /// </summary>
         /// <param name="locators">The locators from which to load resource locations.</param>
         /// <returns>A list of resource locations, or null if loading failed.</returns>
-        private async Task<IList<IResourceLocation>> LoadResourceLocationsAsync(IEnumerable<IResourceLocator> locators)
+        private async UniTask<IList<IResourceLocation>> LoadResourceLocationsAsync(IEnumerable<IResourceLocator> locators)
         {
             IEnumerable<object> keysToCheck = locators.SelectMany(locator => locator.Keys);
             AsyncOperationHandle<IList<IResourceLocation>> loadLocationsHandle =
                 Addressables.LoadResourceLocationsAsync(keysToCheck, Addressables.MergeMode.Union);
-            await loadLocationsHandle.Task;
+            await loadLocationsHandle.ToUniTask();
 
             if (!IsHandleValid(loadLocationsHandle, "Loading resource locations"))
             {
@@ -211,7 +211,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
             return resourceLocations;
         }
         
-        public async Task<IResourceLocator> LoadContentCatalogAsync(string catalogPath)
+        public async UniTask<IResourceLocator> LoadContentCatalogAsync(string catalogPath)
         {
             if (string.IsNullOrEmpty(catalogPath))
             {
@@ -221,7 +221,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
 
             AsyncOperationHandle<IResourceLocator> loadCatalogHandle =
                 Addressables.LoadContentCatalogAsync(catalogPath, false);
-            await loadCatalogHandle.Task;
+            await loadCatalogHandle.ToUniTask();
 
             if (!IsHandleValid(loadCatalogHandle, $"Loading remote content catalog at {catalogPath}"))
             {
@@ -233,7 +233,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
             return catalogLocator;
         }
         
-        public async Task<float> GetCatalogDownloadSizeAsync(IResourceLocator catalogLocator)
+        public async UniTask<float> GetCatalogDownloadSizeAsync(IResourceLocator catalogLocator)
         {
             if (catalogLocator == null)
             {
@@ -248,7 +248,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
             }
 
             AsyncOperationHandle<long> getDownloadSizeHandle = Addressables.GetDownloadSizeAsync(resourceLocations);
-            await getDownloadSizeHandle.Task;
+            await getDownloadSizeHandle.ToUniTask();
 
             if (!IsHandleValid(getDownloadSizeHandle, "Getting catalog download size"))
             {
@@ -260,7 +260,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
             return SizeConverter.BytesToMegabytes(downloadSize);
         }
         
-        public async Task DownloadCatalogDependenciesAsync(IResourceLocator catalogLocator)
+        public async UniTask DownloadCatalogDependenciesAsync(IResourceLocator catalogLocator)
         {
             if (catalogLocator == null)
             {
@@ -275,7 +275,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
             }
         }
         
-        public async Task<TObject> LoadAsync<TObject>(IAssetPolicy assetPolicy, ICacheStrategy cacheStrategy)
+        public async UniTask<TObject> LoadAsync<TObject>(IAssetPolicy assetPolicy, ICacheStrategy cacheStrategy)
             where TObject : Object
         {
             if (TryFetchFromCache(assetPolicy, cacheStrategy, out TObject result))
@@ -283,7 +283,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
                 return result;
             }
 
-            result = await Addressables.LoadAssetAsync<TObject>(assetPolicy.Address).Task;
+            result = await Addressables.LoadAssetAsync<TObject>(assetPolicy.Address).ToUniTask();
             cacheStrategy.Add(assetPolicy, result);
             return result;
         }
@@ -315,7 +315,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
             return result;
         }
         
-        public async Task<GameObject> InstantiateAsync(IAssetPolicy assetPolicy, ICacheStrategy cacheStrategy,
+        public async UniTask<GameObject> InstantiateAsync(IAssetPolicy assetPolicy, ICacheStrategy cacheStrategy,
             Vector3 position, Transform parent)
         {
             if (TryFetchFromCache(assetPolicy, cacheStrategy, out GameObject result))
@@ -324,7 +324,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
             }
 
             result = await Addressables.InstantiateAsync(assetPolicy.Address, position, Quaternion.identity, parent)
-                .Task;
+                .ToUniTask();
             cacheStrategy.Add(assetPolicy, result);
             return result;
         }

@@ -24,17 +24,18 @@ namespace FormForge.UI.FrontendStateMachine
         {
             m_States = new Dictionary<string, IFrontendState>
             {
-                {FrontendStates.MainMenu, new MainMenuState()},
+                {FrontendStates.MainMenuScreen, new MainMenuState()},
                 {FrontendStates.AthletesScreen, new AthletesScreenState()},
+                {FrontendStates.CreateAthleteScreen, new CreateAthleteScreenState()},
             };
             
             m_MessageService = ServiceLocator.GetService<IMessageService>();
-            m_MessageService.Register<SwitchFrontendStateMessage>(this);
+            m_MessageService.Register(this);
         }
         
         ~FrontendStateMachine()
         {
-            m_MessageService.Unregister<SwitchFrontendStateMessage>(this);
+            m_MessageService.Unregister(this);
         }
         
         public async void HandleMessage(SwitchFrontendStateMessage messageData = null)

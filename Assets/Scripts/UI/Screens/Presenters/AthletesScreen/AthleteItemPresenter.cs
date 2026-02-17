@@ -1,7 +1,8 @@
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FormForge.AssetManagement;
 using FormForge.AssetManagement.AssetPolicy;
 using FormForge.Domain;
+using FormForge.Infrastructure.AssetManagementService;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.UI.Pagination;
 using FormForge.ScriptableObjects.Athletes;
@@ -22,7 +23,7 @@ namespace FormForge.UI.Screens.Presenters.AthletesScreen
             m_AthleteItemView.InitView(viewModel, athleteIcon, OnItemClicked);
         }
 
-        private async Task<Sprite> LoadAthleteIcon(EAthleteType athleteType)
+        private async UniTask<Sprite> LoadAthleteIcon(EAthleteType athleteType)
         {
             BasicAssetPolicy policy = new BasicAssetPolicy(GetAthleteConfigAddress(athleteType));
             AthleteDefinitionSO athleteDef = await ServiceLocator.GetService<IAssetManagementService>().

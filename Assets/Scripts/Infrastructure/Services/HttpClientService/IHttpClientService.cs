@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 namespace FormForge.Infrastructure.Services.HttpClientService
 {
@@ -7,7 +7,7 @@ namespace FormForge.Infrastructure.Services.HttpClientService
         public string BaseApiUrl { get; }
         
         void SetBaseApiUrl(string url);
-        Task<T> GetAsync<T>(string endpoint);
-        Task<TResponse> PostAsync<TRequest, TResponse>(string endpoint, TRequest payload);
+        UniTask<T> GetAsync<T>(string endpoint);
+        UniTask<TResponse> PostAsync<TRequest, TResponse>(string endpoint, TRequest payload);
     }
 }

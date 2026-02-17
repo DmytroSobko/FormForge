@@ -1,7 +1,7 @@
 using System;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FormForge.Infrastructure.Services.Enums;
 using UnityEngine;
 using JsonConvert = Newtonsoft.Json;
@@ -35,7 +35,7 @@ namespace FormForge.Infrastructure.Services.HttpClientService
             BaseApiUrl = url;
         }
 
-        public async Task<T> GetAsync<T>(string endpoint)
+        public async UniTask<T> GetAsync<T>(string endpoint)
         {
             using var response = await m_Client.GetAsync(BaseApiUrl + endpoint);
             response.EnsureSuccessStatusCode();
@@ -44,7 +44,7 @@ namespace FormForge.Infrastructure.Services.HttpClientService
             return JsonConvert.JsonConvert.DeserializeObject<T>(json, m_JsonSettings);
         }
 
-        public async Task<TResponse> PostAsync<TRequest, TResponse>(string endpoint, TRequest payload)
+        public async UniTask<TResponse> PostAsync<TRequest, TResponse>(string endpoint, TRequest payload)
         {
             var json = JsonConvert.JsonConvert.SerializeObject(payload, m_JsonSettings);
 

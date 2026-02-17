@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FormForge.AssetManagement.AssetContext;
 using FormForge.AssetManagement.AssetLoader;
 using FormForge.AssetManagement.AssetPolicy;
@@ -10,7 +11,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 using ILogger = FormForge.Infrastructure.Logging.ILogger;
 
-namespace FormForge.AssetManagement
+namespace FormForge.Infrastructure.AssetManagementService
 {
     /// <inheritdoc />
     public class AssetManagementService : IAssetManagementService
@@ -70,7 +71,7 @@ namespace FormForge.AssetManagement
             return loadedObject;
         }
 
-        public async Task<TObject> LoadAsync<TObject, TContext>(IAssetPolicy assetPolicy) 
+        public async UniTask<TObject> LoadAsync<TObject, TContext>(IAssetPolicy assetPolicy) 
             where TObject : Object
             where TContext : IAssetContext, new()
         {
@@ -91,7 +92,7 @@ namespace FormForge.AssetManagement
             return component;
         }
 
-        public async Task<TComponent> InstantiateAsync<TComponent, TContext>(IAssetPolicy assetPolicy, Vector3 position, Transform parent = null) 
+        public async UniTask<TComponent> InstantiateAsync<TComponent, TContext>(IAssetPolicy assetPolicy, Vector3 position, Transform parent = null) 
             where TComponent : Component
             where TContext : IAssetContext, new()
         {

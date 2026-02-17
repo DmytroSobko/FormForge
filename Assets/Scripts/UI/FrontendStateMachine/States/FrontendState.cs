@@ -1,5 +1,5 @@
 using System;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FormForge.UI.FrontendStateMachine.Payloads;
 
 namespace FormForge.UI.FrontendStateMachine.States
@@ -27,7 +27,7 @@ namespace FormForge.UI.FrontendStateMachine.States
             Payload = typedPayload;
         }
 
-        public abstract Task EnterAsync();
-        public abstract Task ExitAsync();
+        public abstract UniTask EnterAsync();
+        public abstract UniTask ExitAsync();
     }
 }

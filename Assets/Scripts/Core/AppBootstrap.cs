@@ -26,7 +26,7 @@ namespace FormForge.Core
 
             m_Logger?.Log("Initialization finished");
             
-            var mainMenuMessage = new SwitchFrontendStateMessage(FrontendStates.MainMenu, 
+            var mainMenuMessage = new SwitchFrontendStateMessage(FrontendStates.MainMenuScreen, 
                 new MainMenuStatePayload(loadScene: true));
             ServiceLocator.GetService<IMessageService>().Send(mainMenuMessage);
         }

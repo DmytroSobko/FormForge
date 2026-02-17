@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
@@ -107,7 +107,7 @@ namespace FormForge.Infrastructure.UI.Screens.Presenters
 		/// <summary>
 		/// The screen has been just created. This is called once in the screen lifetime.
 		/// </summary>
-		public virtual async Task Initialize()
+		public virtual async UniTask Initialize()
 		{
 			m_Logger = new UnityLogger(GetType().Name);
 			m_Logger?.Log($"Initialize screen \"{GetType().Name}\"");
@@ -122,7 +122,7 @@ namespace FormForge.Infrastructure.UI.Screens.Presenters
 		/// Configure the screen with the given parameters
 		/// </summary>
 		/// <param name="viewModel"></param>
-		public virtual async Task Configure(IScreenViewModel viewModel) 
+		public virtual async UniTask Configure(IScreenViewModel viewModel) 
 		{
 			m_Logger?.Log($"Configure screen with view model \"{GetType().Name}\"");
 			m_IsConfigured = true;

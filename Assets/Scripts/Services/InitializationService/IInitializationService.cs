@@ -1,9 +1,9 @@
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 namespace FormForge.Services.InitializationService
 {
     public interface IInitializationService
     {
-        Task Initialize();
+        UniTask Initialize();
     }
 }

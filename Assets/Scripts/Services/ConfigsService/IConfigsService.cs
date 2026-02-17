@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FormForge.Domain;
 using FormForge.Runtime.Models.Athletes;
 using FormForge.Runtime.Models.Exercises;
@@ -15,6 +15,6 @@ namespace FormForge.Services.ConfigsService
         public IReadOnlyDictionary<EIntensityType, Intensity> Intensities { get; }
         public SimulationConfig Simulation { get; }
         
-        Task LoadConfigsAsync();
+        UniTask LoadConfigsAsync();
     }
 }

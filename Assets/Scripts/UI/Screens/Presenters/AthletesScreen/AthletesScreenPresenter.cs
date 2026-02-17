@@ -1,12 +1,12 @@
-using System.Threading.Tasks;
-using FormForge.AssetManagement;
-using FormForge.AssetManagement.AssetPolicy;
+using Cysharp.Threading.Tasks;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Infrastructure.UI.Screens.Models;
 using FormForge.Infrastructure.UI.Screens.Presenters;
-using FormForge.UI.Screens.DataProviders;
+using FormForge.UI.FrontendStateMachine;
+using FormForge.UI.FrontendStateMachine.Messages;
 using FormForge.UI.Screens.Models.AthletesScreen;
+using FormForge.UI.Screens.Pagination.DataProviders;
 using FormForge.UI.Screens.Views.AthletesScreen;
 using UnityEngine;
 
@@ -19,8 +19,15 @@ namespace FormForge.UI.Screens.Presenters.AthletesScreen
         private AthletesScreenViewModel TypedViewModel => (AthletesScreenViewModel) ViewModel;
         
         [SerializeField] private AthletesScreenView m_View;
+        private IMessageService m_MessageService;
+        
+        public override UniTask Initialize()
+        {
+            m_MessageService = ServiceLocator.GetService<IMessageService>();
+            return base.Initialize();
+        }
 
-        public override async Task Configure(IScreenViewModel viewModel)
+        public override async UniTask Configure(IScreenViewModel viewModel)
         {
             await base.Configure(viewModel);
 
@@ -31,9 +38,7 @@ namespace FormForge.UI.Screens.Presenters.AthletesScreen
 
         private void OnCreateClicked()
         {
-            IMessageService messageService = ServiceLocator.GetService<IMessageService>();
-            //messageService.Send(new OpenScreenMessage(new ));
-            // TODO Go to the athlete creation screen state
+            m_MessageService.Send(new SwitchFrontendStateMessage(FrontendStates.CreateAthleteScreen));
         }
     }
 }

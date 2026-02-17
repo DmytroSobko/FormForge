@@ -1,10 +1,10 @@
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 namespace FormForge.Infrastructure.StateMachine.States
 {
     public interface IState
     {
-        Task EnterAsync();
-        Task ExitAsync();
+        UniTask EnterAsync();
+        UniTask ExitAsync();
     }
 }

@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FormForge.AssetManagement.AssetLoader;
 using FormForge.AssetManagement.DownloadReporter;
 using UnityEngine.AddressableAssets.ResourceLocators;
@@ -22,32 +22,32 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
         /// Initializes the addressable asset loader, setting up necessary resources and catalogs.
         /// </summary>
         /// <returns>A task representing the asynchronous operation.</returns>
-        Task InitializeAsync();
+        UniTask InitializeAsync();
 
         /// <summary>
         /// Asynchronously updates content that has been changed and requires to be updated.
         /// </summary>
         /// <returns>A task representing the asynchronous operation.</returns>
-        Task UpdateContentAsync();
+        UniTask UpdateContentAsync();
 
         /// <summary>
         /// Updates content asynchronously based on the provided labels.
         /// </summary>
         /// <param name="labels">An array of labels used to filter the content to update.</param>
-        Task UpdateContentForLabelsAsync(params string[] labels);
+        UniTask UpdateContentForLabelsAsync(params string[] labels);
 
         /// <summary>
         /// Retrieves the total download size of all assets that require to be updated.
         /// </summary>
         /// <returns>A task representing the asynchronous operation, returning the total download size in bytes.</returns>
-        Task<float> GetContentDownloadSizeAsync();
+        UniTask<float> GetContentDownloadSizeAsync();
 
         /// <summary>
         /// Retrieves the download size of assets filtered by the provided labels.
         /// </summary>
         /// <param name="labels">An array of labels used to filter assets for download size calculation.</param>
         /// <returns>A task representing the asynchronous operation, returning the total download size in bytes for the given labels.</returns>
-        Task<float> GetDownloadSizeForLabelsAsync(params string[] labels);
+        UniTask<float> GetDownloadSizeForLabelsAsync(params string[] labels);
         
         /// <summary>
         /// Loads a content catalog from the specified path and returns an asynchronous task.
@@ -55,7 +55,7 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
         /// </summary>
         /// <param name="catalogPath">The path to the content catalog to load.</param>
         /// <returns>A task representing the asynchronous operation that returns an IResourceLocator.</returns>
-        Task<IResourceLocator> LoadContentCatalogAsync(string catalogPath);
+        UniTask<IResourceLocator> LoadContentCatalogAsync(string catalogPath);
 
         /// <summary>
         /// Asynchronously retrieves the total download size of the assets in the specified catalog.
@@ -64,12 +64,12 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
         /// </summary>
         /// <param name="catalogLocator">The IResourceLocator that represents the loaded content catalog.</param>
         /// <returns>A task that represents the asynchronous operation, with a float result indicating the total download size in bytes.</returns>
-        Task<float> GetCatalogDownloadSizeAsync(IResourceLocator catalogLocator);
+        UniTask<float> GetCatalogDownloadSizeAsync(IResourceLocator catalogLocator);
 
         /// <summary>
         /// Asynchronously downloads the dependencies for the specified catalog locator.
         /// </summary>
         /// <param name="catalogLocator">The locator for the catalog whose dependencies are to be downloaded.</param>
-        Task DownloadCatalogDependenciesAsync(IResourceLocator catalogLocator);
+        UniTask DownloadCatalogDependenciesAsync(IResourceLocator catalogLocator);
     }
 }

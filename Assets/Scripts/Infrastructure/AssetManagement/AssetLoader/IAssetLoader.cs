@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FormForge.AssetManagement.AssetPolicy;
 using FormForge.AssetManagement.CacheStrategy;
 using UnityEngine;
@@ -29,7 +29,7 @@ namespace FormForge.AssetManagement.AssetLoader
         /// <param name="assetPolicy">The policy defining how the asset should be loaded.</param>
         /// <param name="cacheStrategy">The caching strategy to be applied.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains the loaded asset.</returns>
-        public Task<TObject> LoadAsync<TObject>(IAssetPolicy assetPolicy, ICacheStrategy cacheStrategy)
+        public UniTask<TObject> LoadAsync<TObject>(IAssetPolicy assetPolicy, ICacheStrategy cacheStrategy)
             where TObject : Object;
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace FormForge.AssetManagement.AssetLoader
         /// <param name="position">The position at which to instantiate the GameObject.</param>
         /// <param name="parent">The parent transform for the instantiated GameObject.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains the instantiated GameObject.</returns>
-        public Task<GameObject> InstantiateAsync(IAssetPolicy assetPolicy, ICacheStrategy cacheStrategy,
+        public UniTask<GameObject> InstantiateAsync(IAssetPolicy assetPolicy, ICacheStrategy cacheStrategy,
             Vector3 position, Transform parent);
         
         /// <summary>
