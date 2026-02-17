@@ -9,5 +9,10 @@ namespace FormForge.Core.Networking
             public const string Intensities = "/config/intensities";
             public const string SimulationConfig = "/config/simulation";
         }
+        
+        public static class Athletes
+        {
+            public const string Base = "/athletes";
+        }
     }
 }

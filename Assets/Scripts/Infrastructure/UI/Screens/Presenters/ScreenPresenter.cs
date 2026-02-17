@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using FormForge.Core.Services;
 using FormForge.Infrastructure.Logging;
+using FormForge.Infrastructure.Services;
+using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Infrastructure.UI.Screens.Messages;
 using FormForge.Infrastructure.UI.Screens.Models;
-using FormForge.Messaging.Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
 using ILogger = FormForge.Infrastructure.Logging.ILogger;
@@ -191,7 +191,7 @@ namespace FormForge.Infrastructure.UI.Screens.Presenters
 		/// </summary>
 		public virtual void Close()
 		{
-			ServiceLocator.GetService<IMessageService>().Send(new CloseScreenMessage(typeof(IScreenViewModel)));
+			ServiceLocator.GetService<IMessageService>().Send(new CloseScreenMessage(GetType()));
 		}
 
 		/// <summary>

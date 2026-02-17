@@ -1,6 +1,6 @@
-using FormForge.Core.Services;
 using FormForge.Infrastructure.Logging;
-using FormForge.Messaging.Interfaces;
+using FormForge.Infrastructure.Services;
+using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Services.InitializationService;
 using FormForge.UI.FrontendStateMachine;
 using FormForge.UI.FrontendStateMachine.Messages;

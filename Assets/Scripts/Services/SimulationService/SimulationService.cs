@@ -1,5 +1,6 @@
-using FormForge.Core.Services;
-using FormForge.Infrastructure.Networking;
+using FormForge.Infrastructure.Services;
+using FormForge.Infrastructure.Services.Enums;
+using FormForge.Infrastructure.Services.HttpClientService;
 using UnityEngine;
 
 namespace FormForge.Services.SimulationService

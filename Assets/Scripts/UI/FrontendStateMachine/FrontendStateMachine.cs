@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FormForge.Core.Services;
 using FormForge.Infrastructure.Logging;
+using FormForge.Infrastructure.Services;
+using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Infrastructure.StateMachine;
-using FormForge.Messaging.Interfaces;
 using FormForge.UI.FrontendStateMachine.Messages;
 using FormForge.UI.FrontendStateMachine.Payloads;
 using FormForge.UI.FrontendStateMachine.States;
