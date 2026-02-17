@@ -1,11 +1,11 @@
 using System;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 namespace FormForge.Infrastructure.Services.CacheService
 {
     public interface ICacheService
     {
-        Task<T> GetOrCreateAsync<T>(string key, Func<Task<T>> factory, TimeSpan lifetime);
+        UniTask<T> GetOrCreateAsync<T>(string key, Func<UniTask<T>> factory, TimeSpan lifetime);
 
         bool TryGet<T>(string key, out T value);
 

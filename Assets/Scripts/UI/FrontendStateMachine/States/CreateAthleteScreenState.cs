@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Infrastructure.UI.LoadingOverlay.Messages;
@@ -13,7 +14,7 @@ namespace FormForge.UI.FrontendStateMachine.States
 {
     public class CreateAthleteScreenState : IFrontendState
     {
-        public async Task EnterAsync()
+        public async UniTask EnterAsync()
         {
             var messageService = ServiceLocator.GetService<IMessageService>();
             messageService.Send(new LoadingOverlayShowMessage());
@@ -22,19 +23,19 @@ namespace FormForge.UI.FrontendStateMachine.States
             IConfigsService configsService = ServiceLocator.GetService<IConfigsService>();
             
             //IReadOnlyList<Athlete> athleteTypes = await configsService.GetAthletes();
-            List<AthleteType> athleteTypes = null;
+            List<Athlete> athletes = null;
             messageService.Send(new LoadingOverlaySetProgressMessage(0.75f));
 
-            messageService.Send(new OpenScreenMessage(new CreateAthleteScreenViewModel(athleteTypes)));
+            messageService.Send(new OpenScreenMessage(new CreateAthleteScreenViewModel(athletes)));
 
             messageService.Send(new LoadingOverlaySetProgressMessage(1f));
             messageService.Send(new LoadingOverlayHideMessage());
         }
 
-        public Task ExitAsync()
+        public UniTask ExitAsync()
         {
             ServiceLocator.GetService<IMessageService>().Send(new CloseScreenMessage(typeof(AthletesScreenViewModel)));
-            return Task.CompletedTask;
+            return UniTask.CompletedTask;
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FormForge.Core;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
@@ -12,7 +13,7 @@ namespace FormForge.UI.FrontendStateMachine.States
 {
     public class MainMenuState : FrontendState<MainMenuStatePayload>
     {
-        public override async Task EnterAsync()
+        public override async UniTask EnterAsync()
         {
             var messageService = ServiceLocator.GetService<IMessageService>();
             
@@ -29,10 +30,10 @@ namespace FormForge.UI.FrontendStateMachine.States
             messageService.Send(new LoadingOverlayHideMessage());
         }
 
-        public override Task ExitAsync()
+        public override UniTask ExitAsync()
         {
             ServiceLocator.GetService<IMessageService>().Send(new CloseScreenMessage(typeof(MainMenuScreenViewModel)));
-            return Task.CompletedTask;
+            return UniTask.CompletedTask;
         }
     }
 }

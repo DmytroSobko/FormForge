@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.Services.Enums;
 using FormForge.Infrastructure.Utils;
@@ -48,7 +48,7 @@ namespace FormForge.Infrastructure.Services.SceneService
 			ServiceLocator.RegisterService<ISceneService, SceneService>(ServiceLifespan.LazySingleton);
 		}
 
-		public async Task LoadScenesAsync(IEnumerable<string> sceneNames)
+		public async UniTask LoadScenesAsync(IEnumerable<string> sceneNames)
 		{
 			foreach (string sceneName in sceneNames)
 			{
@@ -56,7 +56,7 @@ namespace FormForge.Infrastructure.Services.SceneService
 			}
 		}
 
-		public async Task LoadSceneAsync(string sceneName)
+		public async UniTask LoadSceneAsync(string sceneName)
 		{
 			m_Logger?.Log($"[Load] Request load '{sceneName}'");
 
@@ -92,7 +92,7 @@ namespace FormForge.Infrastructure.Services.SceneService
 			await OnLoadingOperationCompleted(sceneName);
 		}
 		
-		public async Task UnloadScenesAsync(IEnumerable<string> sceneNames)
+		public async UniTask UnloadScenesAsync(IEnumerable<string> sceneNames)
 		{
 			foreach (string sceneName in sceneNames)
 			{
@@ -100,7 +100,7 @@ namespace FormForge.Infrastructure.Services.SceneService
 			}
 		}
 
-		public async Task UnloadSceneAsync(string sceneName)
+		public async UniTask UnloadSceneAsync(string sceneName)
 		{
 			m_Logger?.Log($"[Unload] Request unload '{sceneName}'");
 			
@@ -187,7 +187,7 @@ namespace FormForge.Infrastructure.Services.SceneService
 			}
 		}
 
-		private async Task OnLoadingOperationCompleted(string sceneName)
+		private async UniTask OnLoadingOperationCompleted(string sceneName)
 		{
 			m_LoadingScenes.Remove(sceneName);
 
@@ -207,7 +207,7 @@ namespace FormForge.Infrastructure.Services.SceneService
 			}
 		}
 
-		private async Task<bool> LateUnloadScene(string sceneName)
+		private async UniTask<bool> LateUnloadScene(string sceneName)
 		{
 			// Check whether the newly loaded scene must be unloaded.
 			if (!m_LoadingScenesToUnload.Remove(sceneName))
@@ -220,7 +220,7 @@ namespace FormForge.Infrastructure.Services.SceneService
 			return true;
 		}
 
-		private async Task LateLoadScene(string sceneName)
+		private async UniTask LateLoadScene(string sceneName)
 		{
 			// Check whether the newly unloaded scene must be loaded.
 			if (m_UnloadingScenesToLoad.Remove(sceneName))

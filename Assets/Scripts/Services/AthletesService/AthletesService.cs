@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FormForge.Core.Networking;
 using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.Services;
+using FormForge.Infrastructure.Services.CacheService;
 using FormForge.Infrastructure.Services.Enums;
 using FormForge.Infrastructure.Services.HttpClientService;
 using FormForge.Networking.Athletes.DTO;
 using FormForge.Networking.Athletes.Mapping;
+using FormForge.Networking.Athletes.Requests;
 using FormForge.Runtime.Models.Athletes;
 using UnityEngine;
 using ILogger = FormForge.Infrastructure.Logging.ILogger;
@@ -16,12 +19,16 @@ namespace FormForge.Services.AthletesService
 {
     public class AthletesService : IAthletesService
     {
-        private readonly IHttpClientService m_HttpClient;
-
-        private ILogger m_Logger = new UnityLogger(nameof(AthletesService));
+        private const string k_AthletesCacheKey = "athletes";
+        private static readonly TimeSpan s_CacheLifetime = TimeSpan.FromMinutes(5);
 
         public IReadOnlyDictionary<string, Athlete> Athletes { get; private set; }
         
+        private ILogger m_Logger = new UnityLogger(nameof(AthletesService));
+
+        private readonly ICacheService m_CacheService;
+        private readonly IHttpClientService m_HttpClientService;
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
         private static void RegisterSelf()
         {
@@ -30,21 +37,53 @@ namespace FormForge.Services.AthletesService
         
         public AthletesService()
         {
-            m_HttpClient = ServiceLocator.GetService<IHttpClientService>();
+            m_HttpClientService = ServiceLocator.GetService<IHttpClientService>();
+            m_CacheService = ServiceLocator.GetService<ICacheService>();
         }
-        public void CreateAthlete()
+        
+        //TODO come back to this later
+        public async UniTask<Athlete> CreateAthlete(CreateAthleteRequest request)
         {
-            throw new NotImplementedException();
+            m_Logger?.Log("Creating a new athlete...");
+
+            var dto = await m_HttpClientService.PostAsync<CreateAthleteRequest, AthleteDto>(
+                APIEndpoints.Athletes.Base, request);
+
+            var athlete = AthletesMapper.Map(dto);
+
+            m_CacheService.Update<IReadOnlyDictionary<string, Athlete>>(
+                k_AthletesCacheKey,
+                dict =>
+                {
+                    var newDict = new Dictionary<string, Athlete>(dict);
+                    newDict[athlete.Id] = athlete;
+                    return newDict;
+                });
+
+            return athlete;
         }
 
-        public async Task<IReadOnlyList<Athlete>> GetAthletes()
+        public async UniTask<IReadOnlyList<Athlete>> GetAthletes()
         {
             m_Logger?.Log("Fetching created athletes...");
-            var athleteDto = await m_HttpClient.GetAsync<AthletesEnvelopeDto>(
+
+            var athletes = await m_CacheService.GetOrCreateAsync(
+                k_AthletesCacheKey, GetAthletesServer, s_CacheLifetime);
+
+            return new List<Athlete>(athletes.Values);
+        }
+
+        private async UniTask<IReadOnlyDictionary<string, Athlete>> GetAthletesServer()
+        {
+            m_Logger?.Log("Fetching athletes from server...");
+
+            var athleteDto = await m_HttpClientService.GetAsync<AthletesEnvelopeDto>(
                 APIEndpoints.Athletes.Base);
-            
-            Athletes = MapById(athleteDto.Athletes, AthletesMapper.Map);
-            return new List<Athlete>();
+
+            var mapped = MapById(athleteDto.Athletes, AthletesMapper.Map);
+            Athletes = mapped;
+
+            return mapped;
         }
         
         private static Dictionary<string, T> MapById<TDto, T>(List<TDto> list, Func<TDto, T> map) where T : class

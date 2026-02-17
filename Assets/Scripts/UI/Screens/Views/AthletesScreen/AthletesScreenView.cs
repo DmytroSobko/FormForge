@@ -1,6 +1,6 @@
 using System;
 using FormForge.Infrastructure.UI.Screens.Views;
-using FormForge.UI.Screens.DataProviders;
+using FormForge.UI.Screens.Pagination.DataProviders;
 using UnityEngine;
 using UnityEngine.UI;
 

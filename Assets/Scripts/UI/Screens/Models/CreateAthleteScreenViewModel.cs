@@ -6,11 +6,13 @@ namespace FormForge.UI.Screens.Models
 {
     public class CreateAthleteScreenViewModel : IScreenViewModel
     {
-        public List<AthleteType> AthleteTypes { get; }
+        public static string s_Address = "CreateAthleteScreen";
 
-        public CreateAthleteScreenViewModel(List<AthleteType> athleteTypes)
+        public List<Athlete> Athletes { get; }
+
+        public CreateAthleteScreenViewModel(List<Athlete> athletes)
         {
-            AthleteTypes = athleteTypes;
+            Athletes = athletes;
         }
     }
 }

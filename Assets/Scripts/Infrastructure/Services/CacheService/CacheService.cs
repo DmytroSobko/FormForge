@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FormForge.Infrastructure.Services.Enums;
 using UnityEngine;
 
@@ -25,7 +25,7 @@ namespace FormForge.Infrastructure.Services.CacheService
             ServiceLocator.RegisterService<ICacheService, CacheService>(ServiceLifespan.LazySingleton);
         }
         
-        public async Task<T> GetOrCreateAsync<T>(string key, Func<Task<T>> factory, TimeSpan lifetime)
+        public async UniTask<T> GetOrCreateAsync<T>(string key, Func<UniTask<T>> factory, TimeSpan lifetime)
         {
             var entry = m_Cache.GetOrAdd(key, _ => new CacheEntry());
 

@@ -1,8 +1,8 @@
-using System.Threading.Tasks;
-using FormForge.AssetManagement;
+using Cysharp.Threading.Tasks;
 using FormForge.AssetManagement.Addressable.AssetLoader;
 using FormForge.AssetManagement.CacheStrategy;
 using FormForge.Core;
+using FormForge.Infrastructure.AssetManagementService;
 using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.Enums;
@@ -36,7 +36,7 @@ namespace FormForge.Services.InitializationService
             m_MessageService = ServiceLocator.GetService<IMessageService>();
         }
 
-        public async Task Initialize()
+        public async UniTask Initialize()
         {
             m_MessageService.Send(new LoadingOverlayShowMessage());
             

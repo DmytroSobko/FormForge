@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 namespace FormForge.Infrastructure.Services.SceneService
 {
@@ -23,25 +23,25 @@ namespace FormForge.Infrastructure.Services.SceneService
         /// Start loading a set of scenes
         /// </summary>
         /// <param name="sceneNames">Scenes to load</param>
-        Task LoadScenesAsync(IEnumerable<string> sceneNames);
+        UniTask LoadScenesAsync(IEnumerable<string> sceneNames);
         
         /// <summary>
         /// Start loading a single scene
         /// </summary>
         /// <param name="sceneName">Scene to load</param>
-        Task LoadSceneAsync(string sceneName);
+        UniTask LoadSceneAsync(string sceneName);
         
         /// <summary>
         /// Start unloading a set of scenes
         /// </summary>
         /// <param name="sceneNames">Scenes to unload</param>
-        Task UnloadScenesAsync(IEnumerable<string> sceneNames);
+        UniTask UnloadScenesAsync(IEnumerable<string> sceneNames);
         
         /// <summary>
         /// Start unloading a single scene
         /// </summary>
         /// <param name="sceneName">Scene to unload</param>
-        Task UnloadSceneAsync(string sceneName);
+        UniTask UnloadSceneAsync(string sceneName);
         
         /// <summary>
         /// Set a scene as the current active scene

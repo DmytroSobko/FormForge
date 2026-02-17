@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FormForge.Infrastructure.UI.Screens.Models;
 
 namespace FormForge.Infrastructure.UI.Screens.Presenters
@@ -15,8 +16,9 @@ namespace FormForge.Infrastructure.UI.Screens.Presenters
         bool IsOpen { get; }
         bool KeepScreenOpened { get; }
 
-        Task Configure(TScreenViewModel viewModel);
-        Task Initialize();
+        UniTask Configure(TScreenViewModel viewModel);
+        UniTask Initialize();
+        
         void Open();
         void GetFocus();
         void Refresh();

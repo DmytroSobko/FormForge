@@ -5,7 +5,7 @@ using FormForge.Infrastructure.UI.Pagination;
 using FormForge.Runtime.Models.Athletes;
 using FormForge.UI.Screens.Models.AthletesScreen;
 
-namespace FormForge.UI.Screens.DataProviders
+namespace FormForge.UI.Screens.Pagination.DataProviders
 {
     public class AthletesDataProvider : IDataProvider<AthleteItemViewModel>
     {

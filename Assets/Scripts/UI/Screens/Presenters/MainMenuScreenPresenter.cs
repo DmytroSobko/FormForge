@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Infrastructure.UI.Screens.Models;
@@ -15,14 +15,14 @@ namespace FormForge.UI.Screens.Presenters
     {
         [SerializeField] private MainMenuScreenView m_View;
 
-        public override Task Initialize()
+        public override UniTask Initialize()
         {
             m_View.InitView(OnAthletesButtonPressed);
 
             return base.Initialize();
         }
         
-        public override Task Configure(IScreenViewModel viewModel)
+        public override UniTask Configure(IScreenViewModel viewModel)
         {
             ViewModel = (MainMenuScreenViewModel) viewModel;
             
