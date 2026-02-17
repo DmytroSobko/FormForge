@@ -1,21 +1,21 @@
 using System.Collections.Generic;
-using FormForge.Core.Services;
+using FormForge.Infrastructure.Services;
 using FormForge.Runtime.Models.Athletes;
 using FormForge.Runtime.Models.Simulation;
 using FormForge.Runtime.Models.TrainingPlans;
-using FormForge.Services.ConfigService;
+using FormForge.Services.ConfigsService;
 using UnityEngine;
 
 namespace FormForge.Simulation
 {
     public class SimulationEngine
     {
-        private readonly IConfigService m_ConfigService;
+        private readonly IConfigsService m_ConfigService;
         private readonly SimulationConfig m_SimulationConfig;
 
         public SimulationEngine()
         {
-            m_ConfigService = ServiceLocator.GetService<IConfigService>();
+            m_ConfigService = ServiceLocator.GetService<IConfigsService>();
             
             m_SimulationConfig = m_ConfigService.Simulation;
         }

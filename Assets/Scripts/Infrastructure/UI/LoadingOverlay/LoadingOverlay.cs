@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
-using FormForge.Core.Services;
+using FormForge.Infrastructure.Services;
+using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Infrastructure.UI.LoadingOverlay.Messages;
-using FormForge.Messaging.Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
 using FormForge.Core;
-using FormForge.Core.Services;
-using FormForge.Infrastructure.SceneService;
+using FormForge.Infrastructure.Services;
+using FormForge.Infrastructure.Services.MessageService.Interfaces;
+using FormForge.Infrastructure.Services.SceneService;
 using FormForge.Infrastructure.UI.LoadingOverlay.Messages;
 using FormForge.Infrastructure.UI.Screens.Messages;
-using FormForge.Messaging.Interfaces;
 using FormForge.UI.FrontendStateMachine.Payloads;
 using FormForge.UI.Screens.Models;
 

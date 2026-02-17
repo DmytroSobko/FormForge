@@ -3,12 +3,13 @@ using FormForge.AssetManagement;
 using FormForge.AssetManagement.Addressable.AssetLoader;
 using FormForge.AssetManagement.CacheStrategy;
 using FormForge.Core;
-using FormForge.Core.Services;
 using FormForge.Infrastructure.Logging;
-using FormForge.Infrastructure.Networking;
+using FormForge.Infrastructure.Services;
+using FormForge.Infrastructure.Services.Enums;
+using FormForge.Infrastructure.Services.HttpClientService;
+using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Infrastructure.UI.LoadingOverlay.Messages;
-using FormForge.Messaging.Interfaces;
-using FormForge.Services.ConfigService;
+using FormForge.Services.ConfigsService;
 using UnityEngine;
 using ILogger = FormForge.Infrastructure.Logging.ILogger;
 
@@ -17,7 +18,7 @@ namespace FormForge.Services.InitializationService
     public class InitializationService : IInitializationService
     {
         private readonly IHttpClientService m_HttpClient;
-        private readonly IConfigService m_ConfigService;
+        private readonly IConfigsService m_ConfigService;
         private readonly IMessageService m_MessageService;
 
         private ILogger m_Logger = new UnityLogger(nameof(InitializationService));
@@ -31,7 +32,7 @@ namespace FormForge.Services.InitializationService
         public InitializationService()
         {
             m_HttpClient = ServiceLocator.GetService<IHttpClientService>();
-            m_ConfigService = ServiceLocator.GetService<IConfigService>();
+            m_ConfigService = ServiceLocator.GetService<IConfigsService>();
             m_MessageService = ServiceLocator.GetService<IMessageService>();
         }
 

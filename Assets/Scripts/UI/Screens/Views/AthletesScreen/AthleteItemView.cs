@@ -1,9 +1,10 @@
 using System;
+using FormForge.UI.Screens.Models.AthletesScreen;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FormForge.UI.Screens.Views.AthleteScreen
+namespace FormForge.UI.Screens.Views.AthletesScreen
 {
     public class AthleteItemView : MonoBehaviour
     {

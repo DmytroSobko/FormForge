@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
-using FormForge.Core.Services;
+using FormForge.Infrastructure.Services;
+using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Infrastructure.UI.Screens.Models;
 using FormForge.Infrastructure.UI.Screens.Presenters;
-using FormForge.Messaging.Interfaces;
 using FormForge.UI.FrontendStateMachine;
 using FormForge.UI.FrontendStateMachine.Messages;
 using FormForge.UI.Screens.Models;
