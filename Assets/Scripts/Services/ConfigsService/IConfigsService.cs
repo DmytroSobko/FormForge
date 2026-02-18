@@ -10,11 +10,15 @@ namespace FormForge.Services.ConfigsService
 {
     public interface IConfigsService
     {
-        public IReadOnlyDictionary<string, AthleteType> AthleteTypes { get; }
-        public IReadOnlyDictionary<string, Exercise> Exercises { get; }
+        public IReadOnlyDictionary<EAthleteType, AthleteType> AthleteTypes { get; }
+        public IReadOnlyDictionary<EExerciseType, Exercise> Exercises { get; }
         public IReadOnlyDictionary<EIntensityType, Intensity> Intensities { get; }
-        public SimulationConfig Simulation { get; }
+        public SimulationConfig SimulationConfig { get; }
         
         UniTask LoadConfigsAsync();
+
+        AthleteType GetAthleteType(EAthleteType type);
+        Exercise GetExercise(EExerciseType type);
+        Intensity GetIntensity(EIntensityType type);
     }
 }

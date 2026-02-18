@@ -12,7 +12,7 @@ namespace FormForge.Networking.Configs.DTO
     [System.Serializable]
     public class AthleteTypeDto
     {
-        public string Id;
+        public string Type;
         public string DisplayName;
         public string Description;
         public StatBlockDto BaseStats;

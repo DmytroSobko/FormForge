@@ -15,6 +15,11 @@ namespace FormForge.AssetManagement
             {
                 public const string AthleteItemView = "AthleteItemView";
             }
+            
+            public static class CreateAthleteScreen
+            {
+                public const string AthleteTypeItemView = "AthleteTypeItemView";
+            }
         }
     }
 }

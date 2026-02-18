@@ -1,10 +1,11 @@
-using System;
+using FormForge.Domain;
 
 namespace FormForge.Runtime.Models.Intensities
 {
-    [Serializable]
     public class Intensity
     {
+        public EIntensityType Type;
+        
         public float Multiplier;
         public float FatigueMultiplier; 
     }

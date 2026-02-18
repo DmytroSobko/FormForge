@@ -1,14 +1,13 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using FormForge.AssetManagement;
+using FormForge.AssetManagement.AssetPolicy;
+using FormForge.Infrastructure.AssetManagementService;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Infrastructure.UI.LoadingOverlay.Messages;
 using FormForge.Infrastructure.UI.Screens.Messages;
-using FormForge.Runtime.Models.Athletes;
-using FormForge.Services.ConfigsService;
 using FormForge.UI.Screens.Models;
-using FormForge.UI.Screens.Models.AthletesScreen;
+using UnityEngine;
 
 namespace FormForge.UI.FrontendStateMachine.States
 {
@@ -19,22 +18,27 @@ namespace FormForge.UI.FrontendStateMachine.States
             var messageService = ServiceLocator.GetService<IMessageService>();
             messageService.Send(new LoadingOverlayShowMessage());
             messageService.Send(new LoadingOverlaySetProgressMessage(0.25f));
-
-            IConfigsService configsService = ServiceLocator.GetService<IConfigsService>();
             
-            //IReadOnlyList<Athlete> athleteTypes = await configsService.GetAthletes();
-            List<Athlete> athletes = null;
-            messageService.Send(new LoadingOverlaySetProgressMessage(0.75f));
+            GameObject itemPrefab = await LoadItemPrefab();
+            messageService.Send(new LoadingOverlaySetProgressMessage(0.5f));
 
-            messageService.Send(new OpenScreenMessage(new CreateAthleteScreenViewModel(athletes)));
-
+            messageService.Send(new OpenScreenMessage(new CreateAthleteScreenViewModel(itemPrefab)));
             messageService.Send(new LoadingOverlaySetProgressMessage(1f));
             messageService.Send(new LoadingOverlayHideMessage());
         }
 
+        private async UniTask<GameObject> LoadItemPrefab()
+        {
+            BasicAssetPolicy policy = 
+                new BasicAssetPolicy(AddressKeys.UI.CreateAthleteScreen.AthleteTypeItemView);
+            return await ServiceLocator.GetService<IAssetManagementService>().
+                LoadAsync<GameObject, UIContext>(policy);
+        }
+
         public UniTask ExitAsync()
         {
-            ServiceLocator.GetService<IMessageService>().Send(new CloseScreenMessage(typeof(AthletesScreenViewModel)));
+            var messageService = ServiceLocator.GetService<IMessageService>();
+            messageService.Send(new CloseScreenMessage(typeof(CreateAthleteScreenViewModel)));
             return UniTask.CompletedTask;
         }
     }

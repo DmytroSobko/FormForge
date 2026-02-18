@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using FormForge.Core.Networking;
 using FormForge.Domain;
 using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.Services;
+using FormForge.Infrastructure.Services.CacheService;
 using FormForge.Infrastructure.Services.Enums;
 using FormForge.Infrastructure.Services.HttpClientService;
 using FormForge.Networking.Configs.DTO;
@@ -20,62 +22,46 @@ namespace FormForge.Services.ConfigsService
 {
     public class ConfigsService : IConfigsService
     {
-        public IReadOnlyDictionary<string, AthleteType> AthleteTypes { get; private set; }
-        public IReadOnlyDictionary<string, Exercise> Exercises { get; private set; }
+        private const string k_ConfigsCacheKey = "configs_all";
+        private static readonly TimeSpan s_CacheLifetime = TimeSpan.FromHours(1);
+
+        public IReadOnlyDictionary<EAthleteType, AthleteType> AthleteTypes { get; private set; }
+        public IReadOnlyDictionary<EExerciseType, Exercise> Exercises { get; private set; }
         public IReadOnlyDictionary<EIntensityType, Intensity> Intensities { get; private set; }
-        public SimulationConfig Simulation { get; private set; }
-        
+        public SimulationConfig SimulationConfig { get; private set; }
+
         private ILogger m_Logger = new UnityLogger(nameof(ConfigsService));
-        
+
         private readonly IHttpClientService m_HttpClientService;
+        private readonly ICacheService m_CacheService;
+        private ConfigsCacheModel m_Configs;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
         private static void RegisterSelf()
         {
             ServiceLocator.RegisterService<IConfigsService, ConfigsService>(ServiceLifespan.LazySingleton);
         }
-        
+
         public ConfigsService()
         {
             m_HttpClientService = ServiceLocator.GetService<IHttpClientService>();
+            m_CacheService = ServiceLocator.GetService<ICacheService>();
         }
 
         public async UniTask LoadConfigsAsync()
         {
             m_Logger?.Log("Starting config load");
-
             try
             {
-                m_Logger?.Log("Fetching athlete types...");
-                var athleteDto = await m_HttpClientService.GetAsync<AthleteTypesEnvelopeDto>(
-                    APIEndpoints.Configs.AthleteTypes);
+                m_Configs = await m_CacheService.GetOrCreateAsync(k_ConfigsCacheKey, 
+                    FetchConfigsFromServerAsync, s_CacheLifetime);
 
-                m_Logger?.Log($"Athlete types loaded: {athleteDto.AthleteTypes.Count}");
+                AthleteTypes = m_Configs.AthleteTypes;
+                Exercises = m_Configs.Exercises;
+                Intensities = m_Configs.Intensities;
+                SimulationConfig = m_Configs.Simulation;
 
-                m_Logger?.Log("Fetching exercises...");
-                var exerciseDto = await m_HttpClientService.GetAsync<ExerciseEnvelopeDto>(
-                    APIEndpoints.Configs.Exercises);
-
-                m_Logger?.Log($"Exercises loaded: {exerciseDto.Exercises.Count}");
-
-                m_Logger?.Log("Fetching intensities...");
-                var intensityDto = await m_HttpClientService.GetAsync<IntensityEnvelopeDto>(
-                    APIEndpoints.Configs.Intensities);
-
-                m_Logger?.Log($"Intensities loaded: {intensityDto.Intensities.Count}");
-
-                m_Logger?.Log("Fetching simulation config...");
-                var simDto = await m_HttpClientService.GetAsync<SimulationConfigEnvelopeDto>(
-                    APIEndpoints.Configs.SimulationConfig);
-
-                m_Logger?.Log($"Simulation config loaded. Version: {simDto.Version}");
-
-                AthleteTypes = MapById(athleteDto.AthleteTypes, ConfigMapper.Map);
-                Exercises = MapById(exerciseDto.Exercises, ConfigMapper.Map);
-                Intensities = MapIntensities(intensityDto.Intensities);
-                Simulation = ConfigMapper.Map(simDto.Simulation);
-
-                m_Logger?.Log("All configs loaded and mapped successfully");
+                m_Logger?.Log("Configs loaded successfully");
             }
             catch (Exception ex)
             {
@@ -84,26 +70,76 @@ namespace FormForge.Services.ConfigsService
                 throw;
             }
         }
-
-        private static Dictionary<string, T> MapById<TDto, T>(List<TDto> list, Func<TDto, T> map) where T : class
+        
+        private async UniTask<ConfigsCacheModel> FetchConfigsFromServerAsync()
         {
-            var dict = new Dictionary<string, T>();
-            foreach (var item in list)
+            m_Logger?.Log("Fetching configs from server (parallel)...");
+
+            var athleteTask = m_HttpClientService
+                .GetAsync<AthleteTypesEnvelopeDto>(APIEndpoints.Configs.AthleteTypes);
+
+            var exerciseTask = m_HttpClientService
+                .GetAsync<ExercisesEnvelopeDto>(APIEndpoints.Configs.Exercises);
+
+            var intensityTask = m_HttpClientService
+                .GetAsync<IntensityTypesEnvelopeDto>(APIEndpoints.Configs.Intensities);
+
+            var simulationTask = m_HttpClientService
+                .GetAsync<SimulationConfigEnvelopeDto>(APIEndpoints.Configs.SimulationConfig);
+
+            await UniTask.WhenAll(athleteTask, exerciseTask, intensityTask, simulationTask);
+
+            var athleteTypesEnvelopeDto = await athleteTask;
+            var exercisesEnvelopeDto = await exerciseTask;
+            var intensityTypesEnvelopeDto = await intensityTask;
+            var simulationConfigEnvelopeDto = await simulationTask;
+
+            return new ConfigsCacheModel
             {
-                var mapped = map(item);
-                dict[(string)typeof(T).GetField("Id").GetValue(mapped)] = mapped;
+                AthleteTypes = athleteTypesEnvelopeDto.AthleteTypes
+                    .Select(ConfigMapper.Map)
+                    .ToDictionary(x => x.Type),
+
+                Exercises = exercisesEnvelopeDto.Exercises
+                    .Select(ConfigMapper.Map)
+                    .ToDictionary(x => x.Type),
+
+                Intensities = intensityTypesEnvelopeDto.Intensities
+                    .Select(ConfigMapper.Map)
+                    .ToDictionary(x => x.Type),
+
+                Simulation = ConfigMapper.Map(simulationConfigEnvelopeDto.Simulation)
+            };
+        }
+        
+        public AthleteType GetAthleteType(EAthleteType type)
+        {
+            if (m_Configs.AthleteTypes.TryGetValue(type, out var result))
+            {
+                return result;
             }
-            return dict;
+
+            throw new KeyNotFoundException($"AthleteType {type} not found");
         }
 
-        private static Dictionary<EIntensityType, Intensity> MapIntensities(Dictionary<string, IntensityDto> source)
+        public Exercise GetExercise(EExerciseType type)
         {
-            var dict = new Dictionary<EIntensityType, Intensity>();
-            foreach (var kv in source)
+            if (m_Configs.Exercises.TryGetValue(type, out var result))
             {
-                dict[Enum.Parse<EIntensityType>(kv.Key, true)] = ConfigMapper.Map(kv.Value);
+                return result;
             }
-            return dict;
+
+            throw new KeyNotFoundException($"Exercise {type} not found");
+        }
+
+        public Intensity GetIntensity(EIntensityType type)
+        {
+            if (m_Configs.Intensities.TryGetValue(type, out var result))
+            {
+                return result;
+            }
+
+            throw new KeyNotFoundException($"Intensity {type} not found");
         }
     }
 }

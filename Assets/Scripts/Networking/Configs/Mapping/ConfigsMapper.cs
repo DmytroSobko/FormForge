@@ -15,15 +15,29 @@ namespace FormForge.Networking.Configs.Mapping
         {
             return new AthleteType
             {
-                Id = dto.Id,
+                Type = MapAthleteType(dto.Type),
                 DisplayName = dto.DisplayName,
                 Description = dto.Description,
-                Strength = dto.BaseStats.Strength,
-                Endurance = dto.BaseStats.Endurance,
-                Mobility = dto.BaseStats.Mobility,
+                StatBlock = new StatBlock
+                {
+                    Strength = dto.BaseStats.Strength,
+                    Endurance = dto.BaseStats.Endurance,
+                    Mobility = dto.BaseStats.Mobility,                        
+                },
                 MaxFatigue = dto.MaxFatigue,
                 RecoveryMultiplier = dto.RecoveryMultiplier,
                 FatigueSensitivity = dto.FatigueSensitivity
+            };
+        }
+
+        private static EAthleteType MapAthleteType(string type)
+        {
+            return type switch
+            {
+                "balanced" => EAthleteType.Balanced,
+                "endurance_focused" => EAthleteType.EnduranceFocused,
+                "strength_focused" => EAthleteType.StrengthFocused,
+                _ => EAthleteType.None
             };
         }
 
@@ -31,18 +45,37 @@ namespace FormForge.Networking.Configs.Mapping
         {
             return new Exercise
             {
-                Id = dto.Id,
+                Type = GetExerciseType(dto.Type),
                 DisplayName = dto.DisplayName,
                 Description = dto.Description,
-                PrimaryStat = ParseStat(dto.PrimaryStat),
+                PrimaryStat = MapStatType(dto.PrimaryStat),
                 SecondaryStat = string.IsNullOrEmpty(dto.SecondaryStat)
                     ? EStatType.None
-                    : ParseStat(dto.SecondaryStat),
+                    : MapStatType(dto.SecondaryStat),
                 SecondaryStatWeight = dto.SecondaryStatWeight,
                 BaseGain = dto.BaseGain,
                 FatigueCost = dto.FatigueCost,
                 DurationMinutes = dto.DurationMinutes,
-                AllowedIntensities = ParseIntensities(dto.AllowedIntensities)
+                AllowedIntensities = MapIntensityTypes(dto.AllowedIntensities)
+            };
+        }
+        
+        private static EExerciseType GetExerciseType(string type)
+        {
+            return type switch
+            {
+                "bench_press" => EExerciseType.BenchPress,
+                "squat" => EExerciseType.Squat,
+                "deadlift" => EExerciseType.Deadlift,
+                "overhead_press" => EExerciseType.OverheadPress,
+                "running" => EExerciseType.Running,
+                "cycling" => EExerciseType.Cycling,
+                "rowing" => EExerciseType.Rowing,
+                "stretching" => EExerciseType.Stretching,
+                "yoga_flow" => EExerciseType.YogaFlow,
+                "core_stability" => EExerciseType.CoreStability,
+
+                _ => EExerciseType.None
             };
         }
 
@@ -50,6 +83,7 @@ namespace FormForge.Networking.Configs.Mapping
         {
             return new Intensity
             {
+                Type = MapIntensityType(dto.Type),
                 Multiplier = dto.Multiplier,
                 FatigueMultiplier = dto.FatigueMultiplier
             };
@@ -59,24 +93,44 @@ namespace FormForge.Networking.Configs.Mapping
         {
             return new SimulationConfig
             {
-                DaysInWeek = dto.DaysInWeek,
                 RestDayRecovery = dto.RestDayRecovery,
                 MaxFatiguePenalty = dto.MaxFatiguePenalty,
-                HighFatigueThreshold = dto.HighFatigueThreshold
+                HighFatigueThreshold = dto.HighFatigueThreshold,
             };
         }
 
-        private static EStatType ParseStat(string value)
+        private static EStatType MapStatType(string type)
         {
-            return Enum.Parse<EStatType>(value, true);
+            return type switch
+            {
+                "endurance" => EStatType.Endurance,
+                "mobility" => EStatType.Mobility,
+                "strength" => EStatType.Strength,
+
+                _ => EStatType.None
+            };
         }
 
-        private static HashSet<EIntensityType> ParseIntensities(List<string> values)
+        private static HashSet<EIntensityType> MapIntensityTypes(List<string> types)
         {
             var set = new HashSet<EIntensityType>();
-            foreach (var v in values)
-                set.Add(Enum.Parse<EIntensityType>(v, true));
+            foreach (var type in types)
+            {
+                set.Add(MapIntensityType(type));
+            }
             return set;
+        }
+        
+        private static EIntensityType MapIntensityType(string type)
+        {
+            return type switch
+            {
+                "low" => EIntensityType.Low,
+                "medium" => EIntensityType.Medium,
+                "high" => EIntensityType.High,
+
+                _ => EIntensityType.None
+            };
         }
     }
 }

@@ -9,7 +9,7 @@ namespace FormForge.Runtime.Models.Athletes
     {
         public EAthleteType AthleteType { get; set; }
         public string Id { get; set; }
-        public string DisplayName{ get; set; }
+        public string DisplayName { get; set; }
         public float Strength { get; set; }
         public float Endurance { get; set; }
         public float Mobility { get; set; }

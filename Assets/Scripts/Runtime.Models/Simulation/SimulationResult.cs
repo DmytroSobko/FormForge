@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 
 namespace FormForge.Runtime.Models.Simulation
 {
-    [Serializable]
     public class SimulationResult
     {
         public StatSnapshot Before;

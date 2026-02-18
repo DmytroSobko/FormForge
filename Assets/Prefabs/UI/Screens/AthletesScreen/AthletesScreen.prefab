@@ -266,6 +266,7 @@ MonoBehaviour:
   m_ContentRoot: {fileID: 8214914534734349407}
   m_NextButton: {fileID: 2408351557777303283}
   m_PrevButton: {fileID: 7788781314661131931}
+  m_NoContentText: {fileID: 0}
   m_PageIndicatorText: {fileID: 4103203723537508782}
   m_Animator: {fileID: 1133411132603595808}
   m_PageSize: 10
@@ -1544,8 +1545,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FormForge.UI.Screens.Views.AthletesScreenView
   canvasGroup: {fileID: 5379039395457641513}
-  m_Pagination: {fileID: 3477215163472917554}
-  m_NoExistingAthletesText: {fileID: 5610880103528664004}
+  m_PaginationView: {fileID: 0}
+  m_CreateButton: {fileID: 0}
 --- !u!225 &5379039395457641513 stripped
 CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 4081777155404233302, guid: 5415fa868e5564f659be1740c7593715, type: 3}

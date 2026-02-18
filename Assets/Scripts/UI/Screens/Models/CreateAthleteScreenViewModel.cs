@@ -1,18 +1,20 @@
-using System.Collections.Generic;
 using FormForge.Infrastructure.UI.Screens.Models;
-using FormForge.Runtime.Models.Athletes;
+using UnityEngine;
 
 namespace FormForge.UI.Screens.Models
 {
     public class CreateAthleteScreenViewModel : IScreenViewModel
     {
         public static string s_Address = "CreateAthleteScreen";
-
-        public List<Athlete> Athletes { get; }
-
-        public CreateAthleteScreenViewModel(List<Athlete> athletes)
+        
+        public GameObject ItemPrefab
         {
-            Athletes = athletes;
+            get;
+        }
+        
+        public CreateAthleteScreenViewModel(GameObject itemPrefab)
+        {
+            ItemPrefab = itemPrefab;
         }
     }
 }

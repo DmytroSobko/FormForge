@@ -1,20 +1,22 @@
-using System;
+using FormForge.Domain;
 
 namespace FormForge.Runtime.Models.Athletes
 {
-    [Serializable]
     public class AthleteType
     {
-        public string Id;
+        public EAthleteType Type;
         public string DisplayName;
         public string Description;
-
-        public float Strength;
-        public float Endurance;
-        public float Mobility;
-
+        public StatBlock StatBlock;
         public float MaxFatigue;
         public float RecoveryMultiplier;
         public float FatigueSensitivity;
+    }
+    
+    public class StatBlock
+    {
+        public float Strength;
+        public float Endurance;
+        public float Mobility;
     }
 }
