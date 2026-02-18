@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using FormForge.Core.Networking;
 using FormForge.Infrastructure.Logging;
@@ -55,8 +54,10 @@ namespace FormForge.Services.AthletesService
                 k_AthletesCacheKey,
                 dict =>
                 {
-                    var newDict = new Dictionary<string, Athlete>(dict);
-                    newDict[athlete.Id] = athlete;
+                    var newDict = new Dictionary<string, Athlete>(dict)
+                    {
+                        [athlete.Id] = athlete
+                    };
                     return newDict;
                 });
 
@@ -77,10 +78,10 @@ namespace FormForge.Services.AthletesService
         {
             m_Logger?.Log("Fetching athletes from server...");
 
-            var athleteDto = await m_HttpClientService.GetAsync<AthletesEnvelopeDto>(
+            var response = await m_HttpClientService.GetAsync<AthletesEnvelopeDto>(
                 APIEndpoints.Athletes.Base);
 
-            var mapped = MapById(athleteDto.Athletes, AthletesMapper.Map);
+            var mapped = MapById(response.Athletes, AthletesMapper.Map);
             Athletes = mapped;
 
             return mapped;

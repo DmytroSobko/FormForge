@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace FormForge.Networking.Configs.DTO
 {
     [System.Serializable]
-    public class ExerciseEnvelopeDto
+    public class ExercisesEnvelopeDto
     {
         public string Version;
         public List<ExerciseDto> Exercises;
@@ -12,7 +12,7 @@ namespace FormForge.Networking.Configs.DTO
     [System.Serializable]
     public class ExerciseDto
     {
-        public string Id;
+        public string Type;
         public string DisplayName;
         public string Description;
         public string PrimaryStat;

@@ -1,13 +1,12 @@
-using System;
 using System.Collections.Generic;
 using FormForge.Domain;
 
 namespace FormForge.Runtime.Models.Exercises
 {
-    [Serializable]
     public class Exercise
     {
-        public string Id;
+        public EExerciseType Type;
+        
         public string DisplayName;
         public string Description;
 

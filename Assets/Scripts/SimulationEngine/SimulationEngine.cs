@@ -17,7 +17,7 @@ namespace FormForge.Simulation
         {
             m_ConfigService = ServiceLocator.GetService<IConfigsService>();
             
-            m_SimulationConfig = m_ConfigService.Simulation;
+            m_SimulationConfig = m_ConfigService.SimulationConfig;
         }
 
         public SimulationResult SimulateWeek(Athlete athlete, TrainingPlan plan)
