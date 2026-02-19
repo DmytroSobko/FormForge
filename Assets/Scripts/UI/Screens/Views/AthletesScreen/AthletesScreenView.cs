@@ -1,6 +1,6 @@
 using System;
 using FormForge.Infrastructure.UI.Screens.Views;
-using FormForge.UI.Screens.Pagination.DataProviders;
+using FormForge.UI.Screens.ViewModels.AthletesScreen;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,28 +11,26 @@ namespace FormForge.UI.Screens.Views.AthletesScreen
         [SerializeField] private AthletesPaginationView m_PaginationView;
         [SerializeField] private Button m_CreateButton;
 
-        private Action m_OnCreateClicked;
+        public event Action CreateButtonClicked;
 
         private void Awake()
         {
-            m_CreateButton.onClick.AddListener(OnCreateClicked);
+            m_CreateButton.onClick.AddListener(OnCreateButtonClicked);
         }
 
         private void OnDestroy()
         {
-            m_CreateButton.onClick.RemoveListener(OnCreateClicked);
+            m_CreateButton.onClick.RemoveListener(OnCreateButtonClicked);
         }
 
-        public void InitView(AthletesDataProvider dataProvider, GameObject itemPrefab,
-            Action onCreateClicked, string noContentMessage = "")
+        public void Bind(AthletesScreenViewModel viewModel)
         {
-            m_OnCreateClicked = onCreateClicked;
-            m_PaginationView.Initialize(dataProvider, itemPrefab, noContentMessage);
+            m_PaginationView.Initialize(viewModel.PaginatedDataProvider, viewModel.ItemPrefab);
         }
 
-        private void OnCreateClicked()
+        private void OnCreateButtonClicked()
         {
-            m_OnCreateClicked?.Invoke();
+            CreateButtonClicked?.Invoke();
         }
     }
 }

@@ -1,38 +1,58 @@
 using System;
-using FormForge.Infrastructure.UI.Selection;
-using FormForge.Runtime.Models.Athletes;
+using FormForge.UI.Screens.ViewModels.CreateAthleteScreen;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace FormForge.UI.Screens.Views.CreateAthleteScreen
 {
-    public class AthleteTypeItemView: MonoBehaviour, ISelectableItem<AthleteType>
+    public class AthleteTypeItemView: MonoBehaviour
     {
-        [SerializeField] private Button m_Button;
+        [SerializeField] private Button m_ItemButton;
+
+        [SerializeField] private Image m_AthleteTypeIcon;
+        [SerializeField] private Image m_BackgroundImage;
+        [SerializeField] private TextMeshProUGUI m_AthleteTypeText;
+
         [SerializeField] private GameObject m_SelectedIndicator;
-
-        public AthleteType Value { get; private set; }
-        public bool IsSelected { get; private set; }
-
-        public event Action<ISelectableItem<AthleteType>> OnSelected;
-
-        public void Initialize(AthleteType athlete)
-        {
-            Value = athlete;
-        }
+        [SerializeField] private Color m_UnselectedColor;
+        [SerializeField] private Color m_SelectedColor;
+        
+        public event Action ItemClicked;
 
         private void Awake()
         {
-            m_Button.onClick.AddListener(() =>
-            {
-                OnSelected?.Invoke(this);
-            });
+            m_ItemButton.onClick.AddListener(OnItemClicked);
         }
 
-        public void SetSelected(bool selected)
+        private void OnDestroy()
+        { 
+            m_ItemButton.onClick.RemoveListener(OnItemClicked);
+        }
+
+        public void Bind(AthleteTypeItemViewModel viewModel)
         {
-            IsSelected = selected;
-            m_SelectedIndicator.SetActive(selected);
+            m_AthleteTypeIcon.sprite = viewModel.AthleteIcon;
+            m_AthleteTypeText.text = viewModel.AthleteTypeConfig.DisplayName;
+        }
+        
+        public void SetSelectedVisual(bool selected)
+        {
+            if (selected)
+            {
+                m_BackgroundImage.color = m_UnselectedColor;
+                m_SelectedIndicator.SetActive(true);
+            }
+            else
+            {
+                m_BackgroundImage.color = m_SelectedColor;
+                m_SelectedIndicator.SetActive(false);
+            }
+        }
+        
+        private void OnItemClicked()
+        {
+            ItemClicked?.Invoke();
         }
     }
 }

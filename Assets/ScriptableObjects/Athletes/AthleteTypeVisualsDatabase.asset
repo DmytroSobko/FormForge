@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192e644b5a81b48eeb4932e5b046a364, type: 3}
+  m_Name: AthleteTypeVisualsDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::FormForge.ScriptableObjects.Athletes.AthleteTypeVisualsDatabase
+  m_Configs:
+  - {fileID: 11400000, guid: 1fa52e62929974c068ecf52126c11565, type: 2}
+  - {fileID: 11400000, guid: 06c7bf6db2ca443fba22e4f8c167f069, type: 2}
+  - {fileID: 11400000, guid: 94d26a68b01cc4668bdd91e5e04cac0e, type: 2}

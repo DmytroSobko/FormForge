@@ -26,9 +26,13 @@ namespace FormForge.AssetManagement.Addressable.AssetLoader
         
         public async UniTask InitializeAsync()
         {
+            m_Logger?.Log("Starting InitializeAsync");
+            
             await InitializeAddressablesAsync();
             await UpdateCatalogsAsync();
             LoadMap();
+            
+            m_Logger?.Log("InitializeAsync Ended");
         }
 
         public void SetAssetDownloadReporter(IAssetDownloadReporter downloadReporter)

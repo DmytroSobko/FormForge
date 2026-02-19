@@ -15,18 +15,23 @@ MonoBehaviour:
   m_GroupName: ScriptableObjects
   m_GUID: 6400578d08e1b48d8a197eed78fd84cc
   m_SerializeEntries:
-  - m_GUID: 6b4150c88f0ba40b7b27aff8deaed442
-    m_Address: EnduranceFocusedAthleteConfig
+  - m_GUID: 06c7bf6db2ca443fba22e4f8c167f069
+    m_Address: EnduranceFocusedAthleteVisualsConfig
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7af04395adcd343109b4b75c3f10e149
-    m_Address: StrengthFocusedAthleteConfig
+  - m_GUID: 1fa52e62929974c068ecf52126c11565
+    m_Address: BalancedAthleteVisualsConfig
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d6b348daf6df8433ea4de2abdbe91516
-    m_Address: BalancedAthleteConfig
+  - m_GUID: 85351f5c80e0242909489d0e04e30138
+    m_Address: AthleteTypeVisualsDatabase
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 94d26a68b01cc4668bdd91e5e04cac0e
+    m_Address: StrengthFocusedAthleteVisualsConfig
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

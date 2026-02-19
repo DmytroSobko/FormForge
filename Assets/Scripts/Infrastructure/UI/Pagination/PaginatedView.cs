@@ -16,7 +16,7 @@ namespace FormForge.Infrastructure.UI.Pagination
         [SerializeField] private PageAnimator m_Animator;
         [SerializeField] private int m_PageSize;
 
-        private IDataProvider<TItemViewModel> m_DataProvider;
+        private IPaginatedDataProvider<TItemViewModel> m_PaginatedDataProvider;
         private ItemPool<TItemPresenter> m_Pool;
 
         protected TItemPresenter m_ItemPrefab;
@@ -25,19 +25,18 @@ namespace FormForge.Infrastructure.UI.Pagination
         private int m_TotalPages;
         private int m_TotalItemCount;
         
-        public void Initialize(IDataProvider<TItemViewModel> provider, GameObject itemPrefab, 
-            string noContentMessage = "")
+        public void Initialize(IPaginatedDataProvider<TItemViewModel> provider, GameObject itemPrefab)
         {
-            m_DataProvider = provider;
+            m_PaginatedDataProvider = provider;
             m_ItemPrefab = itemPrefab.GetComponent<TItemPresenter>();
             
-            if (m_DataProvider.Items.Count == 0)
+            if (m_PaginatedDataProvider.Items.Count == 0)
             {
                 m_NextButton.gameObject.SetActive(false);
                 m_PrevButton.gameObject.SetActive(false);
                 m_PageIndicatorText.gameObject.SetActive(false);
                 m_NoContentText.gameObject.SetActive(true);
-                m_NoContentText.text = noContentMessage;
+                m_NoContentText.text = m_PaginatedDataProvider.NoContentMessage;
             }
             else
             {
@@ -67,7 +66,7 @@ namespace FormForge.Infrastructure.UI.Pagination
 
         private void LoadPage(int pageIndex)
         {
-            PageResult<TItemViewModel> result = m_DataProvider.GetPage(pageIndex, m_PageSize);
+            PageResult<TItemViewModel> result = m_PaginatedDataProvider.GetPage(pageIndex, m_PageSize);
 
             m_TotalItemCount = result.TotalItemCount;
             m_TotalPages = Mathf.CeilToInt((float) m_TotalItemCount / m_PageSize);
@@ -81,7 +80,7 @@ namespace FormForge.Infrastructure.UI.Pagination
                 foreach (var itemData in result.Items)
                 {
                     var item = m_Pool.Get();
-                    item.Bind(itemData);
+                    item.Initialize(itemData);
                 }
 
                 m_CurrentPage = pageIndex;

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using FormForge.Domain.Athletes;
+using FormForge.Domain.Simulation;
+using FormForge.Domain.TrainingPlans;
 using FormForge.Infrastructure.Services;
-using FormForge.Runtime.Models.Athletes;
-using FormForge.Runtime.Models.Simulation;
-using FormForge.Runtime.Models.TrainingPlans;
 using FormForge.Services.ConfigsService;
 using UnityEngine;
 

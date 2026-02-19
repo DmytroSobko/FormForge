@@ -7,7 +7,7 @@ using FormForge.Infrastructure.Services.SceneService;
 using FormForge.Infrastructure.UI.LoadingOverlay.Messages;
 using FormForge.Infrastructure.UI.Screens.Messages;
 using FormForge.UI.FrontendStateMachine.Payloads;
-using FormForge.UI.Screens.Models;
+using FormForge.UI.Screens.ViewModels;
 
 namespace FormForge.UI.FrontendStateMachine.States
 {

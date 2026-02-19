@@ -1,8 +1,8 @@
 namespace FormForge.Infrastructure.UI.Pagination
 {
-    public interface IPaginatedItemPresenter<in TItemViewModel> 
+    public interface IPaginatedItemPresenter<in TItemViewModel> : IPresenter
         where TItemViewModel : IPaginatedItemViewModel
     {
-        void Bind(TItemViewModel viewModel);
+        void Initialize(TItemViewModel viewModel);
     }
 }

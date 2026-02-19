@@ -1,13 +1,13 @@
 using System;
+using FormForge.Infrastructure.UI.Screens.ViewModels;
 
 namespace FormForge.Infrastructure.UI.Selection
 {
-    public interface ISelectableItem<T>
+    public interface ISelectableItem<out T> where T : IItemViewModel
     {
-        T Value { get; }
-        bool IsSelected { get; }
-
-        event Action<ISelectableItem<T>> OnSelected;
+        T ViewModel { get; }
+        
+        event Action<ISelectableItem<T>> ItemSelected;
 
         void SetSelected(bool selected);
     }

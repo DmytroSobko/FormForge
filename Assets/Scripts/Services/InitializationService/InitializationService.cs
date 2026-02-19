@@ -10,6 +10,7 @@ using FormForge.Infrastructure.Services.HttpClientService;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Infrastructure.UI.LoadingOverlay.Messages;
 using FormForge.Services.ConfigsService;
+using FormForge.Services.VisualsService;
 using UnityEngine;
 using ILogger = FormForge.Infrastructure.Logging.ILogger;
 
@@ -20,6 +21,7 @@ namespace FormForge.Services.InitializationService
         private readonly IHttpClientService m_HttpClient;
         private readonly IConfigsService m_ConfigService;
         private readonly IMessageService m_MessageService;
+        private readonly IVisualsService m_VisualsService;
 
         private ILogger m_Logger = new UnityLogger(nameof(InitializationService));
         
@@ -34,14 +36,15 @@ namespace FormForge.Services.InitializationService
             m_HttpClient = ServiceLocator.GetService<IHttpClientService>();
             m_ConfigService = ServiceLocator.GetService<IConfigsService>();
             m_MessageService = ServiceLocator.GetService<IMessageService>();
+            m_VisualsService = ServiceLocator.GetService<IVisualsService>();
         }
 
         public async UniTask Initialize()
         {
+            m_Logger?.Log("Starting Initialize");
+
             m_MessageService.Send(new LoadingOverlayShowMessage());
             
-            m_Logger?.Log("AssetManagementService Initialization");
-
             IAddressableAssetLoader assetLoader = new AddressableAssetLoader();
             await assetLoader.InitializeAsync();
             
@@ -52,20 +55,19 @@ namespace FormForge.Services.InitializationService
             ServiceLocator.RegisterSingletonService(assetManagementService);
 
             m_MessageService.Send(new LoadingOverlaySetProgressMessage(0.35f));
-
-            m_Logger?.Log($"SetBaseApiUrl {EnvironmentConfig.ApiBaseUrl}");
-
             m_HttpClient.SetBaseApiUrl(EnvironmentConfig.ApiBaseUrl);
             
             m_MessageService.Send(new LoadingOverlaySetProgressMessage(0.5f));
+            
+            await m_VisualsService.InitializeAsync();
+            
+            m_MessageService.Send(new LoadingOverlaySetProgressMessage(0.65f));
 
-            m_Logger?.Log("LoadConfigsAsync Started");
-            
             await m_ConfigService.LoadConfigsAsync();
-            
-            m_Logger?.Log("LoadConfigsAsync Ended");
-            
+
             m_MessageService.Send(new LoadingOverlaySetProgressMessage(0.75f));
+            
+            m_Logger?.Log("Starting Ended");
         }
     }
 }

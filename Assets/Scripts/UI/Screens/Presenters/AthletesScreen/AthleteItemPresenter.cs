@@ -1,12 +1,5 @@
-using Cysharp.Threading.Tasks;
-using FormForge.AssetManagement;
-using FormForge.AssetManagement.AssetPolicy;
-using FormForge.Domain;
-using FormForge.Infrastructure.AssetManagementService;
-using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.UI.Pagination;
-using FormForge.ScriptableObjects.Athletes;
-using FormForge.UI.Screens.Models.AthletesScreen;
+using FormForge.UI.Screens.ViewModels.AthletesScreen;
 using FormForge.UI.Screens.Views.AthletesScreen;
 using UnityEngine;
 
@@ -15,34 +8,26 @@ namespace FormForge.UI.Screens.Presenters.AthletesScreen
     public class AthleteItemPresenter : MonoBehaviour, IPaginatedItemPresenter<AthleteItemViewModel>
     {
         [SerializeField] private AthleteItemView m_AthleteItemView;
+
+        public void Initialize(AthleteItemViewModel viewModel)
+        {
+            AddListeners();
+            m_AthleteItemView.Bind(viewModel);
+        }
+
+        private void OnDestroy()
+        {
+            RemoveListeners();
+        }
+
+        private void AddListeners()
+        {
+            m_AthleteItemView.ItemClicked += OnItemClicked;
+        }
         
-        public async void Bind(AthleteItemViewModel viewModel)
+        private void RemoveListeners()
         {
-            Sprite athleteIcon = await LoadAthleteIcon(viewModel.AthleteType);
-            
-            m_AthleteItemView.InitView(viewModel, athleteIcon, OnItemClicked);
-        }
-
-        private async UniTask<Sprite> LoadAthleteIcon(EAthleteType athleteType)
-        {
-            BasicAssetPolicy policy = new BasicAssetPolicy(GetAthleteConfigAddress(athleteType));
-            AthleteDefinitionSO athleteDef = await ServiceLocator.GetService<IAssetManagementService>().
-                LoadAsync<AthleteDefinitionSO, UIContext>(policy);
-            
-            return athleteDef.Icon;
-        }
-
-        private string GetAthleteConfigAddress(EAthleteType athleteType)
-        {
-            string address = athleteType switch
-            {
-                EAthleteType.Balanced => AddressKeys.Configs.BalancedAthlete,
-                EAthleteType.EnduranceFocused => AddressKeys.Configs.EnduranceFocusedAthlete,
-                EAthleteType.StrengthFocused => AddressKeys.Configs.StrengthFocusedAthlete,
-                _ => string.Empty
-            };
-
-            return address;
+            m_AthleteItemView.ItemClicked -= OnItemClicked;
         }
 
         private void OnItemClicked()

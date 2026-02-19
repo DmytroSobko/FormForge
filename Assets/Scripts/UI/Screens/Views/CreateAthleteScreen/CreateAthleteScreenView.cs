@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
-using FormForge.Domain;
 using FormForge.Infrastructure.UI.Screens.Views;
-using FormForge.Infrastructure.UI.Selection;
-using FormForge.Runtime.Models.Athletes;
+using FormForge.UI.Screens.ViewModels.CreateAthleteScreen;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,51 +15,33 @@ namespace FormForge.UI.Screens.Views.CreateAthleteScreen
         [SerializeField] private Button m_CreateButton;
 
         private Action m_OnCreateClicked;
-        private GameObject m_ItemPrefab;
+        private GameObject m_AthleteTypeItemPrefab;
 
-        private readonly SingleSelectionController<AthleteType> m_SelectionController 
-            = new SingleSelectionController<AthleteType>();
+        public event Action<string> OnCreateClicked;
         
         private void Awake()
         {
-            m_CreateButton.onClick.AddListener(OnCreateClicked);
+            m_CreateButton.onClick.AddListener(OnCreateButtonClicked);
         }
 
         private void OnDestroy()
         {
-            m_CreateButton.onClick.RemoveListener(OnCreateClicked);
+            m_CreateButton.onClick.RemoveListener(OnCreateButtonClicked);
         }
         
-        public void InitView(IReadOnlyDictionary<EAthleteType, AthleteType> athleteTypes,
-            GameObject itemPrefab, Action onCreateClicked)
+        public void Bind(CreateAthleteScreenViewModel viewModel)
         {
-            m_ItemPrefab = itemPrefab;
-            m_OnCreateClicked = onCreateClicked;
-
-            InitAthleteTypesScrollRect(athleteTypes);
+            m_AthleteTypeItemPrefab = viewModel.ItemPrefab;
         }
 
-        private void InitAthleteTypesScrollRect(IReadOnlyDictionary<EAthleteType, AthleteType> athleteTypes)
+        public GameObject CreateAthleteTypeItem()
         {
-            foreach (var athlete in athleteTypes.Values)
-            {
-                var item = Instantiate(m_ItemPrefab, m_ScrollRectContent).GetComponent<AthleteTypeItemView>();
-                item.Initialize(athlete);
-
-                m_SelectionController.Register(item);
-            }
-
-            m_SelectionController.OnSelectionChanged += OnAthleteSelected;
+            return Instantiate(m_AthleteTypeItemPrefab, m_ScrollRectContent);
         }
-        
-        private void OnAthleteSelected(AthleteType athleteType)
+
+        private void OnCreateButtonClicked()
         {
-            Debug.Log($"Selected: {athleteType.Type}");
-        }
-        
-        private void OnCreateClicked()
-        {
-            m_OnCreateClicked?.Invoke();
+            OnCreateClicked?.Invoke(m_AthleteName.text);
         }
     }
 }

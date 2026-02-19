@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using FormForge.Core.Networking;
-using FormForge.Domain;
+using FormForge.Core.Networking.AthleteTypeConfigs.Mapping;
+using FormForge.Core.Networking.Exercises.Mapping;
+using FormForge.Domain.Athletes;
+using FormForge.Domain.Exercises;
+using FormForge.Domain.Intensities;
+using FormForge.Domain.Simulation;
 using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.CacheService;
@@ -11,10 +16,6 @@ using FormForge.Infrastructure.Services.Enums;
 using FormForge.Infrastructure.Services.HttpClientService;
 using FormForge.Networking.Configs.DTO;
 using FormForge.Networking.Configs.Mapping;
-using FormForge.Runtime.Models.Athletes;
-using FormForge.Runtime.Models.Exercises;
-using FormForge.Runtime.Models.Intensities;
-using FormForge.Runtime.Models.Simulation;
 using UnityEngine;
 using ILogger = FormForge.Infrastructure.Logging.ILogger;
 
@@ -25,7 +26,7 @@ namespace FormForge.Services.ConfigsService
         private const string k_ConfigsCacheKey = "configs_all";
         private static readonly TimeSpan s_CacheLifetime = TimeSpan.FromHours(1);
 
-        public IReadOnlyDictionary<EAthleteType, AthleteType> AthleteTypes { get; private set; }
+        public IReadOnlyDictionary<EAthleteType, AthleteTypeConfig> AthleteTypes { get; private set; }
         public IReadOnlyDictionary<EExerciseType, Exercise> Exercises { get; private set; }
         public IReadOnlyDictionary<EIntensityType, Intensity> Intensities { get; private set; }
         public SimulationConfig SimulationConfig { get; private set; }
@@ -76,10 +77,10 @@ namespace FormForge.Services.ConfigsService
             m_Logger?.Log("Fetching configs from server (parallel)...");
 
             var athleteTask = m_HttpClientService
-                .GetAsync<AthleteTypesEnvelopeDto>(APIEndpoints.Configs.AthleteTypes);
+                .GetAsync<AthleteTypeConfigsEnvelopeDto>(APIEndpoints.Configs.AthleteTypes);
 
             var exerciseTask = m_HttpClientService
-                .GetAsync<ExercisesEnvelopeDto>(APIEndpoints.Configs.Exercises);
+                .GetAsync<ExerciseConfigsEnvelopeDto>(APIEndpoints.Configs.Exercises);
 
             var intensityTask = m_HttpClientService
                 .GetAsync<IntensityTypesEnvelopeDto>(APIEndpoints.Configs.Intensities);
@@ -97,11 +98,11 @@ namespace FormForge.Services.ConfigsService
             return new ConfigsCacheModel
             {
                 AthleteTypes = athleteTypesEnvelopeDto.AthleteTypes
-                    .Select(ConfigMapper.Map)
+                    .Select(AthleteTypeConfigMapper.Map)
                     .ToDictionary(x => x.Type),
 
                 Exercises = exercisesEnvelopeDto.Exercises
-                    .Select(ConfigMapper.Map)
+                    .Select(ExerciseConfigMapper.Map)
                     .ToDictionary(x => x.Type),
 
                 Intensities = intensityTypesEnvelopeDto.Intensities
@@ -112,7 +113,7 @@ namespace FormForge.Services.ConfigsService
             };
         }
         
-        public AthleteType GetAthleteType(EAthleteType type)
+        public AthleteTypeConfig GetAthleteType(EAthleteType type)
         {
             if (m_Configs.AthleteTypes.TryGetValue(type, out var result))
             {
