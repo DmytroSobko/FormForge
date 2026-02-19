@@ -1,10 +1,11 @@
-using Cysharp.Threading.Tasks;
+using FormForge.Domain.Athletes;
 using FormForge.Infrastructure.Services;
-using FormForge.Infrastructure.Services.MessageService.Interfaces;
-using FormForge.Infrastructure.UI.Screens.Models;
 using FormForge.Infrastructure.UI.Screens.Presenters;
-using FormForge.Services.ConfigsService;
-using FormForge.UI.Screens.Models;
+using FormForge.Infrastructure.UI.Screens.ViewModels;
+using FormForge.Infrastructure.UI.Selection;
+using FormForge.Networking.Athletes.Requests;
+using FormForge.Services.AthletesService;
+using FormForge.UI.Screens.ViewModels.CreateAthleteScreen;
 using FormForge.UI.Screens.Views.CreateAthleteScreen;
 using UnityEngine;
 
@@ -16,26 +17,72 @@ namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
         
         [SerializeField] private CreateAthleteScreenView m_View;
         
-        private IMessageService m_MessageService;
+        private IAthletesService m_AthletesService;
+        
+        private readonly SingleSelectionController<AthleteTypeItemViewModel> m_SelectionController 
+            = new SingleSelectionController<AthleteTypeItemViewModel>();
 
-        public override UniTask Initialize()
+        protected override void OnInitialize()
         {
-            m_MessageService = ServiceLocator.GetService<IMessageService>();
-            return base.Initialize();
-        }
-
-        public override async UniTask Configure(IScreenViewModel viewModel)
-        {
-            await base.Configure(viewModel);
-
-            IConfigsService configsService = ServiceLocator.GetService<IConfigsService>();
+            m_AthletesService = ServiceLocator.GetService<IAthletesService>();
             
-            m_View.InitView(configsService.AthleteTypes, TypedViewModel.ItemPrefab, OnCreateClicked);
+            AddListeners();
+            
+            base.OnInitialize();
+        }
+        
+        protected override void OnConfigure(IScreenViewModel viewModel)
+        {
+            m_View.Bind(TypedViewModel);
+            
+            foreach (var athlete in TypedViewModel.AthleteTypes.Values)
+            {
+                GameObject athleteTypeItem = m_View.CreateAthleteTypeItem();
+                AthleteTypeItemPresenter athleteTypeItemPresenter = 
+                    athleteTypeItem.GetComponent<AthleteTypeItemPresenter>();
+
+                Sprite athleteIcon = 
+                    TypedViewModel.AthleteTypeVisualsDatabase.Get(athlete.Type).Icon;
+                
+                AthleteTypeItemViewModel itemViewModel = new AthleteTypeItemViewModel(athlete, athleteIcon);
+                athleteTypeItemPresenter.Initialize(itemViewModel);
+
+                m_SelectionController.Register(athleteTypeItemPresenter);
+            }
+            
+            base.OnConfigure(viewModel);
+        }
+        
+        private void AddListeners()
+        {
+            m_SelectionController.OnSelectionChanged += OnAthleteSelected;
+            m_View.OnCreateClicked += OnCreateClicked;
+        }
+        
+        private void RemoveListeners()
+        {
+            m_SelectionController.OnSelectionChanged -= OnAthleteSelected;
+            m_View.OnCreateClicked -= OnCreateClicked;
         }
 
-        private void OnCreateClicked()
+        protected override void OnDispose()
         {
-            // m_MessageService.Send();
+            RemoveListeners();
+            base.OnDispose();
+        }
+
+        private async void OnCreateClicked(string athleteName)
+        {
+            EAthleteType athleteType = m_SelectionController.SelectedValue.AthleteTypeConfig.Type;
+            
+            Athlete response = await m_AthletesService.CreateAthlete(athleteType, athleteName);
+            
+            
+        }
+        
+        private void OnAthleteSelected(AthleteTypeItemViewModel viewModel)
+        {
+            Debug.Log($"Selected: {viewModel.AthleteTypeConfig}");
         }
     }
 }

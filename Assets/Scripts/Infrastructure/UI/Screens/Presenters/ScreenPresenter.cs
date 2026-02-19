@@ -3,7 +3,7 @@ using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Infrastructure.UI.Screens.Messages;
-using FormForge.Infrastructure.UI.Screens.Models;
+using FormForge.Infrastructure.UI.Screens.ViewModels;
 using UnityEngine;
 using UnityEngine.UI;
 using ILogger = FormForge.Infrastructure.Logging.ILogger;

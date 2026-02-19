@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
+using FormForge.Infrastructure.UI.Screens.ViewModels;
 
 namespace FormForge.Infrastructure.UI.Selection
 {
-    public class SingleSelectionController<T>
+    public class SingleSelectionController<T> where T : IItemViewModel
     {
         private readonly List<ISelectableItem<T>> m_Items = new List<ISelectableItem<T>>();
         private ISelectableItem<T> m_Current;
 
-        public T SelectedValue => m_Current != null ? m_Current.Value : default;
+        public T SelectedValue => m_Current != null ? m_Current.ViewModel : default;
         public bool HasSelection => m_Current != null;
 
         public event Action<T> OnSelectionChanged;
@@ -16,12 +17,12 @@ namespace FormForge.Infrastructure.UI.Selection
         public void Register(ISelectableItem<T> item)
         {
             m_Items.Add(item);
-            item.OnSelected += HandleSelection;
+            item.ItemSelected += OnItemSelected;
         }
 
         public void Unregister(ISelectableItem<T> item)
         {
-            item.OnSelected -= HandleSelection;
+            item.ItemSelected -= OnItemSelected;
             m_Items.Remove(item);
 
             if (m_Current == item)
@@ -30,7 +31,7 @@ namespace FormForge.Infrastructure.UI.Selection
             }
         }
 
-        private void HandleSelection(ISelectableItem<T> selected)
+        private void OnItemSelected(ISelectableItem<T> selected)
         {
             if (m_Current == selected)
             {
@@ -42,7 +43,7 @@ namespace FormForge.Infrastructure.UI.Selection
             m_Current = selected;
             m_Current.SetSelected(true);
 
-            OnSelectionChanged?.Invoke(m_Current.Value);
+            OnSelectionChanged?.Invoke(m_Current.ViewModel);
         }
 
         public void ClearSelection()

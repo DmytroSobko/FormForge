@@ -1,5 +1,5 @@
 using System;
-using FormForge.UI.Screens.Models.AthletesScreen;
+using FormForge.UI.Screens.ViewModels.AthletesScreen;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,28 +12,26 @@ namespace FormForge.UI.Screens.Views.AthletesScreen
         [SerializeField] private TextMeshProUGUI m_AthleteName;
         [SerializeField] private Button m_ItemButton;
 
-        private Action m_OnItemClicked;
+        public event Action ItemClicked;
 
         private void Awake()
         {
-          //  m_ItemButton.onClick.AddListener(OnItemPressed);
+            m_ItemButton.onClick.AddListener(OnItemClicked);
         }
 
         private void OnDestroy()
-        {
-          //  m_ItemButton.onClick.RemoveListener(OnItemPressed);
+        { 
+            m_ItemButton.onClick.RemoveListener(OnItemClicked);
         }
 
-        public void InitView(AthleteItemViewModel viewModel, Sprite athleteIcon, Action onItemClicked)
+        public void Bind(AthleteItemViewModel viewModel)
         {
-            m_AthleteIcon.sprite = athleteIcon;
             m_AthleteName.text = viewModel.AthleteName;
-            m_OnItemClicked = onItemClicked;
         }
 
-        private void OnItemPressed()
+        private void OnItemClicked()
         {
-            m_OnItemClicked?.Invoke();
+            ItemClicked?.Invoke();
         }
     }
 }

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
-using FormForge.Infrastructure.UI.Screens.Models;
+using FormForge.Infrastructure.UI.Screens.ViewModels;
 
 namespace FormForge.Infrastructure.UI.Screens.Presenters
 {

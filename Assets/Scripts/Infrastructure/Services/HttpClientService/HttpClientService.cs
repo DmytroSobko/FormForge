@@ -2,8 +2,11 @@ using System;
 using System.Net.Http;
 using System.Text;
 using Cysharp.Threading.Tasks;
+using FormForge.Core;
+using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.Services.Enums;
 using UnityEngine;
+using ILogger = FormForge.Infrastructure.Logging.ILogger;
 using JsonConvert = Newtonsoft.Json;
 
 namespace FormForge.Infrastructure.Services.HttpClientService
@@ -16,6 +19,8 @@ namespace FormForge.Infrastructure.Services.HttpClientService
         {
             Timeout = TimeSpan.FromSeconds(10)
         };
+        
+        private ILogger m_Logger = new UnityLogger(nameof(HttpClientService));
 
         private readonly JsonConvert.JsonSerializerSettings m_JsonSettings =
             new JsonConvert.JsonSerializerSettings
@@ -32,6 +37,8 @@ namespace FormForge.Infrastructure.Services.HttpClientService
         
         public void SetBaseApiUrl(string url)
         {
+            m_Logger?.Log($"SetBaseApiUrl {url}");
+
             BaseApiUrl = url;
         }
 

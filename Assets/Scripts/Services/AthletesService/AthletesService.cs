@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FormForge.Core.Networking;
+using FormForge.Domain.Athletes;
 using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.CacheService;
@@ -10,7 +11,6 @@ using FormForge.Infrastructure.Services.HttpClientService;
 using FormForge.Networking.Athletes.DTO;
 using FormForge.Networking.Athletes.Mapping;
 using FormForge.Networking.Athletes.Requests;
-using FormForge.Runtime.Models.Athletes;
 using UnityEngine;
 using ILogger = FormForge.Infrastructure.Logging.ILogger;
 
@@ -41,17 +41,18 @@ namespace FormForge.Services.AthletesService
         }
         
         //TODO come back to this later
-        public async UniTask<Athlete> CreateAthlete(CreateAthleteRequest request)
+        public async UniTask<Athlete> CreateAthlete(EAthleteType athleteType, string athleteName)
         {
             m_Logger?.Log("Creating a new athlete...");
 
-            var dto = await m_HttpClientService.PostAsync<CreateAthleteRequest, AthleteDto>(
-                APIEndpoints.Athletes.Base, request);
+            CreateAthleteRequestDto requestDto = new CreateAthleteRequestDto(athleteType, athleteName);
 
-            var athlete = AthletesMapper.Map(dto);
+            var dto = await m_HttpClientService.PostAsync<CreateAthleteRequestDto, AthleteDto>(
+                APIEndpoints.Athletes.Base, requestDto);
 
-            m_CacheService.Update<IReadOnlyDictionary<string, Athlete>>(
-                k_AthletesCacheKey,
+            var athlete = AthleteMapper.Map(dto);
+
+            m_CacheService.Update<IReadOnlyDictionary<string, Athlete>>(k_AthletesCacheKey,
                 dict =>
                 {
                     var newDict = new Dictionary<string, Athlete>(dict)
@@ -81,7 +82,7 @@ namespace FormForge.Services.AthletesService
             var response = await m_HttpClientService.GetAsync<AthletesEnvelopeDto>(
                 APIEndpoints.Athletes.Base);
 
-            var mapped = MapById(response.Athletes, AthletesMapper.Map);
+            var mapped = MapById(response.Athletes, AthleteMapper.Map);
             Athletes = mapped;
 
             return mapped;

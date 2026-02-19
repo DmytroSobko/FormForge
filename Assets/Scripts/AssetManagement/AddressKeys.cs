@@ -2,13 +2,6 @@ namespace FormForge.AssetManagement
 {
     public static class AddressKeys
     {
-        public static class Configs
-        {
-            public const string BalancedAthlete = "BalancedAthleteConfig";
-            public const string EnduranceFocusedAthlete = "EnduranceFocusedAthleteConfig";
-            public const string StrengthFocusedAthlete = "StrengthFocusedAthleteConfig";
-        }
-        
         public static class UI
         {
             public static class AthletesScreen
@@ -19,6 +12,15 @@ namespace FormForge.AssetManagement
             public static class CreateAthleteScreen
             {
                 public const string AthleteTypeItemView = "AthleteTypeItemView";
+            }
+        }
+        
+        public static class ScriptableObjects
+        {
+            public static class VisualDatabases
+            {
+                public const string AthleteTypeVisualsDatabase = "AthleteTypeVisualsDatabase";
+                public const string ExerciseVisualsDatabase = "ExerciseVisualsDatabase";
             }
         }
     }

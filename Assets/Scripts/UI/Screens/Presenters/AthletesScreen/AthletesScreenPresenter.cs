@@ -1,12 +1,10 @@
-using Cysharp.Threading.Tasks;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
-using FormForge.Infrastructure.UI.Screens.Models;
 using FormForge.Infrastructure.UI.Screens.Presenters;
+using FormForge.Infrastructure.UI.Screens.ViewModels;
 using FormForge.UI.FrontendStateMachine;
 using FormForge.UI.FrontendStateMachine.Messages;
-using FormForge.UI.Screens.Models.AthletesScreen;
-using FormForge.UI.Screens.Pagination.DataProviders;
+using FormForge.UI.Screens.ViewModels.AthletesScreen;
 using FormForge.UI.Screens.Views.AthletesScreen;
 using UnityEngine;
 
@@ -14,26 +12,41 @@ namespace FormForge.UI.Screens.Presenters.AthletesScreen
 {
     public class AthletesScreenPresenter : ScreenPresenter
     {
-        private const string k_NoContentMessage = "No athletes have been created yet.";
-
         private AthletesScreenViewModel TypedViewModel => (AthletesScreenViewModel) ViewModel;
         
         [SerializeField] private AthletesScreenView m_View;
         private IMessageService m_MessageService;
-        
-        public override UniTask Initialize()
+
+        protected override void OnInitialize()
         {
             m_MessageService = ServiceLocator.GetService<IMessageService>();
-            return base.Initialize();
+
+            AddListeners();
+            
+            base.OnInitialize();
         }
 
-        public override async UniTask Configure(IScreenViewModel viewModel)
+        protected override void OnConfigure(IScreenViewModel viewModel)
         {
-            await base.Configure(viewModel);
+            m_View.Bind(TypedViewModel);
 
-            AthletesDataProvider dataProvider = new AthletesDataProvider(TypedViewModel.Athletes);
-            
-            m_View.InitView(dataProvider, TypedViewModel.ItemPrefab, OnCreateClicked, k_NoContentMessage);
+            base.OnConfigure(viewModel);
+        }
+
+        private void AddListeners()
+        {
+            m_View.CreateButtonClicked += OnCreateClicked;
+        }
+        
+        private void RemoveListeners()
+        {
+            m_View.CreateButtonClicked -= OnCreateClicked;
+        }
+
+        protected override void OnDispose()
+        {
+            RemoveListeners();
+            base.OnDispose();
         }
 
         private void OnCreateClicked()
