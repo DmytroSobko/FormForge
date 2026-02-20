@@ -1,4 +1,4 @@
-namespace FormForge.Networking.Athletes.DTO
+namespace FormForge.Networking.Common.DTO
 {
     public enum EStatTypeDto
     {

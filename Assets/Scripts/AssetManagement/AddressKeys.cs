@@ -4,14 +4,17 @@ namespace FormForge.AssetManagement
     {
         public static class UI
         {
-            public static class AthletesScreen
+            public static class Screens
             {
-                public const string AthleteItemView = "AthleteItemView";
-            }
-            
-            public static class CreateAthleteScreen
-            {
-                public const string AthleteTypeItemView = "AthleteTypeItemView";
+                public const string MainMenuScreen = "MainMenuScreen";
+                public const string AthletesScreen = "AthletesScreen";
+                public const string CreateAthleteScreen = "CreateAthleteScreen";
+                
+                public static class Components
+                {
+                    public const string AthleteItemView = "AthleteItemView";
+                    public const string AthleteTypeItemView = "AthleteTypeItemView";
+                }
             }
         }
         

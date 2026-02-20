@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace FormForge.Networking.Configs.DTO
+namespace FormForge.Networking.Exercises.DTO
 {
     [System.Serializable]
     public class ExerciseConfigsEnvelopeDto

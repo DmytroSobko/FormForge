@@ -1,8 +1,8 @@
-using FormForge.Core.Networking.AthleteTypes.Mapping;
 using FormForge.Domain.Athletes;
-using FormForge.Networking.Configs.DTO;
+using FormForge.Networking.AthleteTypeConfigs.DTO;
+using FormForge.Networking.Common.Mapping;
 
-namespace FormForge.Core.Networking.AthleteTypeConfigs.Mapping
+namespace FormForge.Networking.AthleteTypeConfigs.Mapping
 {
     public static class AthleteTypeConfigMapper
     {

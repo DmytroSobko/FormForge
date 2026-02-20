@@ -2,9 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using FormForge.Core.Networking;
-using FormForge.Core.Networking.AthleteTypeConfigs.Mapping;
-using FormForge.Core.Networking.Exercises.Mapping;
 using FormForge.Domain.Athletes;
 using FormForge.Domain.Exercises;
 using FormForge.Domain.Intensities;
@@ -14,8 +11,15 @@ using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.CacheService;
 using FormForge.Infrastructure.Services.Enums;
 using FormForge.Infrastructure.Services.HttpClientService;
-using FormForge.Networking.Configs.DTO;
-using FormForge.Networking.Configs.Mapping;
+using FormForge.Networking.AthleteTypeConfigs.DTO;
+using FormForge.Networking.AthleteTypeConfigs.Mapping;
+using FormForge.Networking.Exercises.DTO;
+using FormForge.Networking.Exercises.Mapping;
+using FormForge.Networking.Intensities.DTO;
+using FormForge.Networking.Intensities.Mapping;
+using FormForge.Networking.Simulation.DTO;
+using FormForge.Networking.Simulation.Mapping;
+using FormForge.Networking;
 using UnityEngine;
 using ILogger = FormForge.Infrastructure.Logging.ILogger;
 
@@ -83,7 +87,7 @@ namespace FormForge.Services.ConfigsService
                 .GetAsync<ExerciseConfigsEnvelopeDto>(APIEndpoints.Configs.Exercises);
 
             var intensityTask = m_HttpClientService
-                .GetAsync<IntensityTypesEnvelopeDto>(APIEndpoints.Configs.Intensities);
+                .GetAsync<IntensityTypeConfigsEnvelopeDto>(APIEndpoints.Configs.Intensities);
 
             var simulationTask = m_HttpClientService
                 .GetAsync<SimulationConfigEnvelopeDto>(APIEndpoints.Configs.SimulationConfig);
@@ -106,10 +110,10 @@ namespace FormForge.Services.ConfigsService
                     .ToDictionary(x => x.Type),
 
                 Intensities = intensityTypesEnvelopeDto.Intensities
-                    .Select(ConfigMapper.Map)
+                    .Select(IntensityTypeConfigMapper.Map)
                     .ToDictionary(x => x.Type),
 
-                Simulation = ConfigMapper.Map(simulationConfigEnvelopeDto.Simulation)
+                Simulation = SimulationConfigMapping.Map(simulationConfigEnvelopeDto.Simulation)
             };
         }
         

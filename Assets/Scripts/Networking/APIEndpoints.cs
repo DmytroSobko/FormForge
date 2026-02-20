@@ -1,4 +1,4 @@
-namespace FormForge.Core.Networking
+namespace FormForge.Networking
 {
     public static class APIEndpoints
     {

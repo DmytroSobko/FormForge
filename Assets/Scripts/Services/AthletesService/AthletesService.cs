@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using FormForge.Core.Networking;
 using FormForge.Domain.Athletes;
 using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.CacheService;
 using FormForge.Infrastructure.Services.Enums;
 using FormForge.Infrastructure.Services.HttpClientService;
+using FormForge.Networking;
 using FormForge.Networking.Athletes.DTO;
 using FormForge.Networking.Athletes.Mapping;
 using FormForge.Networking.Athletes.Requests;
