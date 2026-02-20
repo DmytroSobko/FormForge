@@ -1,7 +1,7 @@
 using System;
-using FormForge.Core.Networking.AthleteTypes.Mapping;
 using FormForge.Domain.Athletes;
-using FormForge.Networking.Athletes.DTO;
+using FormForge.Networking.Common.DTO;
+using FormForge.Networking.Common.Mapping;
 
 namespace FormForge.Networking.Athletes.Requests
 {

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using FormForge.Domain;
-using FormForge.Networking.Athletes.DTO;
+using FormForge.Networking.Common.DTO;
 
-namespace FormForge.Core.Networking.AthleteTypes.Mapping
+namespace FormForge.Networking.Common.Mapping
 {
     public static class EStatTypeMapper
     {

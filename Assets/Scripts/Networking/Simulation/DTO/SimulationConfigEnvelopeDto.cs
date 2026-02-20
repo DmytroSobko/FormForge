@@ -1,6 +1,6 @@
 using System;
 
-namespace FormForge.Networking.Configs.DTO
+namespace FormForge.Networking.Simulation.DTO
 {
     [Serializable]
     public class SimulationConfigEnvelopeDto

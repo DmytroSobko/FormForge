@@ -1,8 +1,9 @@
-using FormForge.Networking.Athletes.DTO;
+using System;
+using FormForge.Networking.Common.DTO;
 
-namespace FormForge.Networking.Configs.DTO
+namespace FormForge.Networking.AthleteTypeConfigs.DTO
 {
-    [System.Serializable]
+    [Serializable]
     public class AthleteTypeConfigDto
     {
         public EAthleteTypeDto Type;

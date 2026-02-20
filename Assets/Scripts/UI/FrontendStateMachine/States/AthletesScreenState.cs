@@ -56,7 +56,7 @@ namespace FormForge.UI.FrontendStateMachine.States
 
         private async UniTask<GameObject> LoadItemPrefab()
         {
-            BasicAssetPolicy policy = new BasicAssetPolicy(AddressKeys.UI.AthletesScreen.AthleteItemView);
+            BasicAssetPolicy policy = new BasicAssetPolicy(AddressKeys.UI.Screens.Components.AthleteItemView);
             return await ServiceLocator.GetService<IAssetManagementService>().
                 LoadAsync<GameObject, UIContext>(policy);
         }

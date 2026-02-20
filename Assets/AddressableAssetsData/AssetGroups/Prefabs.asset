@@ -35,6 +35,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9038c06025c9d48ba96845d2d5ddc811
+    m_Address: CreateAthleteScreen
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cf15ccfd4d7644f73a7bb75fd08a1945
+    m_Address: AthleteTypeItemView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e44f7d75ddd36400985f9309e5d46ef5
     m_Address: AthletesScreen
     m_ReadOnly: 0

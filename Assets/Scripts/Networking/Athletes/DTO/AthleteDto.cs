@@ -1,3 +1,5 @@
+using FormForge.Networking.Common.DTO;
+
 namespace FormForge.Networking.Athletes.DTO
 {
     [System.Serializable]

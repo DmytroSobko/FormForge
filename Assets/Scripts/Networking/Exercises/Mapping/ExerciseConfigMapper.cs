@@ -1,8 +1,8 @@
-using FormForge.Core.Networking.AthleteTypes.Mapping;
 using FormForge.Domain.Exercises;
-using FormForge.Networking.Configs.DTO;
+using FormForge.Networking.Common.Mapping;
+using FormForge.Networking.Exercises.DTO;
 
-namespace FormForge.Core.Networking.Exercises.Mapping
+namespace FormForge.Networking.Exercises.Mapping
 {
     public static class ExerciseConfigMapper
     {
@@ -19,7 +19,7 @@ namespace FormForge.Core.Networking.Exercises.Mapping
                 BaseGain = configDto.BaseGain,
                 FatigueCost = configDto.FatigueCost,
                 DurationMinutes = configDto.DurationMinutes,
-                //AllowedIntensities = MapIntensityTypes(configDto.AllowedIntensities)
+                AllowedIntensities = EIntensityTypeMapper.ToDomain(configDto.AllowedIntensities)
             };
         }
     }

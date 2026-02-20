@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
-using FormForge.Networking.Athletes.DTO;
+using FormForge.Networking.Common.DTO;
 
-namespace FormForge.Networking.Configs.DTO
+namespace FormForge.Networking.Exercises.DTO
 {
-    [System.Serializable]
+    [Serializable]
     public class ExerciseConfigDto
     {
         public EExerciseTypeDto Type;
@@ -15,6 +16,6 @@ namespace FormForge.Networking.Configs.DTO
         public float BaseGain;
         public float FatigueCost;
         public int DurationMinutes;
-        public List<string> AllowedIntensities;
+        public HashSet<EIntensityTypeDto> AllowedIntensities;
     }
 }
