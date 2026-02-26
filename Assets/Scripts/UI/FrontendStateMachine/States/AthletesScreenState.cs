@@ -3,7 +3,6 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using FormForge.AssetManagement;
 using FormForge.AssetManagement.AssetPolicy;
-using FormForge.Domain.Athletes;
 using FormForge.Infrastructure.AssetManagementService;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
@@ -23,29 +22,24 @@ namespace FormForge.UI.FrontendStateMachine.States
         public async UniTask EnterAsync()
         {
             var messageService = ServiceLocator.GetService<IMessageService>();
-            var athletesService = ServiceLocator.GetService<IAthletesService>();
 
             messageService.Send(new LoadingOverlayShowMessage());
+            messageService.Send(new LoadingOverlaySetProgressMessage(0.3f));
 
+            var athletesService = ServiceLocator.GetService<IAthletesService>();
             var getAthletesTask = athletesService.GetAthletes();
             var loadItemPrefabTask = LoadItemPrefab();
 
-            messageService.Send(new LoadingOverlaySetProgressMessage(0.3f));
+            var (athletes, itemPrefab) =
+                await UniTask.WhenAll(getAthletesTask, loadItemPrefabTask);
 
-            await UniTask.WhenAll(loadItemPrefabTask, getAthletesTask);
-
-            messageService.Send(new LoadingOverlaySetProgressMessage(0.6f));
-
-            IReadOnlyList<Athlete> athletes = await getAthletesTask;
-            GameObject itemPrefab = await loadItemPrefabTask;
+            messageService.Send(new LoadingOverlaySetProgressMessage(0.7f));
 
             IReadOnlyList<AthleteItemViewModel> athleteViewModels = athletes.Select(a => 
                 new AthleteItemViewModel(a.Type, a.DisplayName)).ToList();
             
             AthletesPaginatedDataProvider paginatedDataProvider = 
                 new AthletesPaginatedDataProvider(athleteViewModels, k_NoContentMessage);
-
-            messageService.Send(new LoadingOverlaySetProgressMessage(0.8f));
             
             var screenViewModel = new AthletesScreenViewModel(paginatedDataProvider, itemPrefab);
             messageService.Send(new OpenScreenMessage(screenViewModel));

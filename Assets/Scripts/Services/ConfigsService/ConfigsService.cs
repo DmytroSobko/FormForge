@@ -92,12 +92,9 @@ namespace FormForge.Services.ConfigsService
             var simulationTask = m_HttpClientService
                 .GetAsync<SimulationConfigEnvelopeDto>(APIEndpoints.Configs.SimulationConfig);
 
-            await UniTask.WhenAll(athleteTask, exerciseTask, intensityTask, simulationTask);
-
-            var athleteTypesEnvelopeDto = await athleteTask;
-            var exercisesEnvelopeDto = await exerciseTask;
-            var intensityTypesEnvelopeDto = await intensityTask;
-            var simulationConfigEnvelopeDto = await simulationTask;
+            var (athleteTypesEnvelopeDto, exercisesEnvelopeDto,
+                    intensityTypesEnvelopeDto, simulationConfigEnvelopeDto) =
+                await UniTask.WhenAll(athleteTask, exerciseTask, intensityTask, simulationTask);
 
             return new ConfigsCacheModel
             {
@@ -117,7 +114,7 @@ namespace FormForge.Services.ConfigsService
             };
         }
         
-        public AthleteTypeConfig GetAthleteType(EAthleteType type)
+        public AthleteTypeConfig GetAthleteTypeConfig(EAthleteType type)
         {
             if (m_Configs.AthleteTypes.TryGetValue(type, out var result))
             {
@@ -127,7 +124,7 @@ namespace FormForge.Services.ConfigsService
             throw new KeyNotFoundException($"AthleteType {type} not found");
         }
 
-        public Exercise GetExercise(EExerciseType type)
+        public Exercise GetExerciseConfig(EExerciseType type)
         {
             if (m_Configs.Exercises.TryGetValue(type, out var result))
             {
@@ -137,7 +134,7 @@ namespace FormForge.Services.ConfigsService
             throw new KeyNotFoundException($"Exercise {type} not found");
         }
 
-        public Intensity GetIntensity(EIntensityType type)
+        public Intensity GetIntensityConfig(EIntensityType type)
         {
             if (m_Configs.Intensities.TryGetValue(type, out var result))
             {

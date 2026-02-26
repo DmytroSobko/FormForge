@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using FormForge.Domain.Athletes;
 using FormForge.Infrastructure.Logging;
@@ -21,7 +22,7 @@ namespace FormForge.Services.AthletesService
         private const string k_AthletesCacheKey = "athletes";
         private static readonly TimeSpan s_CacheLifetime = TimeSpan.FromMinutes(5);
 
-        public IReadOnlyDictionary<string, Athlete> Athletes { get; private set; }
+        public IReadOnlyList<Athlete> Athletes { get; private set; }
         
         private ILogger m_Logger = new UnityLogger(nameof(AthletesService));
 
@@ -72,17 +73,18 @@ namespace FormForge.Services.AthletesService
             var athletes = await m_CacheService.GetOrCreateAsync(
                 k_AthletesCacheKey, GetAthletesServer, s_CacheLifetime);
 
-            return new List<Athlete>(athletes.Values);
+            return athletes;
         }
 
-        private async UniTask<IReadOnlyDictionary<string, Athlete>> GetAthletesServer()
+        private async UniTask<IReadOnlyList<Athlete>> GetAthletesServer()
         {
+            return new List<Athlete>();
             m_Logger?.Log("Fetching athletes from server...");
 
             var response = await m_HttpClientService.GetAsync<AthletesEnvelopeDto>(
                 APIEndpoints.Athletes.Base);
 
-            var mapped = MapById(response.Athletes, AthleteMapper.Map);
+            IReadOnlyList<Athlete> mapped = response.Athletes.Select(AthleteMapper.Map).ToList();
             Athletes = mapped;
 
             return mapped;

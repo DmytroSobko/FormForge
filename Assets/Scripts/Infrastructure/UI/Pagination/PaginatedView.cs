@@ -19,7 +19,7 @@ namespace FormForge.Infrastructure.UI.Pagination
         private IPaginatedDataProvider<TItemViewModel> m_PaginatedDataProvider;
         private ItemPool<TItemPresenter> m_Pool;
 
-        protected TItemPresenter m_ItemPrefab;
+        private TItemPresenter m_ItemPrefab;
 
         private int m_CurrentPage;
         private int m_TotalPages;

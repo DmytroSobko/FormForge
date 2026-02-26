@@ -16,8 +16,8 @@ namespace FormForge.Services.ConfigsService
         
         UniTask LoadConfigsAsync();
 
-        AthleteTypeConfig GetAthleteType(EAthleteType type);
-        Exercise GetExercise(EExerciseType type);
-        Intensity GetIntensity(EIntensityType type);
+        AthleteTypeConfig GetAthleteTypeConfig(EAthleteType type);
+        Exercise GetExerciseConfig(EExerciseType type);
+        Intensity GetIntensityConfig(EIntensityType type);
     }
 }

@@ -11,9 +11,9 @@ namespace FormForge.UI.Screens.Views.CreateAthleteScreen
         [SerializeField] private Button m_ItemButton;
 
         [SerializeField] private Image m_AthleteTypeIcon;
-        [SerializeField] private Image m_BackgroundImage;
         [SerializeField] private TextMeshProUGUI m_AthleteTypeText;
 
+        [SerializeField] private Image m_BackgroundImage;
         [SerializeField] private GameObject m_SelectedIndicator;
         [SerializeField] private Color m_UnselectedColor;
         [SerializeField] private Color m_SelectedColor;
@@ -40,12 +40,12 @@ namespace FormForge.UI.Screens.Views.CreateAthleteScreen
         {
             if (selected)
             {
-                m_BackgroundImage.color = m_UnselectedColor;
+                m_BackgroundImage.color = m_SelectedColor;
                 m_SelectedIndicator.SetActive(true);
             }
             else
             {
-                m_BackgroundImage.color = m_SelectedColor;
+                m_BackgroundImage.color = m_UnselectedColor;
                 m_SelectedIndicator.SetActive(false);
             }
         }
