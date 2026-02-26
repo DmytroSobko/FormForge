@@ -1,29 +1,34 @@
+using FormForge.UI.Text;
+
 namespace FormForge.Helpers
 {
     public static class ValidationHelper
     {
+        private static readonly string s_NamePattern = @"^[\p{L}\p{N} _-]+$";
         public static string ValidateAthleteName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                return "Name cannot be empty.";
+                return UIStrings.CreateAthlete.Validation.NameEmpty;
             }
 
             name = name.Trim();
 
             if (name.Length < Constants.MinNameLength)
             {
-                return $"Name must be at least {Constants.MinNameLength} characters.";
+                return string.Format(UIStrings.CreateAthlete.Validation.NameTooShort, 
+                    Constants.MinNameLength);
             }
 
             if (name.Length > Constants.MaxNameLength)
             {
-                return $"Name cannot exceed {Constants.MaxNameLength} characters.";
+                return string.Format(UIStrings.CreateAthlete.Validation.NameTooLong,
+                    Constants.MaxNameLength);
             }
 
-            if (!System.Text.RegularExpressions.Regex.IsMatch(name, @"^[\p{L}\p{N} _-]+$"))
+            if (!System.Text.RegularExpressions.Regex.IsMatch(name, s_NamePattern))
             {
-                return "Name contains invalid characters.";
+                return UIStrings.CreateAthlete.Validation.NameInvalidCharacters;
             }
 
             return null;
