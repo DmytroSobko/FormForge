@@ -8,7 +8,7 @@ using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.Enums;
 using FormForge.Infrastructure.Services.HttpClientService;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
-using FormForge.Infrastructure.UI.LoadingOverlay.Messages;
+using FormForge.Infrastructure.UI.Overlays.LoadingOverlay.Messages;
 using FormForge.Services.ConfigsService;
 using FormForge.Services.VisualsService;
 using UnityEngine;

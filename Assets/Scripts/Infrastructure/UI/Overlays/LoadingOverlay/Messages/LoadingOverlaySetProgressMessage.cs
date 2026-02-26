@@ -1,4 +1,4 @@
-namespace FormForge.Infrastructure.UI.LoadingOverlay.Messages
+namespace FormForge.Infrastructure.UI.Overlays.LoadingOverlay.Messages
 {
     public class LoadingOverlaySetProgressMessage
     {

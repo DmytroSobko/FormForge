@@ -21,5 +21,11 @@ namespace FormForge.Infrastructure.UI.Screens.Views
             canvasGroup.alpha = 0f;
             gameObject.SetActive(false);
         }
+        
+        public virtual void SetInteractable(bool interactable)
+        {
+            canvasGroup.interactable = interactable;
+            canvasGroup.blocksRaycasts = interactable;
+        }
     }
 }

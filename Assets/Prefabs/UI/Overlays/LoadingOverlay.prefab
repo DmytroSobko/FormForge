@@ -428,5 +428,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FormForge.Infrastructure.UI.LoadingOverlay.LoadingOverlay
   m_CanvasGroup: {fileID: 2698260118143755767}
+  m_FadeDuration: 0.2
   m_ProgressFill: {fileID: 5728855227490610687}
-  m_FadeDuration: 0.1
