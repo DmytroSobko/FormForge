@@ -25,6 +25,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46f75dd7cf86a4692a62aaf3a7a492af
+    m_Address: ExerciseVisualsDatabase
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 85351f5c80e0242909489d0e04e30138
     m_Address: AthleteTypeVisualsDatabase
     m_ReadOnly: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FormForge.Domain.Intensities;
@@ -21,16 +22,51 @@ namespace FormForge.Networking.Common.Mapping
                 x.Value, x => x.Key);
 
         public static EIntensityTypeDto ToDto(EIntensityType domain)
-            => DomainToDto[domain];
+        {
+            if (DomainToDto.TryGetValue(domain, out var result))
+            {
+                return result;
+            }
+
+            throw new ArgumentOutOfRangeException(nameof(domain), domain, $"No DTO mapping defined for {domain}");
+        }
 
         public static EIntensityType ToDomain(EIntensityTypeDto dto)
-            => DtoToDomain[dto];
+        {
+            if (DtoToDomain.TryGetValue(dto, out var result))
+                return result;
 
+            throw new ArgumentOutOfRangeException(nameof(dto), dto, $"No Domain mapping defined for {dto}");
+        }
 
         public static HashSet<EIntensityTypeDto> ToDto(HashSet<EIntensityType> domain)
-            => domain.Select(ToDto).ToHashSet();
-        
+        {
+            if (domain == null || domain.Count == 0)
+            {
+                return new HashSet<EIntensityTypeDto>();
+            }
+
+            var result = new HashSet<EIntensityTypeDto>();
+            foreach (var item in domain)
+            {
+                result.Add(ToDto(item));
+            }
+            return result;
+        }
+
         public static HashSet<EIntensityType> ToDomain(HashSet<EIntensityTypeDto> dto)
-            => dto.Select(ToDomain).ToHashSet();
+        {
+            if (dto == null || dto.Count == 0)
+            {
+                return new HashSet<EIntensityType>();
+            }
+            
+            var result = new HashSet<EIntensityType>();
+            foreach (var item in dto)
+            {
+                result.Add(ToDomain(item));
+            }
+            return result;
+        }
     }
 }

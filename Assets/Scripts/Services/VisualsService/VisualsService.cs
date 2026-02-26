@@ -20,17 +20,11 @@ namespace FormForge.Services.VisualsService
         private ExerciseVisualsDatabase m_ExerciseVisualsDatabase;
 
         private readonly ILogger m_Logger = new UnityLogger(nameof(VisualsService));
-        private readonly IAssetManagementService m_AssetManagementService;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
         private static void RegisterSelf()
         {
             ServiceLocator.RegisterService<IVisualsService, VisualsService>(ServiceLifespan.LazySingleton);
-        }
-
-        public VisualsService()
-        {
-            m_AssetManagementService = ServiceLocator.GetService<IAssetManagementService>();
         }
 
         public async UniTask InitializeAsync()
@@ -43,10 +37,8 @@ namespace FormForge.Services.VisualsService
             var exerciseTask = LoadDatabaseAsync<ExerciseVisualsDatabase>(
                 AddressKeys.ScriptableObjects.VisualDatabases.ExerciseVisualsDatabase);
 
-            await UniTask.WhenAll(athleteTask, exerciseTask);
-
-            m_AthleteTypeVisualsDatabase = await athleteTask;
-            m_ExerciseVisualsDatabase = await exerciseTask;
+            (m_AthleteTypeVisualsDatabase, m_ExerciseVisualsDatabase) = 
+                await UniTask.WhenAll(athleteTask, exerciseTask);
 
             m_AthleteTypeVisualsDatabase.Initialize();
             m_ExerciseVisualsDatabase.Initialize();
@@ -57,8 +49,9 @@ namespace FormForge.Services.VisualsService
         private async UniTask<TDatabase> LoadDatabaseAsync<TDatabase>(string addressKey)
             where TDatabase : ScriptableObject
         {
+            IAssetManagementService assetManagementService = ServiceLocator.GetService<IAssetManagementService>();
             var policy = new BasicAssetPolicy(addressKey);
-            return await m_AssetManagementService.LoadAsync<TDatabase, UIContext>(policy);
+            return await assetManagementService.LoadAsync<TDatabase, UIContext>(policy);
         }
 
         public AthleteTypeVisualsConfig GetAthleteTypeVisuals(EAthleteType type)

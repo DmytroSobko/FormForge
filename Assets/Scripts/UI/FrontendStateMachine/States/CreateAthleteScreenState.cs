@@ -19,19 +19,15 @@ namespace FormForge.UI.FrontendStateMachine.States
         {
             var messageService = ServiceLocator.GetService<IMessageService>();
             messageService.Send(new LoadingOverlayShowMessage());
-            
+            messageService.Send(new LoadingOverlaySetProgressMessage(0.3f));
+
             var loadItemPrefabTask = LoadItemPrefab();
             var athleteTypeVisualsDatabaseTask = LoadAthleteTypeVisualsDatabase();
-
-            messageService.Send(new LoadingOverlaySetProgressMessage(0.3f));
-            
-            await UniTask.WhenAll(loadItemPrefabTask, athleteTypeVisualsDatabaseTask);
+            var (itemPrefab, athleteTypeVisualsDatabase) = 
+                await UniTask.WhenAll(loadItemPrefabTask, athleteTypeVisualsDatabaseTask);
 
             messageService.Send(new LoadingOverlaySetProgressMessage(0.7f));
 
-            GameObject itemPrefab = await loadItemPrefabTask;
-            AthleteTypeVisualsDatabase athleteTypeVisualsDatabase = await athleteTypeVisualsDatabaseTask;
-            
             var configsService = ServiceLocator.GetService<IConfigsService>();
             var screenViewModel = new CreateAthleteScreenViewModel(itemPrefab,
                 configsService.AthleteTypes, athleteTypeVisualsDatabase);
