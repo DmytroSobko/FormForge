@@ -10,9 +10,9 @@ using FormForge.Infrastructure.UI.Screens.Presenters;
 using FormForge.Infrastructure.UI.Screens.ViewModels;
 using FormForge.Infrastructure.UI.Selection;
 using FormForge.Services.AthletesService;
-using FormForge.Services.ConfigsService;
 using FormForge.UI.Screens.ViewModels.CreateAthleteScreen;
 using FormForge.UI.Screens.Views.CreateAthleteScreen;
+using FormForge.UI.Text;
 using UnityEngine;
 
 namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
@@ -22,16 +22,15 @@ namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
         private CreateAthleteScreenViewModel TypedViewModel => (CreateAthleteScreenViewModel) ViewModel;
         
         [SerializeField] private CreateAthleteScreenView m_View;
-        
-        private IAthletesService m_AthletesService;
-        
+
         private readonly SingleSelectionController<AthleteTypeItemViewModel> m_SelectionController 
             = new SingleSelectionController<AthleteTypeItemViewModel>();
 
-        private UnityLogger m_Logger = new UnityLogger(nameof(ConfigsService));
+        private UnityLogger m_Logger = new UnityLogger(nameof(CreateAthleteScreenPresenter));
         
         private IMessageService m_MessageService;
-
+        private IAthletesService m_AthletesService;
+        
         protected override void OnInitialize()
         {
             m_MessageService = ServiceLocator.GetService<IMessageService>();
@@ -52,9 +51,7 @@ namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
                 AthleteTypeItemPresenter athleteTypeItemPresenter = 
                     athleteTypeItem.GetComponent<AthleteTypeItemPresenter>();
 
-                Sprite athleteIcon = 
-                    TypedViewModel.AthleteTypeVisualsDatabase.Get(athlete.Type).Icon;
-                
+                Sprite athleteIcon = TypedViewModel.AthleteTypeVisualsDatabase.Get(athlete.Type).Icon;
                 AthleteTypeItemViewModel itemViewModel = new AthleteTypeItemViewModel(athlete, athleteIcon);
                 athleteTypeItemPresenter.Initialize(itemViewModel);
 
@@ -93,13 +90,13 @@ namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
             
             if (m_SelectionController.SelectedValue == null)
             {
-                m_MessageService.Send(new ErrorOverlayShowMessage("Please select an athlete type."));
+                m_MessageService.Send(new ErrorOverlayShowMessage(UIStrings.CreateAthlete.SelectAthleteType));
                 return;
             }
             
             EAthleteType athleteType = m_SelectionController.SelectedValue.AthleteTypeConfig.Type;
             m_View.SetInteractable(false);
-            m_MessageService.Send(new ProcessingOverlayShowMessage("Creating an athlete..."));
+            m_MessageService.Send(new ProcessingOverlayShowMessage(UIStrings.CreateAthlete.Creating));
 
             try
             {
@@ -109,7 +106,8 @@ namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
             }
             catch (Exception e)
             {
-                m_MessageService.Send(new ErrorOverlayShowMessage($"Failed to create athlete.\n Error {e.Message}"));
+                string errorMessage = string.Format(UIStrings.CreateAthlete.FailedWithError, e.Message);
+                m_MessageService.Send(new ErrorOverlayShowMessage(errorMessage));
             }
             finally
             {
