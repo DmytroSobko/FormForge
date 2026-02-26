@@ -4,7 +4,7 @@ using FormForge.AssetManagement.AssetPolicy;
 using FormForge.Infrastructure.AssetManagementService;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
-using FormForge.Infrastructure.UI.LoadingOverlay.Messages;
+using FormForge.Infrastructure.UI.Overlays.LoadingOverlay.Messages;
 using FormForge.Infrastructure.UI.Screens.Messages;
 using FormForge.ScriptableObjects.Athletes;
 using FormForge.Services.ConfigsService;
