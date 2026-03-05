@@ -1,19 +1,22 @@
 using System;
 using FormForge.Domain.Athletes;
-using FormForge.Networking.Common.DTO;
 using FormForge.Networking.Common.Mapping;
+using Newtonsoft.Json;
 
 namespace FormForge.Networking.Athletes.Requests
 {
     [Serializable]
     public class CreateAthleteRequestDto
     {
-        public EAthleteTypeDto Type;
+        [JsonProperty("type")]
+        public string Type;
+        
+        [JsonProperty("name")]
         public string Name;
 
         public CreateAthleteRequestDto(EAthleteType type, string name)
         {
-            Type = EAthleteTypeMapper.ToDto(type);
+            Type = EAthleteTypeMapper.ToDto(type).ToString();
             Name = name;
         }
     }

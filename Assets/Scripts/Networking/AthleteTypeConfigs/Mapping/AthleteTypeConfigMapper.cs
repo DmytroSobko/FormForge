@@ -1,15 +1,14 @@
 using FormForge.Domain.Athletes;
 using FormForge.Networking.AthleteTypeConfigs.DTO;
 using FormForge.Networking.Common.Mapping;
-using StatBlock = FormForge.Domain.Athletes.StatBlock;
 
 namespace FormForge.Networking.AthleteTypeConfigs.Mapping
 {
     public static class AthleteTypeConfigMapper
     {
-        public static Domain.Athletes.AthleteTypeConfig Map(AthleteTypeConfigDto config)
+        public static AthleteTypeConfig Map(AthleteTypeConfigDto config)
         {
-            return new Domain.Athletes.AthleteTypeConfig
+            return new AthleteTypeConfig
             {
                 Type = EAthleteTypeMapper.ToDomain(config.Type),
                 DisplayName = config.DisplayName,
