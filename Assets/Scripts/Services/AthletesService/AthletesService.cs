@@ -41,7 +41,6 @@ namespace FormForge.Services.AthletesService
             m_CacheService = ServiceLocator.GetService<ICacheService>();
         }
         
-        //TODO come back to this later
         public async UniTask<Athlete> CreateAthlete(EAthleteType athleteType, string athleteName)
         {
             m_Logger?.Log("Creating a new athlete...");
@@ -53,10 +52,10 @@ namespace FormForge.Services.AthletesService
 
             var athlete = AthleteMapper.Map(dto);
 
-            m_CacheService.Update<IReadOnlyDictionary<string, Athlete>>(k_AthletesCacheKey,
+            m_CacheService.Update<IReadOnlyDictionary<string, Domain.Athletes.Athlete>>(k_AthletesCacheKey,
                 dict =>
                 {
-                    var newDict = new Dictionary<string, Athlete>(dict)
+                    var newDict = new Dictionary<string, Domain.Athletes.Athlete>(dict)
                     {
                         [athlete.Id] = athlete
                     };
@@ -66,7 +65,7 @@ namespace FormForge.Services.AthletesService
             return athlete;
         }
 
-        public async UniTask<IReadOnlyList<Athlete>> GetAthletes()
+        public async UniTask<IReadOnlyList<Domain.Athletes.Athlete>> GetAthletes()
         {
             m_Logger?.Log("Fetching created athletes...");
 
@@ -76,29 +75,18 @@ namespace FormForge.Services.AthletesService
             return athletes;
         }
 
-        private async UniTask<IReadOnlyList<Athlete>> GetAthletesServer()
+        private async UniTask<IReadOnlyList<Domain.Athletes.Athlete>> GetAthletesServer()
         {
             return new List<Athlete>();
             m_Logger?.Log("Fetching athletes from server...");
 
-            var response = await m_HttpClientService.GetAsync<AthletesEnvelopeDto>(
+            var response = await m_HttpClientService.GetAsync<AthletesResponse>(
                 APIEndpoints.Athletes.Base);
 
-            IReadOnlyList<Athlete> mapped = response.Athletes.Select(AthleteMapper.Map).ToList();
+            IReadOnlyList<Domain.Athletes.Athlete> mapped = response.Athletes.Select(AthleteMapper.Map).ToList();
             Athletes = mapped;
 
             return mapped;
-        }
-        
-        private static Dictionary<string, T> MapById<TDto, T>(List<TDto> list, Func<TDto, T> map) where T : class
-        {
-            var dict = new Dictionary<string, T>();
-            foreach (var item in list)
-            {
-                var mapped = map(item);
-                dict[(string)typeof(T).GetField("Id").GetValue(mapped)] = mapped;
-            }
-            return dict;
         }
     }
 }

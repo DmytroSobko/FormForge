@@ -1,27 +1,28 @@
 using FormForge.Domain.Athletes;
 using FormForge.Networking.AthleteTypeConfigs.DTO;
 using FormForge.Networking.Common.Mapping;
+using StatBlock = FormForge.Domain.Athletes.StatBlock;
 
 namespace FormForge.Networking.AthleteTypeConfigs.Mapping
 {
     public static class AthleteTypeConfigMapper
     {
-        public static AthleteTypeConfig Map(AthleteTypeConfigDto configDto)
+        public static Domain.Athletes.AthleteTypeConfig Map(AthleteTypeConfigDto config)
         {
-            return new AthleteTypeConfig
+            return new Domain.Athletes.AthleteTypeConfig
             {
-                Type = EAthleteTypeMapper.ToDomain(configDto.Type),
-                DisplayName = configDto.DisplayName,
-                Description = configDto.Description,
+                Type = EAthleteTypeMapper.ToDomain(config.Type),
+                DisplayName = config.DisplayName,
+                Description = config.Description,
                 StatBlock = new StatBlock
                 {
-                    Strength = configDto.BaseStats.Strength,
-                    Endurance = configDto.BaseStats.Endurance,
-                    Mobility = configDto.BaseStats.Mobility,                        
+                    Strength = config.BaseStats.Strength,
+                    Endurance = config.BaseStats.Endurance,
+                    Mobility = config.BaseStats.Mobility,                        
                 },
-                MaxFatigue = configDto.MaxFatigue,
-                RecoveryMultiplier = configDto.RecoveryMultiplier,
-                FatigueSensitivity = configDto.FatigueSensitivity
+                MaxFatigue = config.MaxFatigue,
+                RecoveryMultiplier = config.RecoveryMultiplier,
+                FatigueSensitivity = config.FatigueSensitivity
             };
         }
     }

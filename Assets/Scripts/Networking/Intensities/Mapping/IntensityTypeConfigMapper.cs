@@ -6,13 +6,13 @@ namespace FormForge.Networking.Intensities.Mapping
 {
     public static class IntensityTypeConfigMapper
     {
-        public static Intensity Map(IntensityTypeConfigDto typeConfigDto)
+        public static Intensity Map(IntensityTypeConfigDto typeConfig)
         {
             return new Intensity
             {
-                Type = EIntensityTypeMapper.ToDomain(typeConfigDto.Type),
-                Multiplier = typeConfigDto.Multiplier,
-                FatigueMultiplier = typeConfigDto.FatigueMultiplier
+                Type = EIntensityTypeMapper.ToDomain(typeConfig.Type),
+                Multiplier = typeConfig.Multiplier,
+                FatigueMultiplier = typeConfig.FatigueMultiplier
             };
         }
     }
