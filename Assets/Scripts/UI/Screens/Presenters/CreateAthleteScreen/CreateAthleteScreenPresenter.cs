@@ -3,6 +3,7 @@ using FormForge.Domain.Athletes;
 using FormForge.Helpers;
 using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.Services;
+using FormForge.Infrastructure.Services.HttpClientService;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Infrastructure.UI.Overlays.ErrorOverlay.Messages;
 using FormForge.Infrastructure.UI.Overlays.ProcessingOverlay.Messages;
@@ -104,9 +105,11 @@ namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
 
                 //success
             }
-            catch (Exception e)
+            catch (ApiException e)
             {
-                string errorMessage = string.Format(UIStrings.CreateAthlete.FailedWithError, e.Message);
+                m_Logger?.LogError($"API Error {e.StatusCode}: {e.ErrorCode} - {e.Message}");
+                
+                string errorMessage = string.Format(UIStrings.CreateAthlete.FailedWithError, e.StatusCode, e.Message);
                 m_MessageService.Send(new ErrorOverlayShowMessage(errorMessage));
             }
             finally

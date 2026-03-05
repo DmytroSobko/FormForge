@@ -1,7 +1,6 @@
 using Cysharp.Threading.Tasks;
 using FormForge.AssetManagement.Addressable.AssetLoader;
 using FormForge.AssetManagement.CacheStrategy;
-using FormForge.Core;
 using FormForge.Infrastructure.AssetManagementService;
 using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.Services;
@@ -9,6 +8,7 @@ using FormForge.Infrastructure.Services.Enums;
 using FormForge.Infrastructure.Services.HttpClientService;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Infrastructure.UI.Overlays.LoadingOverlay.Messages;
+using FormForge.Networking;
 using FormForge.Services.ConfigsService;
 using FormForge.Services.VisualsService;
 using UnityEngine;
@@ -55,7 +55,7 @@ namespace FormForge.Services.InitializationService
             ServiceLocator.RegisterSingletonService(assetManagementService);
 
             m_MessageService.Send(new LoadingOverlaySetProgressMessage(0.35f));
-            m_HttpClient.SetBaseApiUrl(EnvironmentConfig.ApiBaseUrl);
+            m_HttpClient.SetBaseApiUrl(APIConfig.BaseUrl);
             
             m_MessageService.Send(new LoadingOverlaySetProgressMessage(0.5f));
             

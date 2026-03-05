@@ -21,6 +21,7 @@ using FormForge.Networking.Simulation.DTO;
 using FormForge.Networking.Simulation.Mapping;
 using FormForge.Networking;
 using UnityEngine;
+using AthleteTypeConfig = FormForge.Domain.Athletes.AthleteTypeConfig;
 using ILogger = FormForge.Infrastructure.Logging.ILogger;
 
 namespace FormForge.Services.ConfigsService
@@ -81,36 +82,36 @@ namespace FormForge.Services.ConfigsService
             m_Logger?.Log("Fetching configs from server (parallel)...");
 
             var athleteTask = m_HttpClientService
-                .GetAsync<AthleteTypeConfigsEnvelopeDto>(APIEndpoints.Configs.AthleteTypes);
+                .GetAsync<AthleteTypeConfigsResponse>(APIEndpoints.Configs.AthleteTypes);
 
             var exerciseTask = m_HttpClientService
-                .GetAsync<ExerciseConfigsEnvelopeDto>(APIEndpoints.Configs.Exercises);
+                .GetAsync<ExerciseConfigsResponse>(APIEndpoints.Configs.Exercises);
 
             var intensityTask = m_HttpClientService
-                .GetAsync<IntensityTypeConfigsEnvelopeDto>(APIEndpoints.Configs.Intensities);
+                .GetAsync<IntensityTypeConfigsResponse>(APIEndpoints.Configs.Intensities);
 
             var simulationTask = m_HttpClientService
-                .GetAsync<SimulationConfigEnvelopeDto>(APIEndpoints.Configs.SimulationConfig);
+                .GetAsync<SimulationConfigResponse>(APIEndpoints.Configs.SimulationConfig);
 
-            var (athleteTypesEnvelopeDto, exercisesEnvelopeDto,
-                    intensityTypesEnvelopeDto, simulationConfigEnvelopeDto) =
+            var (athleteTypeConfigsResponse, exerciseConfigsResponse,
+                    intensityTypeConfigsResponse, simulationConfigResponse) =
                 await UniTask.WhenAll(athleteTask, exerciseTask, intensityTask, simulationTask);
 
             return new ConfigsCacheModel
             {
-                AthleteTypes = athleteTypesEnvelopeDto.AthleteTypes
+                AthleteTypes = athleteTypeConfigsResponse.AthleteTypes
                     .Select(AthleteTypeConfigMapper.Map)
                     .ToDictionary(x => x.Type),
 
-                Exercises = exercisesEnvelopeDto.Exercises
+                Exercises = exerciseConfigsResponse.Exercises
                     .Select(ExerciseConfigMapper.Map)
                     .ToDictionary(x => x.Type),
 
-                Intensities = intensityTypesEnvelopeDto.Intensities
+                Intensities = intensityTypeConfigsResponse.Intensities
                     .Select(IntensityTypeConfigMapper.Map)
                     .ToDictionary(x => x.Type),
 
-                Simulation = SimulationConfigMapping.Map(simulationConfigEnvelopeDto.Simulation)
+                Simulation = SimulationConfigMapping.Map(simulationConfigResponse)
             };
         }
         

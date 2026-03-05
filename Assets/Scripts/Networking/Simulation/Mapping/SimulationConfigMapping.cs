@@ -5,13 +5,13 @@ namespace FormForge.Networking.Simulation.Mapping
 {
     public static class SimulationConfigMapping
     {
-        public static SimulationConfig Map(SimulationConfigDto dto)
+        public static SimulationConfig Map(SimulationConfigResponse response)
         {
             return new SimulationConfig
             {
-                RestDayRecovery = dto.RestDayRecovery,
-                MaxFatiguePenalty = dto.MaxFatiguePenalty,
-                HighFatigueThreshold = dto.HighFatigueThreshold,
+                RestDayRecovery = response.RestDayRecovery,
+                MaxFatiguePenalty = response.MaxFatiguePenalty,
+                HighFatigueThreshold = response.HighFatigueThreshold,
             };
         }
     }

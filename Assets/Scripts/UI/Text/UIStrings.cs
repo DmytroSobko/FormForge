@@ -15,7 +15,7 @@ namespace FormForge.UI.Text
             public const string SelectAthleteType = "Please select an athlete type.";
             public const string Creating = "Creating an athlete...";
             public const string Failed = "Failed to create athlete.";
-            public const string FailedWithError = "Failed to create athlete.\nError: {0}";
+            public const string FailedWithError = "Failed to create athlete.\nError {0}: {1}";
         }
     }
 }

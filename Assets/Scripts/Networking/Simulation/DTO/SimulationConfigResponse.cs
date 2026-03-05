@@ -3,7 +3,7 @@ using System;
 namespace FormForge.Networking.Simulation.DTO
 {
     [Serializable]
-    public class SimulationConfigDto
+    public class SimulationConfigResponse
     {
         public float RestDayRecovery;
         public float MaxFatiguePenalty;
