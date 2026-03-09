@@ -12,7 +12,13 @@ namespace FormForge.Networking.Athletes.Mapping
             {
                 Id = dto.Id,
                 Type = EAthleteTypeMapper.ToDomain(dto.Type),
-                DisplayName = dto.DisplayName,
+                Name = dto.Name,
+                Strength = dto.Strength,
+                Endurance = dto.Endurance,
+                Mobility = dto.Mobility,
+                Fatigue = dto.Fatigue,
+                MaxFatigue = dto.MaxFatigue,
+                Week = dto.Week
             };
         }
     }

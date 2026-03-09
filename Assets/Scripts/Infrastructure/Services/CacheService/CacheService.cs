@@ -77,13 +77,17 @@ namespace FormForge.Infrastructure.Services.CacheService
 
         public void Update<T>(string key, Func<T, T> updateFunc)
         {
-            if (!m_Cache.TryGetValue(key, out var entry))
+            var entry = m_Cache.GetOrAdd(key, _ => new CacheEntry());
+
+            entry.Lock.Wait();
+            try
             {
-                return;
+                var current = entry.Value is T typed ? typed : default;
+                entry.Value = updateFunc(current);
             }
-            if (entry.Value is T typedValue)
+            finally
             {
-                entry.Value = updateFunc(typedValue);
+                entry.Lock.Release();
             }
         }
 

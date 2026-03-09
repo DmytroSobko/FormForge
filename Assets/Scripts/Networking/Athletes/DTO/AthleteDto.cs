@@ -7,6 +7,15 @@ namespace FormForge.Networking.Athletes.DTO
     {
         public string Id;
         public EAthleteTypeDto Type;
-        public string DisplayName;
+        public string Name;
+
+        public int Strength;
+        public int Endurance;
+        public int Mobility;
+
+        public int Fatigue;
+        public int MaxFatigue;
+
+        public int Week;
     }
 }
