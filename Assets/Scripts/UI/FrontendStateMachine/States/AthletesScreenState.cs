@@ -36,7 +36,7 @@ namespace FormForge.UI.FrontendStateMachine.States
             messageService.Send(new LoadingOverlaySetProgressMessage(0.7f));
 
             IReadOnlyList<AthleteItemViewModel> athleteViewModels = athletes.Select(a => 
-                new AthleteItemViewModel(a.Type, a.DisplayName)).ToList();
+                new AthleteItemViewModel(a.Type, a.Name)).ToList();
             
             AthletesPaginatedDataProvider paginatedDataProvider = 
                 new AthletesPaginatedDataProvider(athleteViewModels, k_NoContentMessage);

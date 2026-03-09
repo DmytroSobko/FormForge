@@ -52,20 +52,22 @@ namespace FormForge.Services.AthletesService
 
             var athlete = AthleteMapper.Map(dto);
 
-            m_CacheService.Update<IReadOnlyDictionary<string, Domain.Athletes.Athlete>>(k_AthletesCacheKey,
+            m_CacheService.Update<IReadOnlyDictionary<string, Athlete>>(k_AthletesCacheKey,
                 dict =>
                 {
-                    var newDict = new Dictionary<string, Domain.Athletes.Athlete>(dict)
+                    dict ??= new Dictionary<string, Athlete>();
+                    var newDict = new Dictionary<string, Athlete>(dict)
                     {
                         [athlete.Id] = athlete
                     };
+
                     return newDict;
                 });
 
             return athlete;
         }
 
-        public async UniTask<IReadOnlyList<Domain.Athletes.Athlete>> GetAthletes()
+        public async UniTask<IReadOnlyList<Athlete>> GetAthletes()
         {
             m_Logger?.Log("Fetching created athletes...");
 
@@ -75,7 +77,7 @@ namespace FormForge.Services.AthletesService
             return athletes;
         }
 
-        private async UniTask<IReadOnlyList<Domain.Athletes.Athlete>> GetAthletesServer()
+        private async UniTask<IReadOnlyList<Athlete>> GetAthletesServer()
         {
             return new List<Athlete>();
             m_Logger?.Log("Fetching athletes from server...");
@@ -83,7 +85,7 @@ namespace FormForge.Services.AthletesService
             var response = await m_HttpClientService.GetAsync<AthletesResponse>(
                 APIEndpoints.Athletes.Base);
 
-            IReadOnlyList<Domain.Athletes.Athlete> mapped = response.Athletes.Select(AthleteMapper.Map).ToList();
+            IReadOnlyList<Athlete> mapped = response.Athletes.Select(AthleteMapper.Map).ToList();
             Athletes = mapped;
 
             return mapped;
