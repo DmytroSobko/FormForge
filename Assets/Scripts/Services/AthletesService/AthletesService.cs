@@ -79,7 +79,6 @@ namespace FormForge.Services.AthletesService
 
         private async UniTask<IReadOnlyList<Athlete>> GetAthletesServer()
         {
-            return new List<Athlete>();
             m_Logger?.Log("Fetching athletes from server...");
 
             var response = await m_HttpClientService.GetAsync<AthletesResponse>(

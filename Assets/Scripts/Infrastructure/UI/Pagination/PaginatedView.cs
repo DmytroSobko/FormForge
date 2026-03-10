@@ -49,7 +49,7 @@ namespace FormForge.Infrastructure.UI.Pagination
             }
         }
 
-        public void GoToPage(int pageIndex)
+        private void GoToPage(int pageIndex)
         {
             if (pageIndex < 0)
             {

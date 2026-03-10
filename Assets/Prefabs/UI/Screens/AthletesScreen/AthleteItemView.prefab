@@ -94,7 +94,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8ffcbd4593454fea80ebf86e88901ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FormForge.UI.Screens.Views.AthleteScreen.AthleteItemView
-  m_AthleteIcon: {fileID: 2253136406837070162}
+  m_AthleteTypeIcon: {fileID: 2253136406837070162}
   m_AthleteName: {fileID: 7583375325028106283}
   m_ItemButton: {fileID: 0}
 --- !u!1 &4674494460827630427
@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 1430575671358207946}
   - component: {fileID: 2253136406837070162}
   m_Layer: 0
-  m_Name: AthleteIcon
+  m_Name: AthleteTypeIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
