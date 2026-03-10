@@ -8,7 +8,7 @@ namespace FormForge.UI.Screens.Views.AthletesScreen
 {
     public class AthleteItemView : MonoBehaviour
     {
-        [SerializeField] private Image m_AthleteIcon;
+        [SerializeField] private Image m_AthleteTypeIcon;
         [SerializeField] private TextMeshProUGUI m_AthleteName;
         [SerializeField] private Button m_ItemButton;
 
@@ -16,16 +16,17 @@ namespace FormForge.UI.Screens.Views.AthletesScreen
 
         private void Awake()
         {
-            m_ItemButton.onClick.AddListener(OnItemClicked);
+           // m_ItemButton.onClick.AddListener(OnItemClicked);
         }
 
         private void OnDestroy()
         { 
-            m_ItemButton.onClick.RemoveListener(OnItemClicked);
+           // m_ItemButton.onClick.RemoveListener(OnItemClicked);
         }
 
         public void Bind(AthleteItemViewModel viewModel)
         {
+            m_AthleteTypeIcon.sprite = viewModel.AthleteIcon;
             m_AthleteName.text = viewModel.AthleteName;
         }
 

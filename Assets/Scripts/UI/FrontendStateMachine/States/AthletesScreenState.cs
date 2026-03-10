@@ -3,11 +3,13 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using FormForge.AssetManagement;
 using FormForge.AssetManagement.AssetPolicy;
+using FormForge.Domain.Athletes;
 using FormForge.Infrastructure.AssetManagementService;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Infrastructure.UI.Overlays.LoadingOverlay.Messages;
 using FormForge.Infrastructure.UI.Screens.Messages;
+using FormForge.ScriptableObjects.Athletes;
 using FormForge.Services.AthletesService;
 using FormForge.UI.Screens.Pagination.DataProviders;
 using FormForge.UI.Screens.ViewModels.AthletesScreen;
@@ -27,18 +29,20 @@ namespace FormForge.UI.FrontendStateMachine.States
             messageService.Send(new LoadingOverlaySetProgressMessage(0.3f));
 
             var athletesService = ServiceLocator.GetService<IAthletesService>();
-            var getAthletesTask = athletesService.GetAthletes();
-            var loadItemPrefabTask = LoadItemPrefab();
+            
+            UniTask<IReadOnlyList<Athlete>> getAthletesTask = athletesService.GetAthletes();
+            UniTask<GameObject> loadItemPrefabTask = LoadItemPrefab();
+            UniTask<AthleteTypeVisualsDatabase> athleteTypeVisualsDatabaseTask = LoadAthleteTypeVisualsDatabase();
 
-            var (athletes, itemPrefab) =
-                await UniTask.WhenAll(getAthletesTask, loadItemPrefabTask);
+            var (athletes, itemPrefab, athleteTypeVisualsDatabase) =
+                await UniTask.WhenAll(getAthletesTask, loadItemPrefabTask, athleteTypeVisualsDatabaseTask);
 
             messageService.Send(new LoadingOverlaySetProgressMessage(0.7f));
-
-            IReadOnlyList<AthleteItemViewModel> athleteViewModels = athletes.Select(a => 
-                new AthleteItemViewModel(a.Type, a.Name)).ToList();
             
-            AthletesPaginatedDataProvider paginatedDataProvider = 
+            IReadOnlyList<AthleteItemViewModel> athleteViewModels = athletes.Select(a => 
+                new AthleteItemViewModel(a.Type, a.Name, athleteTypeVisualsDatabase.Get(a.Type).Icon)).ToList();
+            
+            var paginatedDataProvider = 
                 new AthletesPaginatedDataProvider(athleteViewModels, k_NoContentMessage);
             
             var screenViewModel = new AthletesScreenViewModel(paginatedDataProvider, itemPrefab);
@@ -50,9 +54,17 @@ namespace FormForge.UI.FrontendStateMachine.States
 
         private async UniTask<GameObject> LoadItemPrefab()
         {
-            BasicAssetPolicy policy = new BasicAssetPolicy(AddressKeys.UI.Screens.Components.AthleteItemView);
+            var policy = new BasicAssetPolicy(AddressKeys.UI.Screens.Components.AthleteItemView);
             return await ServiceLocator.GetService<IAssetManagementService>().
                 LoadAsync<GameObject, UIContext>(policy);
+        }
+        
+        private async UniTask<AthleteTypeVisualsDatabase> LoadAthleteTypeVisualsDatabase()
+        {
+            var policy = 
+                new BasicAssetPolicy(AddressKeys.ScriptableObjects.VisualDatabases.AthleteTypeVisualsDatabase);
+            return await ServiceLocator.GetService<IAssetManagementService>().
+                LoadAsync<AthleteTypeVisualsDatabase, UIContext>(policy);
         }
         
         public UniTask ExitAsync()

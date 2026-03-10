@@ -38,6 +38,4 @@ namespace FormForge.Domain.Athletes
             }
         }
     }
-    
-    
 }
