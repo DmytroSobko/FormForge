@@ -6,16 +6,13 @@ namespace FormForge.UI.Screens.ViewModels.AthletesScreen
 {
     public class AthleteItemViewModel : IPaginatedItemViewModel
     {
-        public EAthleteType AthleteType { get; }
+        public Athlete Athlete { get; }
         
         public Sprite AthleteIcon { get; }
-
-        public string AthleteName { get; }
-
-        public AthleteItemViewModel(EAthleteType athleteType, string athleteName, Sprite athleteIcon)
+        
+        public AthleteItemViewModel(Athlete athlete, Sprite athleteIcon)
         {
-            AthleteType = athleteType;
-            AthleteName = athleteName;
+            Athlete = athlete;
             AthleteIcon = athleteIcon;
         }
     }

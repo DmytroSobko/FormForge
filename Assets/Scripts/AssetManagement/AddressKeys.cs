@@ -16,6 +16,11 @@ namespace FormForge.AssetManagement
                     public const string AthleteTypeItemView = "AthleteTypeItemView";
                 }
             }
+            
+            public static class Tooltips
+            {
+                public const string StatRow = "TooltipStatRow";
+            }
         }
         
         public static class ScriptableObjects

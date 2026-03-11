@@ -39,8 +39,8 @@ namespace FormForge.UI.FrontendStateMachine.States
 
             messageService.Send(new LoadingOverlaySetProgressMessage(0.7f));
             
-            IReadOnlyList<AthleteItemViewModel> athleteViewModels = athletes.Select(a => 
-                new AthleteItemViewModel(a.Type, a.Name, athleteTypeVisualsDatabase.Get(a.Type).Icon)).ToList();
+            IReadOnlyList<AthleteItemViewModel> athleteViewModels = athletes.Select(athlete => 
+                new AthleteItemViewModel(athlete, athleteTypeVisualsDatabase.Get(athlete.Type).Icon)).ToList();
             
             var paginatedDataProvider = 
                 new AthletesPaginatedDataProvider(athleteViewModels, k_NoContentMessage);
@@ -61,15 +61,16 @@ namespace FormForge.UI.FrontendStateMachine.States
         
         private async UniTask<AthleteTypeVisualsDatabase> LoadAthleteTypeVisualsDatabase()
         {
-            var policy = 
-                new BasicAssetPolicy(AddressKeys.ScriptableObjects.VisualDatabases.AthleteTypeVisualsDatabase);
+            string dbAddress = AddressKeys.ScriptableObjects.VisualDatabases.AthleteTypeVisualsDatabase;
+            var policy = new BasicAssetPolicy(dbAddress);
             return await ServiceLocator.GetService<IAssetManagementService>().
                 LoadAsync<AthleteTypeVisualsDatabase, UIContext>(policy);
         }
         
         public UniTask ExitAsync()
         {
-            ServiceLocator.GetService<IMessageService>().Send(new CloseScreenMessage(typeof(AthletesScreenViewModel)));
+            var closeMessage = new CloseScreenMessage(typeof(AthletesScreenViewModel));
+            ServiceLocator.GetService<IMessageService>().Send(closeMessage);
             return UniTask.CompletedTask;
         }
     }
