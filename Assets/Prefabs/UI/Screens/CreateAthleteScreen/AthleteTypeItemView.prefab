@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 5825776565473058411}
   - component: {fileID: 4285225383089290892}
   - component: {fileID: 8953047728566072181}
+  - component: {fileID: 2451092499831224590}
   m_Layer: 0
   m_Name: AthleteTypeItemView
   m_TagString: Untagged
@@ -350,6 +351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FormForge.UI.Screens.Presenters.CreateAthleteScreen.AthleteTypeItemPresenter
   m_View: {fileID: 8953047728566072181}
+  m_TooltipTrigger: {fileID: 2451092499831224590}
 --- !u!114 &8953047728566072181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,11 +366,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FormForge.UI.Screens.Views.CreateAthleteScreen.AthleteTypeItemView
   m_ItemButton: {fileID: 5825776565473058411}
   m_AthleteTypeIcon: {fileID: 4420773655259408347}
-  m_BackgroundImage: {fileID: 2788367974151291979}
   m_AthleteTypeText: {fileID: 607014549066669144}
+  m_BackgroundImage: {fileID: 2788367974151291979}
   m_SelectedIndicator: {fileID: 7621316371150403619}
   m_UnselectedColor: {r: 0.69411767, g: 0.67058825, b: 0.9607843, a: 1}
   m_SelectedColor: {r: 0.7019608, g: 1, b: 0.77254903, a: 1}
+--- !u!114 &2451092499831224590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8663204649727227066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf3556c7cef847cc95512f431ca8ed9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FormForge.UI.Tooltip.AthleteTooltipTrigger
+  m_HoverDelay: 0.5
 --- !u!1 &8918333102025065501
 GameObject:
   m_ObjectHideFlags: 0

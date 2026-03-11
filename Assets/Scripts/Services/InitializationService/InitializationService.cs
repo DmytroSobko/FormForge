@@ -18,6 +18,8 @@ namespace FormForge.Services.InitializationService
 {
     public class InitializationService : IInitializationService
     {
+        public bool IsInitialized { get; private set; }
+
         private readonly IHttpClientService m_HttpClient;
         private readonly IConfigsService m_ConfigService;
         private readonly IMessageService m_MessageService;
@@ -38,6 +40,7 @@ namespace FormForge.Services.InitializationService
             m_MessageService = ServiceLocator.GetService<IMessageService>();
             m_VisualsService = ServiceLocator.GetService<IVisualsService>();
         }
+
 
         public async UniTask Initialize()
         {
@@ -68,6 +71,7 @@ namespace FormForge.Services.InitializationService
             m_MessageService.Send(new LoadingOverlaySetProgressMessage(0.75f));
             
             m_Logger?.Log("Starting Ended");
+            IsInitialized = true;
         }
     }
 }

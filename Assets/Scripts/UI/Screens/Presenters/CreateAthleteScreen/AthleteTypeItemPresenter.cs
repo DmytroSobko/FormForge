@@ -3,6 +3,9 @@ using FormForge.Infrastructure.UI;
 using FormForge.Infrastructure.UI.Selection;
 using FormForge.UI.Screens.ViewModels.CreateAthleteScreen;
 using FormForge.UI.Screens.Views.CreateAthleteScreen;
+using FormForge.UI.Tooltip;
+using FormForge.UI.Tooltip.Factories;
+using FormForge.UI.Tooltip.Models;
 using UnityEngine;
 
 namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
@@ -10,6 +13,7 @@ namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
     public class AthleteTypeItemPresenter : MonoBehaviour, IPresenter, ISelectableItem<AthleteTypeItemViewModel>
     { 
         [SerializeField] private AthleteTypeItemView m_View;
+        [SerializeField] private AthleteTooltipTrigger m_TooltipTrigger;
 
         public AthleteTypeItemViewModel ViewModel
         {
@@ -24,6 +28,9 @@ namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
             m_View.ItemClicked += OnItemClicked;
             
             m_View.Bind(ViewModel);
+            
+            TooltipData tooltipData = AthleteTooltipFactory.Create(viewModel.AthleteTypeConfig);
+            m_TooltipTrigger.Bind(tooltipData);
         }
 
         private void OnItemClicked()
