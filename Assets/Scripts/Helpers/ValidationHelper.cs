@@ -1,4 +1,5 @@
-using FormForge.UI.Text;
+using System.Text.RegularExpressions;
+using FormForge.Statics;
 
 namespace FormForge.Helpers
 {
@@ -26,7 +27,7 @@ namespace FormForge.Helpers
                     Constants.MaxNameLength);
             }
 
-            if (!System.Text.RegularExpressions.Regex.IsMatch(name, s_NamePattern))
+            if (!Regex.IsMatch(name, s_NamePattern))
             {
                 return UIStrings.CreateAthlete.Validation.NameInvalidCharacters;
             }

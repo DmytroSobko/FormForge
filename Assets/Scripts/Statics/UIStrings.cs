@@ -1,4 +1,4 @@
-namespace FormForge.UI.Text
+namespace FormForge.Statics
 {
     public static class UIStrings
     {

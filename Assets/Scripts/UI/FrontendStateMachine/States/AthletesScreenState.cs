@@ -11,9 +11,9 @@ using FormForge.Infrastructure.UI.Overlays.LoadingOverlay.Messages;
 using FormForge.Infrastructure.UI.Screens.Messages;
 using FormForge.ScriptableObjects.Athletes;
 using FormForge.Services.AthletesService;
+using FormForge.Statics;
 using FormForge.UI.Screens.Pagination.DataProviders;
 using FormForge.UI.Screens.ViewModels.AthletesScreen;
-using FormForge.UI.Text;
 using UnityEngine;
 
 namespace FormForge.UI.FrontendStateMachine.States

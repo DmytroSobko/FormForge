@@ -1,4 +1,3 @@
-using System;
 using FormForge.Domain.Athletes;
 using FormForge.Helpers;
 using FormForge.Infrastructure.Logging;
@@ -11,9 +10,9 @@ using FormForge.Infrastructure.UI.Screens.Presenters;
 using FormForge.Infrastructure.UI.Screens.ViewModels;
 using FormForge.Infrastructure.UI.Selection;
 using FormForge.Services.AthletesService;
+using FormForge.Statics;
 using FormForge.UI.Screens.ViewModels.CreateAthleteScreen;
 using FormForge.UI.Screens.Views.CreateAthleteScreen;
-using FormForge.UI.Text;
 using UnityEngine;
 
 namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
@@ -103,7 +102,7 @@ namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
             {
                 Athlete response = await m_AthletesService.CreateAthlete(athleteType, athleteName);
 
-                //success
+                //TODO give feedback to the user
             }
             catch (ApiException e)
             {
