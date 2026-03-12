@@ -2,6 +2,11 @@ namespace FormForge.UI.Text
 {
     public static class UIStrings
     {
+        public static class Athletes
+        {
+            public const string NoAthletesCreatedYet = "No athletes have been created yet.";
+        }
+        
         public static class CreateAthlete
         {
             public static class Validation

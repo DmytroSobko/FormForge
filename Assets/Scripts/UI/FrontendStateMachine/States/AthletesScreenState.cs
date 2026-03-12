@@ -13,14 +13,13 @@ using FormForge.ScriptableObjects.Athletes;
 using FormForge.Services.AthletesService;
 using FormForge.UI.Screens.Pagination.DataProviders;
 using FormForge.UI.Screens.ViewModels.AthletesScreen;
+using FormForge.UI.Text;
 using UnityEngine;
 
 namespace FormForge.UI.FrontendStateMachine.States
 {
     public class AthletesScreenState : IFrontendState
     {
-        private const string k_NoContentMessage = "No athletes have been created yet.";
-
         public async UniTask EnterAsync()
         {
             var messageService = ServiceLocator.GetService<IMessageService>();
@@ -42,8 +41,8 @@ namespace FormForge.UI.FrontendStateMachine.States
             IReadOnlyList<AthleteItemViewModel> athleteViewModels = athletes.Select(athlete => 
                 new AthleteItemViewModel(athlete, athleteTypeVisualsDatabase.Get(athlete.Type).Icon)).ToList();
             
-            var paginatedDataProvider = 
-                new AthletesPaginatedDataProvider(athleteViewModels, k_NoContentMessage);
+            var paginatedDataProvider = new AthletesPaginatedDataProvider(athleteViewModels, 
+                UIStrings.Athletes.NoAthletesCreatedYet);
             
             var screenViewModel = new AthletesScreenViewModel(paginatedDataProvider, itemPrefab);
             messageService.Send(new OpenScreenMessage(screenViewModel));
