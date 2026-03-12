@@ -8,6 +8,7 @@ using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Infrastructure.UI.Misc;
 using FormForge.Services.InitializationService;
+using FormForge.UI.Tooltip.Components;
 using FormForge.UI.Tooltip.Messages;
 using FormForge.UI.Tooltip.Models;
 using TMPro;
@@ -16,8 +17,8 @@ using UnityEngine;
 namespace FormForge.UI.Tooltip
 {
     public class StatsTooltip : BaseTooltip, 
-        IMessageReceiver<StatsTooltipShowMessage>,
-        IMessageReceiver<StatsTooltipHideMessage>
+        IMessageReceiver<AthleteStatsTooltipShowMessage>,
+        IMessageReceiver<AthleteStatsTooltipHideMessage>
     {
         private const int k_InitialRowPoolSize = 5;
 
@@ -69,14 +70,14 @@ namespace FormForge.UI.Tooltip
 
         private void AddListeners()
         {
-            m_MessageService.Register<StatsTooltipShowMessage>(this);
-            m_MessageService.Register<StatsTooltipHideMessage>(this);
+            m_MessageService.Register<AthleteStatsTooltipShowMessage>(this);
+            m_MessageService.Register<AthleteStatsTooltipHideMessage>(this);
         }
         
         private void RemoveListeners()
         {
-            m_MessageService.Unregister<StatsTooltipShowMessage>(this);
-            m_MessageService.Unregister<StatsTooltipHideMessage>(this);
+            m_MessageService.Unregister<AthleteStatsTooltipShowMessage>(this);
+            m_MessageService.Unregister<AthleteStatsTooltipHideMessage>(this);
         }
         
         private void Show(TooltipData data, Vector2 screenPos, bool immediate = false)
@@ -116,7 +117,7 @@ namespace FormForge.UI.Tooltip
             m_AcquiredStatRows.Clear();
         }
 
-        public void HandleMessage(StatsTooltipShowMessage messageData = null)
+        public void HandleMessage(AthleteStatsTooltipShowMessage messageData = null)
         {
             if (messageData == null)
             {
@@ -125,7 +126,7 @@ namespace FormForge.UI.Tooltip
             Show(messageData.TooltipData, messageData.ScreenPos);
         }
 
-        public void HandleMessage(StatsTooltipHideMessage messageData = null)
+        public void HandleMessage(AthleteStatsTooltipHideMessage messageData = null)
         {
             Hide();
         }
