@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 1629332723547033057}
   - component: {fileID: 5923518377344293654}
   - component: {fileID: 475149307538651803}
+  - component: {fileID: 4091295069692680642}
   m_Layer: 0
   m_Name: AthleteItemView
   m_TagString: Untagged
@@ -260,6 +261,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FormForge.UI.Tooltip.AthleteTooltipTrigger
   m_HoverDelay: 0.5
+--- !u!114 &4091295069692680642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2362890358153294207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed4b7ee916ed0d447a0f108570a55934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FormForge.Infrastructure.Collections.PoolableObject
+  m_disableOnDeallocation: 0
+  m_disableCollidersOnDeallocation: 0
+  m_disableRenderersOnDeallocation: 0
 --- !u!1 &4674494460827630427
 GameObject:
   m_ObjectHideFlags: 0

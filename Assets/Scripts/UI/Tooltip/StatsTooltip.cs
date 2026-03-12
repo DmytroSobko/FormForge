@@ -7,7 +7,6 @@ using FormForge.Infrastructure.Collections;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Infrastructure.UI.Misc;
-using FormForge.Infrastructure.UI.Overlays;
 using FormForge.Services.InitializationService;
 using FormForge.UI.Tooltip.Messages;
 using FormForge.UI.Tooltip.Models;
@@ -94,13 +93,13 @@ namespace FormForge.UI.Tooltip
                 m_DescriptionText.text = data.Description;
             }
             
-            ClearRows();
+            ClearStatRows();
 
-            foreach (TooltipStat stat in data.Stats)
+            foreach (TooltipStat statData in data.Stats)
             {
                 PoolableObject statRow = m_StatRowsPool.Acquire();
                 statRow.transform.SetParent(m_StatsContainer); 
-                statRow.GetComponent<TooltipStatRow>().Init(stat);
+                statRow.GetComponent<TooltipStatRow>().Init(statData);
                 m_AcquiredStatRows.Add(statRow);
             }
 
@@ -108,11 +107,11 @@ namespace FormForge.UI.Tooltip
             Show(immediate);
         }
         
-        private void ClearRows()
+        private void ClearStatRows()
         {
-            foreach (PoolableObject row in m_AcquiredStatRows)
+            foreach (PoolableObject statRow in m_AcquiredStatRows)
             {
-                m_StatRowsPool.Recycle(row);
+                statRow.Recycle();
             }
             m_AcquiredStatRows.Clear();
         }

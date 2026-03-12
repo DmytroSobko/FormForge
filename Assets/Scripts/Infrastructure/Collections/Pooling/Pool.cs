@@ -24,7 +24,7 @@
         /// Creates a pool of the specified size for the given object type
         /// </summary>
         /// <param name="initialSize">Initial size of the pool</param>
-        public Pool(uint initialSize)
+        public Pool(int initialSize)
         {
             if (typeof(MonoBehaviour).IsAssignableFrom(typeof(T)))
             {
@@ -43,7 +43,7 @@
         /// <param name="template">The GameObject that will be pooled</param>
         /// <param name="container">The container that the pooled GameObjects will reside in when not in use. If one is not provided a container will be generated</param>
         /// <param name="hideContainerInHierarchy">If True, hides the container GameObject in the scene hierarchy to avoid clutter</param>
-        public Pool(uint initialSize, GameObject template, Transform container = null, bool hideContainerInHierarchy = true)
+        public Pool(int initialSize, GameObject template, Transform container = null, bool hideContainerInHierarchy = true)
         {
             if (!typeof(MonoBehaviour).IsAssignableFrom(typeof(T)))
             {
