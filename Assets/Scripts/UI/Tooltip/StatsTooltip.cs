@@ -6,6 +6,7 @@ using FormForge.Infrastructure.AssetManagementService;
 using FormForge.Infrastructure.Collections;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
+using FormForge.Infrastructure.UI.Misc;
 using FormForge.Infrastructure.UI.Overlays;
 using FormForge.Services.InitializationService;
 using FormForge.UI.Tooltip.Messages;
@@ -15,22 +16,19 @@ using UnityEngine;
 
 namespace FormForge.UI.Tooltip
 {
-    public class StatsTooltip : FadableOverlayBase, 
+    public class StatsTooltip : BaseTooltip, 
         IMessageReceiver<StatsTooltipShowMessage>,
         IMessageReceiver<StatsTooltipHideMessage>
     {
         private const int k_InitialRowPoolSize = 5;
-        private const float k_ScreenPadding = 10f;
-        private static readonly Vector2 s_Offset = new Vector2(20f, -20f);
 
-        [SerializeField] private RectTransform m_Rect;
         [SerializeField] private TextMeshProUGUI m_TitleText;
         [SerializeField] private TextMeshProUGUI m_DescriptionText;
         [SerializeField] private Transform m_StatsContainer;
         
-        private GameObject m_StatPrefab;
-        private Pool<PoolableObject> m_RowPool;
-        private List<PoolableObject> m_UsedRows = new List<PoolableObject>();
+        private GameObject m_StatRowPrefab;
+        private Pool<PoolableObject> m_StatRowsPool;
+        private readonly List<PoolableObject> m_AcquiredStatRows = new List<PoolableObject>();
 
         private IMessageService m_MessageService;
         
@@ -41,7 +39,7 @@ namespace FormForge.UI.Tooltip
             await WaitForInitialization();
             await LoadStatRowPrefab();
             
-            m_RowPool = new Pool<PoolableObject>(k_InitialRowPoolSize, m_StatPrefab);
+            m_StatRowsPool = new Pool<PoolableObject>(k_InitialRowPoolSize, m_StatRowPrefab);
             
             m_MessageService = ServiceLocator.GetService<IMessageService>();
 
@@ -61,7 +59,7 @@ namespace FormForge.UI.Tooltip
         private async UniTask LoadStatRowPrefab()
         {
             var policy = new BasicAssetPolicy(AddressKeys.UI.Tooltips.StatRow);
-            m_StatPrefab = await ServiceLocator.GetService<IAssetManagementService>().
+            m_StatRowPrefab = await ServiceLocator.GetService<IAssetManagementService>().
                 LoadAsync<GameObject, UIContext>(policy);
         }
 
@@ -98,12 +96,12 @@ namespace FormForge.UI.Tooltip
             
             ClearRows();
 
-            foreach (var stat in data.Stats)
+            foreach (TooltipStat stat in data.Stats)
             {
-                PoolableObject row = m_RowPool.Acquire();
-                row.transform.SetParent(m_StatsContainer); 
-                row.GetComponent<TooltipStatRow>().Init(stat);
-                m_UsedRows.Add(row);
+                PoolableObject statRow = m_StatRowsPool.Acquire();
+                statRow.transform.SetParent(m_StatsContainer); 
+                statRow.GetComponent<TooltipStatRow>().Init(stat);
+                m_AcquiredStatRows.Add(statRow);
             }
 
             PositionTooltip(screenPos);
@@ -112,25 +110,11 @@ namespace FormForge.UI.Tooltip
         
         private void ClearRows()
         {
-            foreach (PoolableObject row in m_UsedRows)
+            foreach (PoolableObject row in m_AcquiredStatRows)
             {
-                m_RowPool.Recycle(row);
+                m_StatRowsPool.Recycle(row);
             }
-            m_UsedRows.Clear();
-        }
-        
-        private void PositionTooltip(Vector2 screenPos)
-        {
-            Vector2 pos = screenPos + s_Offset;
-
-            var rect = m_Rect.rect;
-            float width = rect.width;
-            float height = rect.height;
-
-            float x = Mathf.Clamp(pos.x, k_ScreenPadding, Screen.width - width - k_ScreenPadding);
-            float y = Mathf.Clamp(pos.y, height + k_ScreenPadding, Screen.height - k_ScreenPadding);
-
-            m_Rect.position = new Vector2(x, y);
+            m_AcquiredStatRows.Clear();
         }
 
         public void HandleMessage(StatsTooltipShowMessage messageData = null)
