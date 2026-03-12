@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FormForge.UI.Tooltip.Messages
 {
-    public class StatsTooltipShowMessage
+    public class AthleteStatsTooltipShowMessage
     {
         public TooltipData TooltipData
         {
@@ -15,7 +15,7 @@ namespace FormForge.UI.Tooltip.Messages
             get;
         }
         
-        public StatsTooltipShowMessage(TooltipData data, Vector2 screenPos)
+        public AthleteStatsTooltipShowMessage(TooltipData data, Vector2 screenPos)
         {
             TooltipData = data;
             ScreenPos = screenPos;
