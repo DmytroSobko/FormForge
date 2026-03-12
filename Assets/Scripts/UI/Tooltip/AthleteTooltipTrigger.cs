@@ -10,13 +10,14 @@ using UnityEngine.InputSystem;
 namespace FormForge.UI.Tooltip
 {
     public class AthleteTooltipTrigger : MonoBehaviour,
-        IPointerEnterHandler,
-        IPointerExitHandler
+        IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private float m_HoverDelay = 0.5f;
         
         private TooltipData m_TooltipData;
         private Coroutine m_HoverRoutine;
+
+        private bool m_IsTooltipActivated;
 
         public void Bind(TooltipData data)
         {
@@ -36,7 +37,12 @@ namespace FormForge.UI.Tooltip
                 m_HoverRoutine = null;
             }
 
+            if (!m_IsTooltipActivated)
+            {
+                return;
+            }
             ServiceLocator.GetService<IMessageService>().Send(new StatsTooltipHideMessage());
+            m_IsTooltipActivated = false;
         }
 
         private IEnumerator ShowTooltipDelayed()
@@ -45,6 +51,7 @@ namespace FormForge.UI.Tooltip
 
             var showMessage = new StatsTooltipShowMessage(m_TooltipData,Mouse.current.position.ReadValue());
             ServiceLocator.GetService<IMessageService>().Send(showMessage);
+            m_IsTooltipActivated = true;
         }
     }
 }

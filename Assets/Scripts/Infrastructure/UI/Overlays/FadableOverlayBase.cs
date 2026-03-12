@@ -35,6 +35,11 @@ namespace FormForge.Infrastructure.UI.Overlays
 
         protected void Hide(bool immediate = false)
         {
+            if (!gameObject.activeSelf || m_CanvasGroup.alpha <= 0f)
+            {
+                return;
+            }
+            
             StopFade();
 
             if (immediate || m_FadeDuration <= 0f)
