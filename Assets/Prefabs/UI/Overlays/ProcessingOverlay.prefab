@@ -278,6 +278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FormForge.Infrastructure.UI.Overlays.ProcessingOverlay.ProcessingOverlay
   m_CanvasGroup: {fileID: 7544583936863843227}
+  m_UpdateCanvasGroupProperties: 1
   m_FadeDuration: 0.2
   m_ProcessText: {fileID: 6482470942599733837}
 --- !u!1 &7834274241351516648

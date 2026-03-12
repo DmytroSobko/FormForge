@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
 
-namespace Prime.Collections
+namespace Prime.Infrastructure.Collections
 {
     /// <summary>
     /// A Generic list that has a weighted value for each entry.

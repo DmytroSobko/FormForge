@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using FormForge.AssetManagement;
 using FormForge.AssetManagement.AssetPolicy;
 using FormForge.Infrastructure.AssetManagementService;
+using FormForge.Infrastructure.Collections;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Infrastructure.UI.Overlays;
@@ -18,18 +19,19 @@ namespace FormForge.UI.Tooltip
         IMessageReceiver<StatsTooltipShowMessage>,
         IMessageReceiver<StatsTooltipHideMessage>
     {
+        private const int k_InitialRowPoolSize = 5;
         private const float k_ScreenPadding = 10f;
-        
-        [SerializeField] private Canvas m_Canvas;
+        private static readonly Vector2 s_Offset = new Vector2(20f, -20f);
+
         [SerializeField] private RectTransform m_Rect;
         [SerializeField] private TextMeshProUGUI m_TitleText;
         [SerializeField] private TextMeshProUGUI m_DescriptionText;
         [SerializeField] private Transform m_StatsContainer;
         
         private GameObject m_StatPrefab;
+        private Pool<PoolableObject> m_RowPool;
+        private List<PoolableObject> m_UsedRows = new List<PoolableObject>();
 
-        private List<GameObject> m_Rows = new List<GameObject>();
-        
         private IMessageService m_MessageService;
         
         private async void Awake()
@@ -37,7 +39,9 @@ namespace FormForge.UI.Tooltip
             HideImmediate();
             
             await WaitForInitialization();
-            await LoadItemPrefab();
+            await LoadStatRowPrefab();
+            
+            m_RowPool = new Pool<PoolableObject>(k_InitialRowPoolSize, m_StatPrefab);
             
             m_MessageService = ServiceLocator.GetService<IMessageService>();
 
@@ -54,7 +58,7 @@ namespace FormForge.UI.Tooltip
             }
         }
 
-        private async UniTask LoadItemPrefab()
+        private async UniTask LoadStatRowPrefab()
         {
             var policy = new BasicAssetPolicy(AddressKeys.UI.Tooltips.StatRow);
             m_StatPrefab = await ServiceLocator.GetService<IAssetManagementService>().
@@ -96,9 +100,10 @@ namespace FormForge.UI.Tooltip
 
             foreach (var stat in data.Stats)
             {
-                var row = Instantiate(m_StatPrefab, m_StatsContainer);
+                PoolableObject row = m_RowPool.Acquire();
+                row.transform.SetParent(m_StatsContainer); 
                 row.GetComponent<TooltipStatRow>().Init(stat);
-                m_Rows.Add(row);
+                m_UsedRows.Add(row);
             }
 
             PositionTooltip(screenPos);
@@ -107,44 +112,33 @@ namespace FormForge.UI.Tooltip
         
         private void ClearRows()
         {
-            foreach (var r in m_Rows)
+            foreach (PoolableObject row in m_UsedRows)
             {
-                Destroy(r.gameObject);
+                m_RowPool.Recycle(row);
             }
-            m_Rows.Clear();
-        }
-
-        private void PositionTooltip(Vector2 screenPos)
-        {
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                m_CanvasGroup.transform as RectTransform,
-                screenPos,
-                m_Canvas.worldCamera,
-                out var local);
-
-            m_Rect.anchoredPosition = Clamp(local);
-        }
-
-        private Vector2 Clamp(Vector2 pos)
-        {
-            RectTransform canvasRect = m_Canvas.transform as RectTransform;
-            Vector2 size = m_Rect.sizeDelta;
-
-            if (canvasRect == null)
-            {
-                return pos;
-            }
-            
-            float x = Mathf.Clamp(pos.x, 
-                k_ScreenPadding, canvasRect.rect.width - size.x - k_ScreenPadding);
-            float y = Mathf.Clamp(pos.y, 
-                -canvasRect.rect.height + size.y + k_ScreenPadding, -k_ScreenPadding);
-
-            return new Vector2(x, y);
+            m_UsedRows.Clear();
         }
         
+        private void PositionTooltip(Vector2 screenPos)
+        {
+            Vector2 pos = screenPos + s_Offset;
+
+            var rect = m_Rect.rect;
+            float width = rect.width;
+            float height = rect.height;
+
+            float x = Mathf.Clamp(pos.x, k_ScreenPadding, Screen.width - width - k_ScreenPadding);
+            float y = Mathf.Clamp(pos.y, height + k_ScreenPadding, Screen.height - k_ScreenPadding);
+
+            m_Rect.position = new Vector2(x, y);
+        }
+
         public void HandleMessage(StatsTooltipShowMessage messageData = null)
         {
+            if (messageData == null)
+            {
+                return;
+            }
             Show(messageData.TooltipData, messageData.ScreenPos);
         }
 

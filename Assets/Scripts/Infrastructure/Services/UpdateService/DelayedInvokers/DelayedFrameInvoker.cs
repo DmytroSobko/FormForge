@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using FormForge.Coroutines.YieldInstructions;
+using FormForge.Infrastructure.Coroutines.YieldInstructions;
 using FormForge.UpdateService.Interfaces;
 
 namespace FormForge.UpdateService.DelayedInvokers

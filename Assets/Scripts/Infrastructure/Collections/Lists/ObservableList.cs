@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace FormForge.Collections
+namespace FormForge.Infrastructure.Collections
 {
     /// <summary>
     /// A generic list that supports observation of changes, including item additions, removals, and full list changes.

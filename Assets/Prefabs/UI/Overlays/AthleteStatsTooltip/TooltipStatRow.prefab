@@ -222,6 +222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5326631669610779850}
   - component: {fileID: 7117986593744787531}
+  - component: {fileID: 4191050787650044248}
   m_Layer: 0
   m_Name: TooltipStatRow
   m_TagString: Untagged
@@ -263,9 +264,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 568208f932b04f39b34d9c65bcab3b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FormForge.UI.Tooltip.TooltipStatRow
-  m_Icon: {fileID: 6796757122586772403}
   m_TitleText: {fileID: 1680324208685260078}
   m_ValueText: {fileID: 1736211260898103435}
+--- !u!114 &4191050787650044248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5323802416759762829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed4b7ee916ed0d447a0f108570a55934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FormForge.Collections.PoolableObject
+  m_disableOnDeallocation: 0
+  m_disableCollidersOnDeallocation: 0
+  m_disableRenderersOnDeallocation: 0
 --- !u!1 &8325580993284335780
 GameObject:
   m_ObjectHideFlags: 0
