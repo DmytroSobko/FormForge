@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-namespace FormForge.UI.Tooltip
+namespace FormForge.UI.Tooltip.Components
 {
     public class AthleteTooltipTrigger : MonoBehaviour,
         IPointerEnterHandler, IPointerExitHandler
@@ -41,7 +41,7 @@ namespace FormForge.UI.Tooltip
             {
                 return;
             }
-            ServiceLocator.GetService<IMessageService>().Send(new StatsTooltipHideMessage());
+            ServiceLocator.GetService<IMessageService>().Send(new AthleteStatsTooltipHideMessage());
             m_IsTooltipActivated = false;
         }
 
@@ -49,7 +49,7 @@ namespace FormForge.UI.Tooltip
         {
             yield return new WaitForSeconds(m_HoverDelay);
 
-            var showMessage = new StatsTooltipShowMessage(m_TooltipData,Mouse.current.position.ReadValue());
+            var showMessage = new AthleteStatsTooltipShowMessage(m_TooltipData,Mouse.current.position.ReadValue());
             ServiceLocator.GetService<IMessageService>().Send(showMessage);
             m_IsTooltipActivated = true;
         }

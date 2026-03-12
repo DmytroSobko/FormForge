@@ -3,7 +3,7 @@ using FormForge.Infrastructure.UI;
 using FormForge.Infrastructure.UI.Selection;
 using FormForge.UI.Screens.ViewModels.CreateAthleteScreen;
 using FormForge.UI.Screens.Views.CreateAthleteScreen;
-using FormForge.UI.Tooltip;
+using FormForge.UI.Tooltip.Components;
 using FormForge.UI.Tooltip.Factories;
 using FormForge.UI.Tooltip.Models;
 using UnityEngine;

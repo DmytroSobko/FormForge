@@ -2,7 +2,7 @@ using FormForge.UI.Tooltip.Models;
 using TMPro;
 using UnityEngine;
 
-namespace FormForge.UI.Tooltip
+namespace FormForge.UI.Tooltip.Components
 {
     public class TooltipStatRow: MonoBehaviour
     {

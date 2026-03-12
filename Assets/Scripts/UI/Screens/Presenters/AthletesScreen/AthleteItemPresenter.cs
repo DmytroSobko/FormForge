@@ -1,7 +1,7 @@
 using FormForge.Infrastructure.UI.Pagination;
 using FormForge.UI.Screens.ViewModels.AthletesScreen;
 using FormForge.UI.Screens.Views.AthletesScreen;
-using FormForge.UI.Tooltip;
+using FormForge.UI.Tooltip.Components;
 using FormForge.UI.Tooltip.Factories;
 using FormForge.UI.Tooltip.Models;
 using UnityEngine;
