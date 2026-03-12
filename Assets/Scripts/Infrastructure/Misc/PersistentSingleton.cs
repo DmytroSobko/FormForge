@@ -22,16 +22,18 @@ namespace FormForge.Infrastructure.Misc
                     return null;
                 }
 
-                if (m_Instance == null)
+                if (m_Instance != null)
                 {
-                    m_Instance = FindFirstObjectByType<T>();
-
-                    if (m_Instance == null)
-                    {
-                        var go = new GameObject(typeof(T).Name);
-                        m_Instance = go.AddComponent<T>();
-                    }
+                    return m_Instance;
                 }
+                m_Instance = FindFirstObjectByType<T>();
+
+                if (m_Instance != null)
+                {
+                    return m_Instance;
+                }
+                var go = new GameObject(typeof(T).Name);
+                m_Instance = go.AddComponent<T>();
 
                 return m_Instance;
             }
