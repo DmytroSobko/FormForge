@@ -167,7 +167,7 @@
         /// Creates the Pool containers and fills them to the specified size.
         /// </summary>
         /// <param name="initialSize">Initial size of the Pool</param>
-        protected void InitializePool(uint initialSize)
+        protected void InitializePool(int initialSize)
         {
             Pool = new HashSet<IPoolable>();
             AllocatedObjects = new HashSet<IPoolable>();

@@ -5,8 +5,8 @@ namespace FormForge.Infrastructure.UI.Misc
 {
     public abstract class BaseTooltip : FadableOverlayBase
     {
-        protected const float ScreenPadding = 10f;
-        protected static readonly Vector2 Offset = new Vector2(20f, -20f);
+        private const float ScreenPadding = 10f;
+        private static readonly Vector2 Offset = new Vector2(20f, -20f);
 
         [SerializeField] private RectTransform m_Rect;
 

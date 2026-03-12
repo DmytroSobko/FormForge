@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using FormForge.Infrastructure.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,9 +19,8 @@ namespace FormForge.Infrastructure.UI.Pagination
         [SerializeField] private int m_PageSize;
 
         private IPaginatedDataProvider<TItemViewModel> m_PaginatedDataProvider;
-        private ItemPool<TItemPresenter> m_Pool;
-
-        private TItemPresenter m_ItemPrefab;
+        private Pool<PoolableObject> m_Pool;
+        private List<PoolableObject> m_AcquiredPoolItems = new List<PoolableObject>();
 
         private int m_CurrentPage;
         private int m_TotalPages;
@@ -28,7 +29,6 @@ namespace FormForge.Infrastructure.UI.Pagination
         public void Initialize(IPaginatedDataProvider<TItemViewModel> provider, GameObject itemPrefab)
         {
             m_PaginatedDataProvider = provider;
-            m_ItemPrefab = itemPrefab.GetComponent<TItemPresenter>();
             
             if (m_PaginatedDataProvider.Items.Count == 0)
             {
@@ -40,7 +40,7 @@ namespace FormForge.Infrastructure.UI.Pagination
             }
             else
             {
-                m_Pool = new ItemPool<TItemPresenter>(m_ItemPrefab, m_ContentRoot);
+                m_Pool = new Pool<PoolableObject>(m_PageSize, itemPrefab);
 
                 m_NextButton.onClick.AddListener(OnNextClicked);
                 m_PrevButton.onClick.AddListener(OnPrevClicked);
@@ -75,17 +75,29 @@ namespace FormForge.Infrastructure.UI.Pagination
 
             m_Animator.Animate(direction, () =>
             {
-                m_Pool.ReleaseAll();
+                RecyclePoolObjects();
 
                 foreach (var itemData in result.Items)
                 {
-                    var item = m_Pool.Get();
-                    item.Initialize(itemData);
+                    PoolableObject item = m_Pool.Acquire();
+                    item.transform.SetParent(m_ContentRoot, false);
+                    item.GetComponent<TItemPresenter>().Initialize(itemData);
+                    m_AcquiredPoolItems.Add(item);
                 }
 
                 m_CurrentPage = pageIndex;
                 UpdateUI();
             });
+        }
+
+        private void RecyclePoolObjects()
+        {
+            foreach (PoolableObject item in m_AcquiredPoolItems)
+            {
+                item.Recycle();
+            }
+            
+            m_AcquiredPoolItems.Clear();
         }
 
         private void UpdateUI()

@@ -9,7 +9,6 @@ namespace FormForge.UI.Screens.Views.CreateAthleteScreen
 {
     public class CreateAthleteScreenView: BaseScreenView
     {
-        [SerializeField] private ScrollRect m_AthleteTypesScrollRect;
         [SerializeField] private RectTransform m_ScrollRectContent;
         [SerializeField] private TMP_InputField m_AthleteName;
         [SerializeField] private Button m_CreateButton;
