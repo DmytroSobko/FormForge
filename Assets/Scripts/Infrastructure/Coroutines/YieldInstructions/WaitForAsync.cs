@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using UnityEngine;
 
-namespace FormForge.Coroutines.YieldInstructions
+namespace FormForge.Infrastructure.Coroutines.YieldInstructions
 {
     public class WaitForAsync : CustomYieldInstruction
     {

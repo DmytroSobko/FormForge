@@ -1,4 +1,4 @@
-﻿namespace FormForge.Collections
+﻿namespace FormForge.Infrastructure.Collections
 {
     using System;
     using System.Reflection;

@@ -339,6 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FormForge.Infrastructure.UI.Overlays.ErrorOverlay.ErrorOverlay
   m_CanvasGroup: {fileID: 5861172759247173392}
   m_FadeDuration: 0.2
+  m_UpdateCanvasGroupProperties: 1
   m_ErrorBodyText: {fileID: 6121696160174264669}
   m_CloseButton: {fileID: 7533914146426746105}
 --- !u!1 &5481330395290497569

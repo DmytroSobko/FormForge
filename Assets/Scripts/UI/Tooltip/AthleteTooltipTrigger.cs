@@ -33,6 +33,7 @@ namespace FormForge.UI.Tooltip
             if (m_HoverRoutine != null)
             {
                 StopCoroutine(m_HoverRoutine);
+                m_HoverRoutine = null;
             }
 
             ServiceLocator.GetService<IMessageService>().Send(new StatsTooltipHideMessage());
