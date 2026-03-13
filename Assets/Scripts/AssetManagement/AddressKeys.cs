@@ -21,6 +21,11 @@ namespace FormForge.AssetManagement
             {
                 public const string StatRow = "TooltipStatRow";
             }
+            
+            public static class Toast
+            {
+                public const string ToastView = "ToastView";
+            }
         }
         
         public static class ScriptableObjects

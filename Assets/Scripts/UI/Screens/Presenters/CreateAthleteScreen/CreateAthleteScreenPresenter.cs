@@ -13,6 +13,7 @@ using FormForge.Services.AthletesService;
 using FormForge.Statics;
 using FormForge.UI.Screens.ViewModels.CreateAthleteScreen;
 using FormForge.UI.Screens.Views.CreateAthleteScreen;
+using Infrastructure.Services.ToastService;
 using UnityEngine;
 
 namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
@@ -30,11 +31,13 @@ namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
         
         private IMessageService m_MessageService;
         private IAthletesService m_AthletesService;
-        
+        private IToastService m_ToastService;
+
         protected override void OnInitialize()
         {
             m_MessageService = ServiceLocator.GetService<IMessageService>();
             m_AthletesService = ServiceLocator.GetService<IAthletesService>();
+            m_ToastService = ServiceLocator.GetService<IToastService>();
             
             AddListeners();
             
@@ -99,10 +102,10 @@ namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
             m_MessageService.Send(new ProcessingOverlayShowMessage(UIStrings.CreateAthlete.Creating));
 
             try
-            {
-                Athlete response = await m_AthletesService.CreateAthlete(athleteType, athleteName);
+            { 
+                await m_AthletesService.CreateAthlete(athleteType, athleteName);
 
-                //TODO give feedback to the user
+                m_ToastService.Success(UIStrings.CreateAthlete.Toast.Success(athleteName));
             }
             catch (ApiException e)
             {

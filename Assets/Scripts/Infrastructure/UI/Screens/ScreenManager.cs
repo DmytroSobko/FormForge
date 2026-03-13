@@ -17,7 +17,7 @@ namespace FormForge.Infrastructure.UI.Screens
 {
 	public class ScreenManager : IMessageReceiver<OpenScreenMessage>, IMessageReceiver<CloseScreenMessage>
     {
-	    private Transform m_ScreenContainer;
+	    private Transform m_ScreenCanvas;
 		private ScreenPresenter m_CurrentScreen;
 
 		private Dictionary<Type, ScreenPresenter> m_Screens = new Dictionary<Type, ScreenPresenter>();
@@ -26,9 +26,9 @@ namespace FormForge.Infrastructure.UI.Screens
 		
 		private ILogger m_Logger = new UnityLogger(nameof(ScreenManager));
 
-		public ScreenManager(Transform screenContainer)
+		public ScreenManager(Transform screenCanvas)
 		{
-			m_ScreenContainer = screenContainer;
+			m_ScreenCanvas = screenCanvas;
 			
 			var messagingService = ServiceLocator.GetService<IMessageService>();
 			messagingService.Register<OpenScreenMessage>(this);
@@ -118,7 +118,7 @@ namespace FormForge.Infrastructure.UI.Screens
 					m_Logger?.LogError("The screen doesn't contain a Screen component");
 				}
 				
-				ScreenPresenter loadedScreen = Object.Instantiate(presenter, m_ScreenContainer, false);
+				ScreenPresenter loadedScreen = Object.Instantiate(presenter, m_ScreenCanvas, false);
 
 				// Add it to current screens collection
 				m_Screens.Add(screenType, loadedScreen);

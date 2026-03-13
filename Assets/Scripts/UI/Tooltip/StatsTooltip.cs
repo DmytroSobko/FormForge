@@ -36,27 +36,19 @@ namespace FormForge.UI.Tooltip
         {
             HideImmediate();
             
-            await WaitForInitialization();
-            await LoadStatRowPrefab();
+            await ServiceLocator
+                .GetService<IInitializationService>()
+                .WaitUntilInitialized();
+            
+            await LoadPrefab();
             
             m_StatRowsPool = new Pool<PoolableObject>(k_InitialRowPoolSize, m_StatRowPrefab);
-            
             m_MessageService = ServiceLocator.GetService<IMessageService>();
 
             AddListeners();
         }
-        
-        private async UniTask WaitForInitialization()
-        {
-            var initializationService = ServiceLocator.GetService<IInitializationService>();
 
-            while (!initializationService.IsInitialized)
-            {
-                await UniTask.Yield();
-            }
-        }
-
-        private async UniTask LoadStatRowPrefab()
+        private async UniTask LoadPrefab()
         {
             var policy = new BasicAssetPolicy(AddressKeys.UI.Tooltips.StatRow);
             m_StatRowPrefab = await ServiceLocator.GetService<IAssetManagementService>().

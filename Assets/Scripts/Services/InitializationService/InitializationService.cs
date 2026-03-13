@@ -73,5 +73,18 @@ namespace FormForge.Services.InitializationService
             m_Logger?.Log("Starting Ended");
             IsInitialized = true;
         }
+        
+        public async UniTask WaitUntilInitialized()
+        {
+            if (IsInitialized)
+            {
+                return;
+            }
+
+            while (!IsInitialized)
+            {
+                await UniTask.Yield();
+            }
+        }
     }
 }
