@@ -6,5 +6,6 @@ namespace FormForge.Services.InitializationService
     {
         bool IsInitialized { get; }
         UniTask Initialize();
+        UniTask WaitUntilInitialized();
     }
 }
