@@ -12,6 +12,7 @@ namespace FormForge.UI.Tooltip.Factories
             return new TooltipData
             {
                 Title = athlete.Name,
+                Description = athlete.Type.ToString(),
                 Stats = new List<TooltipStat>
                 {
                     new TooltipStat 

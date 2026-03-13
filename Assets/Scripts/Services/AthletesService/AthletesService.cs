@@ -9,6 +9,7 @@ using FormForge.Infrastructure.Services.CacheService;
 using FormForge.Infrastructure.Services.Enums;
 using FormForge.Infrastructure.Services.HttpClientService;
 using FormForge.Networking;
+using FormForge.Networking.Athletes;
 using FormForge.Networking.Athletes.DTO;
 using FormForge.Networking.Athletes.Mapping;
 using FormForge.Networking.Athletes.Requests;
@@ -19,10 +20,9 @@ namespace FormForge.Services.AthletesService
 {
     public class AthletesService : IAthletesService
     {
+        private const int k_PageSize = 100;
         private const string k_AthletesCacheKey = "athletes";
         private static readonly TimeSpan s_CacheLifetime = TimeSpan.FromMinutes(5);
-
-        public IReadOnlyList<Athlete> Athletes { get; private set; }
         
         private ILogger m_Logger = new UnityLogger(nameof(AthletesService));
 
@@ -48,7 +48,7 @@ namespace FormForge.Services.AthletesService
             CreateAthleteRequestDto requestDto = new CreateAthleteRequestDto(athleteType, athleteName);
 
             var dto = await m_HttpClientService.PostAsync<CreateAthleteRequestDto, AthleteDto>(
-                APIEndpoints.Athletes.Base, requestDto);
+                AthleteEndpoints.Base, requestDto);
 
             var athlete = AthleteMapper.Map(dto);
 
@@ -71,23 +71,44 @@ namespace FormForge.Services.AthletesService
         {
             m_Logger?.Log("Fetching created athletes...");
 
-            var athletes = await m_CacheService.GetOrCreateAsync(
+            var athletesDict = await m_CacheService.GetOrCreateAsync(
                 k_AthletesCacheKey, GetAthletesServer, s_CacheLifetime);
 
-            return athletes;
+            return athletesDict.Values as IReadOnlyList<Athlete> ?? athletesDict.Values.ToList();
         }
 
-        private async UniTask<IReadOnlyList<Athlete>> GetAthletesServer()
+
+        private async UniTask<IReadOnlyDictionary<string, Athlete>> GetAthletesServer()
         {
             m_Logger?.Log("Fetching athletes from server...");
 
-            var response = await m_HttpClientService.GetAsync<AthletesResponse>(
-                APIEndpoints.Athletes.Base);
+            int offset = 0;
+            var allAthletes = new Dictionary<string, Athlete>();
 
-            IReadOnlyList<Athlete> mapped = response.Athletes.Select(AthleteMapper.Map).ToList();
-            Athletes = mapped;
+            while (true)
+            {
+                string url = AthleteEndpoints.Paginated(k_PageSize, offset);
 
-            return mapped;
+                var response = await m_HttpClientService.GetAsync<AthletesResponse>(url);
+
+                var mapped = response.Athletes
+                    .Select(AthleteMapper.Map)
+                    .ToList();
+
+                foreach (var athlete in mapped)
+                {
+                    allAthletes[athlete.Id] = athlete;
+                }
+
+                if (mapped.Count < k_PageSize)
+                {
+                    break;
+                }
+
+                offset += k_PageSize;
+            }
+
+            return allAthletes;
         }
     }
 }

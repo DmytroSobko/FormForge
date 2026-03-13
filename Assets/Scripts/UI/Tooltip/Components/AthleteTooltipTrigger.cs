@@ -49,7 +49,8 @@ namespace FormForge.UI.Tooltip.Components
         {
             yield return new WaitForSeconds(m_HoverDelay);
 
-            var showMessage = new AthleteStatsTooltipShowMessage(m_TooltipData,Mouse.current.position.ReadValue());
+            var showMessage = new AthleteStatsTooltipShowMessage(
+                m_TooltipData, Mouse.current.position.ReadValue());
             ServiceLocator.GetService<IMessageService>().Send(showMessage);
             m_IsTooltipActivated = true;
         }

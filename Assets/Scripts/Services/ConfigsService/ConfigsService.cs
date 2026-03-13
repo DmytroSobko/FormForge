@@ -11,6 +11,7 @@ using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.CacheService;
 using FormForge.Infrastructure.Services.Enums;
 using FormForge.Infrastructure.Services.HttpClientService;
+using FormForge.Networking;
 using FormForge.Networking.AthleteTypeConfigs.DTO;
 using FormForge.Networking.AthleteTypeConfigs.Mapping;
 using FormForge.Networking.Exercises.DTO;
@@ -19,9 +20,7 @@ using FormForge.Networking.Intensities.DTO;
 using FormForge.Networking.Intensities.Mapping;
 using FormForge.Networking.Simulation.DTO;
 using FormForge.Networking.Simulation.Mapping;
-using FormForge.Networking;
 using UnityEngine;
-using AthleteTypeConfig = FormForge.Domain.Athletes.AthleteTypeConfig;
 using ILogger = FormForge.Infrastructure.Logging.ILogger;
 
 namespace FormForge.Services.ConfigsService
@@ -82,16 +81,16 @@ namespace FormForge.Services.ConfigsService
             m_Logger?.Log("Fetching configs from server (parallel)...");
 
             var athleteTask = m_HttpClientService
-                .GetAsync<AthleteTypeConfigsResponse>(APIEndpoints.Configs.AthleteTypes);
+                .GetAsync<AthleteTypeConfigsResponse>(ConfigEndpoints.AthleteTypes);
 
             var exerciseTask = m_HttpClientService
-                .GetAsync<ExerciseConfigsResponse>(APIEndpoints.Configs.Exercises);
+                .GetAsync<ExerciseConfigsResponse>(ConfigEndpoints.Exercises);
 
             var intensityTask = m_HttpClientService
-                .GetAsync<IntensityTypeConfigsResponse>(APIEndpoints.Configs.Intensities);
+                .GetAsync<IntensityTypeConfigsResponse>(ConfigEndpoints.Intensities);
 
             var simulationTask = m_HttpClientService
-                .GetAsync<SimulationConfigResponse>(APIEndpoints.Configs.SimulationConfig);
+                .GetAsync<SimulationConfigResponse>(ConfigEndpoints.SimulationConfig);
 
             var (athleteTypeConfigsResponse, exerciseConfigsResponse,
                     intensityTypeConfigsResponse, simulationConfigResponse) =
