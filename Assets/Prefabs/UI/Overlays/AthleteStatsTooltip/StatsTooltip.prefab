@@ -74,8 +74,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4293783021
-  m_fontColor: {r: 0.92941177, g: 0.92941177, b: 0.92941177, a: 1}
+    rgba: 4278976767
+  m_fontColor: {r: 1, g: 0, b: 0.045223236, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -92,12 +92,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 40
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 30
+  m_fontSizeMax: 40
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -500,7 +500,6 @@ MonoBehaviour:
   m_CanvasGroup: {fileID: 66737218369199940}
   m_UpdateCanvasGroupProperties: 0
   m_FadeDuration: 0.2
-  m_Canvas: {fileID: 0}
   m_Rect: {fileID: 8416335869537795705}
   m_TitleText: {fileID: 4076159309379130865}
   m_DescriptionText: {fileID: 857783384980657638}
