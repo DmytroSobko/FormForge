@@ -12,7 +12,7 @@ using FormForge.UI.FrontendStateMachine.States;
 namespace FormForge.UI.FrontendStateMachine
 {
     public class FrontendStateMachine : StateMachine<IFrontendState>,
-        IMessageReceiver<SwitchFrontendStateMessage>
+        IMessageReceiver<SwitchFrontendStateMessage>, IDisposable
     {
         private readonly IMessageService m_MessageService;
         private string m_CurrentStateId;
@@ -32,12 +32,12 @@ namespace FormForge.UI.FrontendStateMachine
             m_MessageService = ServiceLocator.GetService<IMessageService>();
             m_MessageService.Register(this);
         }
-        
-        ~FrontendStateMachine()
+
+        public void Dispose()
         {
             m_MessageService.Unregister(this);
         }
-        
+
         public async void HandleMessage(SwitchFrontendStateMessage messageData = null)
         {
             await ChangeStateAsync(messageData.StateName, messageData.Payload);

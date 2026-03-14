@@ -21,11 +21,6 @@ namespace FormForge.AssetManagement
             {
                 public const string StatRow = "TooltipStatRow";
             }
-            
-            public static class Toast
-            {
-                public const string ToastView = "ToastView";
-            }
         }
         
         public static class ScriptableObjects
@@ -34,6 +29,7 @@ namespace FormForge.AssetManagement
             {
                 public const string AthleteTypeVisualsDatabase = "AthleteTypeVisualsDatabase";
                 public const string ExerciseVisualsDatabase = "ExerciseVisualsDatabase";
+                public const string ToastVisualsDatabase = "ToastVisualsDatabase";
             }
         }
     }

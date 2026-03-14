@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using FormForge.Infrastructure.Services;
+using FormForge.Services.VisualsService;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,7 +19,13 @@ namespace FormForge.Infrastructure.UI.Toast
         [SerializeField] private Image m_Icon;
 
         private Coroutine m_Routine;
-        
+        private IVisualsService m_VisualsService;
+
+        private void Awake()
+        {
+            m_VisualsService = ServiceLocator.GetService<IVisualsService>();
+        }
+
         private void OnDisable()
         {
             if (m_Routine == null)
@@ -36,8 +44,8 @@ namespace FormForge.Infrastructure.UI.Toast
             }
 
             m_Text.text = message.Toast;
-            SetIcon(message.Type);
-
+            m_Icon.sprite = m_VisualsService.GetToastVisuals(message.Type).Icon;
+            
             gameObject.SetActive(true);
 
             m_Routine = StartCoroutine(ShowRoutine(message.Duration, onComplete));
@@ -91,28 +99,6 @@ namespace FormForge.Infrastructure.UI.Toast
             }
 
             m_CanvasGroup.alpha = 0f;
-        }
-
-        private void SetIcon(ToastType type) 
-        {
-            switch (type)
-            {
-                case ToastType.Success:
-                    m_Icon.color = new Color(0.2f, 0.6f, 0.2f);
-                    break;
-
-                case ToastType.Warning:
-                    m_Icon.color = new Color(0.8f, 0.6f, 0.2f);
-                    break;
-
-                case ToastType.Error:
-                    m_Icon.color = new Color(0.8f, 0.2f, 0.2f);
-                    break;
-
-                default:
-                    m_Icon.color = new Color(0.2f, 0.2f, 0.2f);
-                    break;
-            }
         }
     }
 }

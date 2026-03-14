@@ -29,19 +29,19 @@ namespace Infrastructure.Services.ToastService
 
         public void Success(string toast)
         {
-            var message = new ToastShowMessage(toast, ToastType.Success);
+            var message = new ToastShowMessage(toast, EToastType.Success);
             m_MessageService.Send(message);
         }
 
         public void Error(string toast)
         {
-            var message = new ToastShowMessage(toast, ToastType.Error);
+            var message = new ToastShowMessage(toast, EToastType.Error);
             m_MessageService.Send(message);
         }
 
         public void Warning(string toast)
         {
-            var message = new ToastShowMessage(toast, ToastType.Warning);
+            var message = new ToastShowMessage(toast, EToastType.Warning);
             m_MessageService.Send(message);
         }
     }

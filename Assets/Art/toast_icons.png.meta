@@ -1,0 +1,460 @@
+fileFormatVersion: 2
+guid: edbfd8e99f9b5463282579f36518614a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2419264185439377355
+    second: toast_icons_0
+  - first:
+      213: 8928013948836487736
+    second: toast_icons_1
+  - first:
+      213: 3982847647054470355
+    second: toast_icons_2
+  - first:
+      213: -597738174914640190
+    second: toast_icons_3
+  - first:
+      213: 3797563385895488977
+    second: toast_icons_4
+  - first:
+      213: 421069042726780557
+    second: toast_icons_5
+  - first:
+      213: -1018264365352730803
+    second: toast_icons_6
+  - first:
+      213: 1022273079227539493
+    second: toast_icons_7
+  - first:
+      213: -5717620115448770661
+    second: toast_icons_8
+  - first:
+      213: 8010993320455245925
+    second: toast_icons_9
+  - first:
+      213: 8306730830966391675
+    second: toast_icons_10
+  - first:
+      213: -8926517165681018438
+    second: toast_icons_11
+  - first:
+      213: -1935165779337895867
+    second: toast_icons_12
+  - first:
+      213: 3193311051162390253
+    second: toast_icons_13
+  - first:
+      213: -1345450655475023204
+    second: toast_icons_14
+  - first:
+      213: 7479645472364278583
+    second: toast_icons_15
+  - first:
+      213: -2391249744324765704
+    second: toast_icons_16
+  - first:
+      213: 220769657954403846
+    second: toast_icons_17
+  - first:
+      213: -1614258999557064153
+    second: toast_icons_18
+  - first:
+      213: 5974624385371755650
+    second: toast_icons_19
+  - first:
+      213: -1794174090970024020
+    second: toast_icons_20
+  - first:
+      213: -1743097368574629401
+    second: toast_icons_21
+  - first:
+      213: -1647438864333955324
+    second: toast_icons_22
+  - first:
+      213: -5593157741144542185
+    second: toast_icons_23
+  - first:
+      213: -514322971876382476
+    second: toast_icons_24
+  - first:
+      213: 3793968926739040049
+    second: toast_icons_25
+  - first:
+      213: -8838853633347103572
+    second: toast_icons_26
+  - first:
+      213: -7692279953121309893
+    second: toast_icons_27
+  - first:
+      213: 4326547645171322760
+    second: toast_icons_28
+  - first:
+      213: 2223052313430399142
+    second: toast_icons_29
+  - first:
+      213: -2977711235055572562
+    second: toast_icons_30
+  - first:
+      213: 4842861685258241411
+    second: toast_icons_31
+  - first:
+      213: -4758180481764768005
+    second: toast_icons_32
+  - first:
+      213: 4623128191104649236
+    second: toast_icons_33
+  - first:
+      213: 4252594816158438448
+    second: toast_icons_34
+  - first:
+      213: 6810030022328963257
+    second: toast_icons_35
+  - first:
+      213: -176864736841371748
+    second: toast_icons_36
+  - first:
+      213: -6367032644833140349
+    second: toast_icons_37
+  - first:
+      213: -210887880427469966
+    second: toast_icons_38
+  - first:
+      213: 6319604411937034424
+    second: toast_icons_39
+  - first:
+      213: 6637628245658598315
+    second: toast_icons_40
+  - first:
+      213: 1631677895454120425
+    second: toast_icons_41
+  - first:
+      213: 2361546668051711332
+    second: toast_icons_42
+  - first:
+      213: 1974574013502109651
+    second: toast_icons_43
+  - first:
+      213: 7619284675421294202
+    second: toast_icons_44
+  - first:
+      213: -8709074159399700846
+    second: toast_icons_45
+  - first:
+      213: 3024721547946664049
+    second: toast_icons_46
+  - first:
+      213: 2267295805578149196
+    second: toast_icons_47
+  - first:
+      213: -2580707078862825570
+    second: toast_icons_48
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: toast_icons_1
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 753
+        width: 292
+        height: 262
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 832a122426da6eb70800000000000000
+      internalID: 8928013948836487736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: toast_icons_24
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 429
+        width: 291
+        height: 255
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f82c796bf1ccd8f0800000000000000
+      internalID: -514322971876382476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: toast_icons_25
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 425
+        width: 291
+        height: 258
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 137862733a2e6a430800000000000000
+      internalID: 3793968926739040049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: toast_icons_28
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 98
+        width: 286
+        height: 254
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88f4d36092cfa0c30800000000000000
+      internalID: 4326547645171322760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: toast_icons_38
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 93
+        width: 287
+        height: 258
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2738faf0796c21df0800000000000000
+      internalID: -210887880427469966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: toast_icons_39
+      rect:
+        serializedVersion: 2
+        x: 827
+        y: 95
+        width: 289
+        height: 259
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b09f7edabeb3b750800000000000000
+      internalID: 6319604411937034424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: c8a1041d89d3e4f249552e4bca4bdbd3
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      toast_icons_0: -2419264185439377355
+      toast_icons_1: 8928013948836487736
+      toast_icons_10: 8306730830966391675
+      toast_icons_11: -8926517165681018438
+      toast_icons_12: -1935165779337895867
+      toast_icons_13: 3193311051162390253
+      toast_icons_14: -1345450655475023204
+      toast_icons_15: 7479645472364278583
+      toast_icons_16: -2391249744324765704
+      toast_icons_17: 220769657954403846
+      toast_icons_18: -1614258999557064153
+      toast_icons_19: 5974624385371755650
+      toast_icons_2: 3982847647054470355
+      toast_icons_20: -1794174090970024020
+      toast_icons_21: -1743097368574629401
+      toast_icons_22: -1647438864333955324
+      toast_icons_23: -5593157741144542185
+      toast_icons_24: -514322971876382476
+      toast_icons_25: 3793968926739040049
+      toast_icons_26: -8838853633347103572
+      toast_icons_27: -7692279953121309893
+      toast_icons_28: 4326547645171322760
+      toast_icons_29: 2223052313430399142
+      toast_icons_3: -597738174914640190
+      toast_icons_30: -2977711235055572562
+      toast_icons_31: 4842861685258241411
+      toast_icons_32: -4758180481764768005
+      toast_icons_33: 4623128191104649236
+      toast_icons_34: 4252594816158438448
+      toast_icons_35: 6810030022328963257
+      toast_icons_36: -176864736841371748
+      toast_icons_37: -6367032644833140349
+      toast_icons_38: -210887880427469966
+      toast_icons_39: 6319604411937034424
+      toast_icons_4: 3797563385895488977
+      toast_icons_40: 6637628245658598315
+      toast_icons_41: 1631677895454120425
+      toast_icons_42: 2361546668051711332
+      toast_icons_43: 1974574013502109651
+      toast_icons_44: 7619284675421294202
+      toast_icons_45: -8709074159399700846
+      toast_icons_46: 3024721547946664049
+      toast_icons_47: 2267295805578149196
+      toast_icons_48: -2580707078862825570
+      toast_icons_5: 421069042726780557
+      toast_icons_6: -1018264365352730803
+      toast_icons_7: 1022273079227539493
+      toast_icons_8: -5717620115448770661
+      toast_icons_9: 8010993320455245925
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

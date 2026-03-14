@@ -25,8 +25,23 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 29a741c95eebb468fa998a6b52f7149e
+    m_Address: SuccessToastVisualsConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 46f75dd7cf86a4692a62aaf3a7a492af
     m_Address: ExerciseVisualsDatabase
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4cc6f5e18a95440e59bcf83aeb1b58af
+    m_Address: ToastVisualsDatabase
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4e3a99a1e1d5e4d49bea5a1aa9835f44
+    m_Address: WarningToastVisualsConfig
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -37,6 +52,16 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 94d26a68b01cc4668bdd91e5e04cac0e
     m_Address: StrengthFocusedAthleteVisualsConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: efacf7d4e301341be9fee15c2a87fbe6
+    m_Address: ErrorToastVisualsConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f45acb2b73b924263b3f6a40ca2e443f
+    m_Address: InfoToastVisualsConfig
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

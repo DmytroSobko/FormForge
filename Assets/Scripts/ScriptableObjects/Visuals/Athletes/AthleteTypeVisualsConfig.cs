@@ -1,9 +1,9 @@
 using FormForge.Domain.Athletes;
 using UnityEngine;
 
-namespace FormForge.ScriptableObjects.Athletes
+namespace FormForge.ScriptableObjects.Visuals.Athletes
 {
-    [CreateAssetMenu(fileName = "AthleteTypeVisualsConfig", menuName = "Scriptable Objects/AthleteTypeVisualsConfig")]
+    [CreateAssetMenu(fileName = "AthleteTypeVisualsConfig", menuName = "Scriptable Objects/Visuals/AthleteTypeVisualsConfig")]
     public class AthleteTypeVisualsConfig: ScriptableObject
     {
         public EAthleteType Type;

@@ -15,31 +15,32 @@ using Object = UnityEngine.Object;
 
 namespace FormForge.Infrastructure.UI.Screens
 {
-	public class ScreenManager : IMessageReceiver<OpenScreenMessage>, IMessageReceiver<CloseScreenMessage>
+	public class ScreenManager : IDisposable, IMessageReceiver<OpenScreenMessage>, 
+		IMessageReceiver<CloseScreenMessage>
     {
+	    private IMessageService m_MessageService;
 	    private Transform m_ScreenCanvas;
 		private ScreenPresenter m_CurrentScreen;
 
 		private Dictionary<Type, ScreenPresenter> m_Screens = new Dictionary<Type, ScreenPresenter>();
 
 		private DateTime m_OpenTimestamp;
-		
+
 		private ILogger m_Logger = new UnityLogger(nameof(ScreenManager));
 
 		public ScreenManager(Transform screenCanvas)
 		{
 			m_ScreenCanvas = screenCanvas;
 			
-			var messagingService = ServiceLocator.GetService<IMessageService>();
-			messagingService.Register<OpenScreenMessage>(this);
-			messagingService.Register<CloseScreenMessage>(this);
+			m_MessageService = ServiceLocator.GetService<IMessageService>();
+			m_MessageService.Register<OpenScreenMessage>(this);
+			m_MessageService.Register<CloseScreenMessage>(this);
 		}
-        
-		~ScreenManager()
+
+		public void Dispose()
 		{
-			var messagingService = ServiceLocator.GetService<IMessageService>();
-			messagingService.Unregister<OpenScreenMessage>(this);
-			messagingService.Unregister<CloseScreenMessage>(this);
+			m_MessageService.Unregister<OpenScreenMessage>(this);
+			m_MessageService.Unregister<CloseScreenMessage>(this);
 		}
 
 		public void HandleMessage(OpenScreenMessage messageData = null)

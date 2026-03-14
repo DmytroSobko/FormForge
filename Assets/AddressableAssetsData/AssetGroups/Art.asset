@@ -60,6 +60,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: edbfd8e99f9b5463282579f36518614a
+    m_Address: toast_icons
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f779996a6277a4ae4ae9235ea4d7c834
     m_Address: circle
     m_ReadOnly: 0
