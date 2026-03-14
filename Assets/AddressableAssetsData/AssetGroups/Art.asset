@@ -30,6 +30,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3d1ac91a979204c65b52742be7568793
+    m_Address: dumbbell_icon_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 94580852f34d64f27854116fac006f4b
+    m_Address: dumbbell_icon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9b3ee225d7b9a4c24b6ac2c3204c43f1
     m_Address: loading
     m_ReadOnly: 0

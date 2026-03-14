@@ -41,7 +41,6 @@ namespace FormForge.Services.InitializationService
             m_VisualsService = ServiceLocator.GetService<IVisualsService>();
         }
 
-
         public async UniTask Initialize()
         {
             m_Logger?.Log("Starting Initialize");
@@ -72,6 +71,9 @@ namespace FormForge.Services.InitializationService
             
             m_Logger?.Log("Starting Ended");
             IsInitialized = true;
+            
+            m_MessageService.Send(new LoadingOverlaySetProgressMessage(1f));
+            m_MessageService.Send(new LoadingOverlayHideMessage());
         }
         
         public async UniTask WaitUntilInitialized()

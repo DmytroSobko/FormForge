@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Globalization;
 using FormForge.Domain.Athletes;
 using FormForge.UI.Tooltip.Models;
 
@@ -18,17 +17,27 @@ namespace FormForge.UI.Tooltip.Factories
                     new TooltipStat 
                     { 
                         Title = "Strength", 
-                        Value = athlete.Strength.ToString(CultureInfo.CurrentCulture) 
+                        Value = $"{athlete.Strength}"
                     },
                     new TooltipStat
                     {
                         Title = "Endurance", 
-                        Value = athlete.Endurance.ToString(CultureInfo.CurrentCulture)
+                        Value = $"{athlete.Endurance}"
                     },
                     new TooltipStat
                     {
                         Title = "Mobility", 
-                        Value = athlete.Mobility.ToString(CultureInfo.InvariantCulture)
+                        Value = $"{athlete.Mobility}"
+                    },
+                    new TooltipStat
+                    {
+                        Title = "Fatigue", 
+                        Value = $"{athlete.Fatigue}/{athlete.MaxFatigue}"
+                    },
+                    new TooltipStat
+                    {
+                        Title = "Week", 
+                        Value = $"{athlete.Week}"
                     }
                 }
             };
@@ -45,17 +54,32 @@ namespace FormForge.UI.Tooltip.Factories
                     new TooltipStat 
                     { 
                         Title = "Strength", 
-                        Value = config.StatBlock.Strength.ToString(CultureInfo.CurrentCulture) 
+                        Value = $"{config.StatBlock.Strength}" 
                     },
                     new TooltipStat
                     {
                         Title = "Endurance", 
-                        Value = config.StatBlock.Endurance.ToString(CultureInfo.CurrentCulture)
+                        Value = $"{config.StatBlock.Endurance}"
                     },
                     new TooltipStat
                     {
                         Title = "Mobility", 
-                        Value = config.StatBlock.Mobility.ToString(CultureInfo.InvariantCulture)
+                        Value = $"{config.StatBlock.Mobility}"
+                    },
+                    new TooltipStat
+                    {
+                        Title = "Max Fatigue", 
+                        Value = $"{config.MaxFatigue}"
+                    },
+                    new TooltipStat
+                    {
+                        Title = "Recovery Multiplier", 
+                        Value = $"{config.RecoveryMultiplier}"
+                    },
+                    new TooltipStat
+                    {
+                        Title = "Fatigue Sensitivity", 
+                        Value = $"{config.FatigueSensitivity}"
                     }
                 }
             };

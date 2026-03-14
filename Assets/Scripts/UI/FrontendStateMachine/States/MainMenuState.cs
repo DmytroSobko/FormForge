@@ -16,6 +16,9 @@ namespace FormForge.UI.FrontendStateMachine.States
         {
             var messageService = ServiceLocator.GetService<IMessageService>();
             
+            messageService.Send(new LoadingOverlayShowMessage());
+            messageService.Send(new LoadingOverlaySetProgressMessage(0.25f));
+
             if (Payload != null && Payload.LoadScene)
             {
                 ISceneService sceneService = ServiceLocator.GetService<ISceneService>();
@@ -23,7 +26,7 @@ namespace FormForge.UI.FrontendStateMachine.States
                 await sceneService.UnloadSceneAsync(SceneIds.Bootstrap);
             }
 
-            messageService.Send(new LoadingOverlaySetProgressMessage(0.9f));
+            messageService.Send(new LoadingOverlaySetProgressMessage(0.5f));
             messageService.Send(new OpenScreenMessage(new MainMenuScreenViewModel()));
             messageService.Send(new LoadingOverlaySetProgressMessage(1f));
             messageService.Send(new LoadingOverlayHideMessage());
@@ -31,7 +34,8 @@ namespace FormForge.UI.FrontendStateMachine.States
 
         public override UniTask ExitAsync()
         {
-            ServiceLocator.GetService<IMessageService>().Send(new CloseScreenMessage(typeof(MainMenuScreenViewModel)));
+            var closeMessage = new CloseScreenMessage(typeof(MainMenuScreenViewModel));
+            ServiceLocator.GetService<IMessageService>().Send(closeMessage);
             return UniTask.CompletedTask;
         }
     }

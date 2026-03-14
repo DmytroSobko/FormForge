@@ -6,6 +6,7 @@ using FormForge.UI.FrontendStateMachine;
 using FormForge.UI.FrontendStateMachine.Messages;
 using FormForge.UI.FrontendStateMachine.Payloads;
 using UnityEngine;
+
 using ILogger = FormForge.Infrastructure.Logging.ILogger;
 
 namespace FormForge.Core

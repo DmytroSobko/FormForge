@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 43.499985}
-  m_SizeDelta: {x: -50, y: 69}
+  m_AnchoredPosition: {x: 0, y: 60.9}
+  m_SizeDelta: {x: -50, y: 83.1422}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1099580591772285012
 CanvasRenderer:
@@ -74,8 +74,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294931001
+  m_fontColor: {r: 0.2235294, g: 0.44599524, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -92,12 +92,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
+  m_fontSize: 38
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 32
+  m_fontSizeMax: 38
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -171,8 +171,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -125.4, y: 131.2}
-  m_SizeDelta: {x: 82.1104, y: 67.2024}
+  m_AnchoredPosition: {x: -136.8, y: 136.4}
+  m_SizeDelta: {x: 55.8887, y: 55.8887}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6951546177952202407
 CanvasRenderer:
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.69411767, g: 0.67058825, b: 0.9607843, a: 1}
+  m_Color: {r: 0.69411767, g: 0.67058825, b: 0.9607843, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -369,8 +369,8 @@ MonoBehaviour:
   m_AthleteTypeText: {fileID: 607014549066669144}
   m_BackgroundImage: {fileID: 2788367974151291979}
   m_SelectedIndicator: {fileID: 7621316371150403619}
-  m_UnselectedColor: {r: 0.69411767, g: 0.67058825, b: 0.9607843, a: 1}
-  m_SelectedColor: {r: 0.7019608, g: 1, b: 0.77254903, a: 1}
+  m_UnselectedColor: {r: 0.69411767, g: 0.67058825, b: 0.9607843, a: 0.78431374}
+  m_SelectedColor: {r: 0.7019608, g: 1, b: 0.77254903, a: 0.78431374}
 --- !u!114 &2451092499831224590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -418,7 +418,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 5.5193024, y: 28}
+  m_AnchoredPosition: {x: 0, y: 42.142}
   m_SizeDelta: {x: -100, y: -100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8378915976026302554
