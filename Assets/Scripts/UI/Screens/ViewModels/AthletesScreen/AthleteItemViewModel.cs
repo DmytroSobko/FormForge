@@ -1,6 +1,5 @@
 using FormForge.Domain.Athletes;
 using FormForge.Infrastructure.UI.Pagination;
-using UnityEngine;
 
 namespace FormForge.UI.Screens.ViewModels.AthletesScreen
 {
@@ -8,12 +7,9 @@ namespace FormForge.UI.Screens.ViewModels.AthletesScreen
     {
         public Athlete Athlete { get; }
         
-        public Sprite AthleteIcon { get; }
-        
-        public AthleteItemViewModel(Athlete athlete, Sprite athleteIcon)
+        public AthleteItemViewModel(Athlete athlete)
         {
             Athlete = athlete;
-            AthleteIcon = athleteIcon;
         }
     }
 }

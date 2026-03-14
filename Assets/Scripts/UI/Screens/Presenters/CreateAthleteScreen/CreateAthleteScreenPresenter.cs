@@ -10,6 +10,8 @@ using FormForge.Infrastructure.UI.Screens.Presenters;
 using FormForge.Infrastructure.UI.Screens.ViewModels;
 using FormForge.Infrastructure.UI.Selection;
 using FormForge.Services.AthletesService;
+using FormForge.Services.ConfigsService;
+using FormForge.Services.VisualsService;
 using FormForge.Statics;
 using FormForge.UI.Screens.ViewModels.CreateAthleteScreen;
 using FormForge.UI.Screens.Views.CreateAthleteScreen;
@@ -32,12 +34,16 @@ namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
         private IMessageService m_MessageService;
         private IAthletesService m_AthletesService;
         private IToastService m_ToastService;
-
+        private IVisualsService m_VisualsService;
+        private IConfigsService m_ConfigsService;
+        
         protected override void OnInitialize()
         {
             m_MessageService = ServiceLocator.GetService<IMessageService>();
             m_AthletesService = ServiceLocator.GetService<IAthletesService>();
             m_ToastService = ServiceLocator.GetService<IToastService>();
+            m_VisualsService = ServiceLocator.GetService<IVisualsService>();
+            m_ConfigsService = ServiceLocator.GetService<IConfigsService>();
             
             AddListeners();
             
@@ -48,13 +54,13 @@ namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
         {
             m_View.Bind(TypedViewModel);
             
-            foreach (var athlete in TypedViewModel.AthleteTypes.Values)
+            foreach (var athlete in m_ConfigsService.AthleteTypes.Values)
             {
                 GameObject athleteTypeItem = m_View.CreateAthleteTypeItem();
                 AthleteTypeItemPresenter athleteTypeItemPresenter = 
                     athleteTypeItem.GetComponent<AthleteTypeItemPresenter>();
 
-                Sprite athleteIcon = TypedViewModel.AthleteTypeVisualsDatabase.Get(athlete.Type).Icon;
+                Sprite athleteIcon = m_VisualsService.GetAthleteTypeVisuals(athlete.Type).Icon;
                 AthleteTypeItemViewModel itemViewModel = new AthleteTypeItemViewModel(athlete, athleteIcon);
                 athleteTypeItemPresenter.Initialize(itemViewModel);
 
@@ -87,13 +93,13 @@ namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
             var error = ValidationHelper.ValidateAthleteName(athleteName);
             if (error != null)
             {
-                m_MessageService.Send(new ErrorOverlayShowMessage(error));
+                m_ToastService.Error(error);
                 return;
             }
             
             if (m_SelectionController.SelectedValue == null)
             {
-                m_MessageService.Send(new ErrorOverlayShowMessage(UIStrings.CreateAthlete.SelectAthleteType));
+                m_ToastService.Error(UIStrings.CreateAthlete.SelectAthleteType);
                 return;
             }
             
@@ -104,8 +110,6 @@ namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
             try
             { 
                 await m_AthletesService.CreateAthlete(athleteType, athleteName);
-
-                m_ToastService.Success(UIStrings.CreateAthlete.Toast.Success(athleteName));
             }
             catch (ApiException e)
             {
@@ -118,6 +122,7 @@ namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen
             {
                 m_View.SetInteractable(true);
                 m_MessageService.Send(new ProcessingOverlayHideMessage());
+                m_ToastService.Success(UIStrings.CreateAthlete.Toast.Success(athleteName));
             }
         }
         

@@ -1,8 +1,5 @@
-using System.Collections.Generic;
 using FormForge.AssetManagement;
-using FormForge.Domain.Athletes;
 using FormForge.Infrastructure.UI.Screens.ViewModels;
-using FormForge.ScriptableObjects.Athletes;
 using UnityEngine;
 
 namespace FormForge.UI.Screens.ViewModels.CreateAthleteScreen
@@ -15,24 +12,10 @@ namespace FormForge.UI.Screens.ViewModels.CreateAthleteScreen
         {
             get;
         }
-        
-        public IReadOnlyDictionary<EAthleteType, AthleteTypeConfig> AthleteTypes
-        {
-            get;
-        }
-        
-        public AthleteTypeVisualsDatabase AthleteTypeVisualsDatabase
-        {
-            get;
-        }
-        
-        public CreateAthleteScreenViewModel(GameObject itemPrefab,
-            IReadOnlyDictionary<EAthleteType, AthleteTypeConfig> athleteTypes,
-            AthleteTypeVisualsDatabase athleteTypeVisualsDatabase)
+
+        public CreateAthleteScreenViewModel(GameObject itemPrefab)
         {
             ItemPrefab = itemPrefab;
-            AthleteTypes = athleteTypes;
-            AthleteTypeVisualsDatabase = athleteTypeVisualsDatabase;
         }
     }
 }

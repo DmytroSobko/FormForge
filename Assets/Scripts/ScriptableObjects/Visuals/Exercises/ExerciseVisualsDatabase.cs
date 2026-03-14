@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using FormForge.Domain.Exercises;
 using UnityEngine;
 
-namespace FormForge.ScriptableObjects.Exercises
+namespace FormForge.ScriptableObjects.Visuals.Exercises
 {
-    [CreateAssetMenu(fileName = "ExerciseVisualsDatabase", menuName = "Scriptable Objects/ExerciseVisualsDatabase")]
+    [CreateAssetMenu(fileName = "ExerciseVisualsDatabase", menuName = "Scriptable Objects/Visuals/ExerciseVisualsDatabase")]
     public class ExerciseVisualsDatabase : ScriptableObject
     {
         [SerializeField] private List<ExerciseVisualsConfig> m_Configs;

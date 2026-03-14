@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using FormForge.Domain.Athletes;
 using UnityEngine;
 
-namespace FormForge.ScriptableObjects.Athletes
+namespace FormForge.ScriptableObjects.Visuals.Athletes
 {
-    [CreateAssetMenu(fileName = "AthleteTypeVisualsDatabase", menuName = "Scriptable Objects/AthleteTypeVisualsDatabase")]
+    [CreateAssetMenu(fileName = "AthleteTypeVisualsDatabase", menuName = "Scriptable Objects/Visuals/AthleteTypeVisualsDatabase")]
     public class AthleteTypeVisualsDatabase : ScriptableObject
     {
         [SerializeField] private List<AthleteTypeVisualsConfig> m_Configs;

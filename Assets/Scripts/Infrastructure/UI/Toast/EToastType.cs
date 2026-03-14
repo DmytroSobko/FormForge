@@ -1,6 +1,6 @@
 namespace FormForge.Infrastructure.UI.Toast
 {
-    public enum ToastType
+    public enum EToastType
     {
         Info,
         Success,

@@ -1,3 +1,5 @@
+using FormForge.Infrastructure.Services;
+using FormForge.Services.VisualsService;
 using FormForge.UI.Screens.ViewModels.AthletesScreen;
 using TMPro;
 using UnityEngine;
@@ -12,7 +14,8 @@ namespace FormForge.UI.Screens.Views.AthletesScreen
         
         public void Bind(AthleteItemViewModel viewModel)
         {
-            m_AthleteTypeIcon.sprite = viewModel.AthleteIcon;
+            var visualsService = ServiceLocator.GetService<IVisualsService>();
+            m_AthleteTypeIcon.sprite = visualsService.GetAthleteTypeVisuals(viewModel.Athlete.Type).Icon;
             m_AthleteName.text = viewModel.Athlete.Name;
         }
     }

@@ -7,8 +7,10 @@ using FormForge.Infrastructure.AssetManagementService;
 using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.Enums;
-using FormForge.ScriptableObjects.Athletes;
-using FormForge.ScriptableObjects.Exercises;
+using FormForge.Infrastructure.UI.Toast;
+using FormForge.ScriptableObjects.Visuals.Athletes;
+using FormForge.ScriptableObjects.Visuals.Exercises;
+using FormForge.ScriptableObjects.Visuals.Toasts;
 using UnityEngine;
 using ILogger = FormForge.Infrastructure.Logging.ILogger;
 
@@ -18,6 +20,7 @@ namespace FormForge.Services.VisualsService
     {
         private AthleteTypeVisualsDatabase m_AthleteTypeVisualsDatabase;
         private ExerciseVisualsDatabase m_ExerciseVisualsDatabase;
+        private ToastVisualsDatabase m_ToastVisualsDatabase;
 
         private readonly ILogger m_Logger = new UnityLogger(nameof(VisualsService));
 
@@ -37,11 +40,15 @@ namespace FormForge.Services.VisualsService
             var exerciseTask = LoadDatabaseAsync<ExerciseVisualsDatabase>(
                 AddressKeys.ScriptableObjects.VisualDatabases.ExerciseVisualsDatabase);
 
-            (m_AthleteTypeVisualsDatabase, m_ExerciseVisualsDatabase) = 
-                await UniTask.WhenAll(athleteTask, exerciseTask);
+            var toastTask = LoadDatabaseAsync<ToastVisualsDatabase>(
+                AddressKeys.ScriptableObjects.VisualDatabases.ToastVisualsDatabase);
+            
+            (m_AthleteTypeVisualsDatabase, m_ExerciseVisualsDatabase, m_ToastVisualsDatabase) = 
+                await UniTask.WhenAll(athleteTask, exerciseTask, toastTask);
 
             m_AthleteTypeVisualsDatabase.Initialize();
             m_ExerciseVisualsDatabase.Initialize();
+            m_ToastVisualsDatabase.Initialize();
 
             m_Logger?.Log("InitializeAsync Ended");
         }
@@ -62,6 +69,11 @@ namespace FormForge.Services.VisualsService
         public ExerciseVisualsConfig GetExerciseVisuals(EExerciseType type)
         {
             return m_ExerciseVisualsDatabase.Get(type);
+        }
+        
+        public ToastVisualsConfig GetToastVisuals(EToastType type)
+        {
+            return m_ToastVisualsDatabase.Get(type);
         }
     }
 }
