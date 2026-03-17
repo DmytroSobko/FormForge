@@ -4,7 +4,7 @@ using FormForge.UI.Screens.ViewModels.AthletesScreen;
 
 namespace FormForge.UI.Screens.Views.AthletesScreen
 {
-    public class AthletesPaginationView : PaginatedView<AthleteItemPresenter, AthleteItemViewModel>
+    public class AthletesPaginatedView : PaginatedView<AthleteItemPresenter, AthleteItemViewModel>
     {
 
     }

@@ -234,7 +234,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 18
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -371,7 +371,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 18
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -508,7 +508,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 18
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1207,7 +1207,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 18
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1260,6 +1260,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 443953978828628950, guid: 5415fa868e5564f659be1740c7593715, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 833753086935156648, guid: 5415fa868e5564f659be1740c7593715, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1408,6 +1412,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1464260873358619273, guid: 5415fa868e5564f659be1740c7593715, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1464260873358619273, guid: 5415fa868e5564f659be1740c7593715, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1464260873358619273, guid: 5415fa868e5564f659be1740c7593715, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1464260873358619273, guid: 5415fa868e5564f659be1740c7593715, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4206288097848130115, guid: 5415fa868e5564f659be1740c7593715, type: 3}
       propertyPath: m_Name
       value: MainMenuScreen
@@ -1508,6 +1528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FormForge.UI.Screens.Views.MainMenuScreenView
   canvasGroup: {fileID: 1208644485859619364}
   m_AthletesButton: {fileID: 9140830341165232536}
+  m_TrainingPlansButton: {fileID: 4566903847549801955}
 --- !u!224 &7797277967271477810 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4924100754420763200, guid: 5415fa868e5564f659be1740c7593715, type: 3}

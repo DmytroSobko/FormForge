@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 3477215163472917554}
   - component: {fileID: 1133411132603595808}
   m_Layer: 0
-  m_Name: AthletesPaginatedView
+  m_Name: PaginatedView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1332,6 +1332,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 443953978828628950, guid: 5415fa868e5564f659be1740c7593715, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 833753086935156648, guid: 5415fa868e5564f659be1740c7593715, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1480,6 +1484,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1464260873358619273, guid: 5415fa868e5564f659be1740c7593715, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1464260873358619273, guid: 5415fa868e5564f659be1740c7593715, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1464260873358619273, guid: 5415fa868e5564f659be1740c7593715, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1464260873358619273, guid: 5415fa868e5564f659be1740c7593715, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4206288097848130115, guid: 5415fa868e5564f659be1740c7593715, type: 3}
       propertyPath: m_Name
       value: AthletesScreen
@@ -1545,7 +1565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FormForge.UI.Screens.Views.AthletesScreenView
   canvasGroup: {fileID: 5379039395457641513}
-  m_PaginationView: {fileID: 3477215163472917554}
+  m_PaginatedView: {fileID: 3477215163472917554}
   m_CreateButton: {fileID: 1639507414689068209}
 --- !u!225 &5379039395457641513 stripped
 CanvasGroup:

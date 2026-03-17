@@ -5,5 +5,8 @@ namespace FormForge.UI.FrontendStateMachine
         public const string MainMenuScreen = "MainMenuState";
         public const string AthletesScreen = "AthletesScreenState";
         public const string CreateAthleteScreen = "CreateAthleteScreenState";
+        
+        public const string TrainingPlansScreen = "TrainingPlansScreenState";
+        public const string CreateTrainingPlanScreen = "CreateTrainingPlanScreenState";
     }
-}
+} 

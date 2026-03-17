@@ -39,7 +39,7 @@ namespace FormForge.Simulation
 
                 foreach (var planned in day.Exercises)
                 {
-                    var exercise = planned.Exercise;
+                    var exercise = m_ConfigService.GetExerciseConfig(planned.Type);
                     var intensityConfig = m_ConfigService.Intensities[planned.Intensity];
 
                     float fatigueRatio = athlete.Fatigue / athlete.MaxFatigue;

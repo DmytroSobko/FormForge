@@ -3,23 +3,23 @@ using FormForge.Infrastructure.UI.Pagination;
 using FormForge.Infrastructure.UI.Screens.ViewModels;
 using UnityEngine;
 
-namespace FormForge.UI.Screens.ViewModels.AthletesScreen
+namespace FormForge.UI.Screens.ViewModels.TrainingPlansScreen
 {
-    public class AthletesScreenViewModel : IScreenViewModel
+    public class TrainingPlansScreenViewModel : IScreenViewModel
     {
-        public static string s_Address = AddressKeys.UI.Screens.Athletes.AthletesScreen;
+        public static string s_Address = AddressKeys.UI.Screens.TrainingPlans.TrainingPlansScreen;
         
         public GameObject ItemPrefab
         {
             get;
         }
         
-        public PaginatedDataProvider<AthleteItemViewModel> PaginatedDataProvider
+        public PaginatedDataProvider<TrainingPlanItemViewModel> PaginatedDataProvider
         {
             get;
         }
 
-        public AthletesScreenViewModel(PaginatedDataProvider<AthleteItemViewModel> paginatedDataProvider, 
+        public TrainingPlansScreenViewModel(PaginatedDataProvider<TrainingPlanItemViewModel> paginatedDataProvider, 
             GameObject itemPrefab)
         {
             ItemPrefab = itemPrefab;
