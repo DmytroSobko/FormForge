@@ -5,6 +5,6 @@ namespace FormForge.Domain.TrainingPlans
 {
     public class TrainingDay
     {
-        public List<PlannedExercise> Exercises;
+        public List<PlannedExercise> Exercises { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace FormForge.UI.Screens.Presenters
 
         public override UniTask Initialize()
         {
-            m_View.InitView(OnAthletesButtonPressed);
+            m_View.InitView(OnAthletesButtonClicked, OnTrainingPlansButtonClicked);
 
             return base.Initialize();
         }
@@ -29,9 +29,15 @@ namespace FormForge.UI.Screens.Presenters
             return base.Configure(viewModel);
         }
         
-        private void OnAthletesButtonPressed()
+        private void OnAthletesButtonClicked()
         {
             var athletesScreenMessage = new SwitchFrontendStateMessage(FrontendStates.AthletesScreen);
+            ServiceLocator.GetService<IMessageService>().Send(athletesScreenMessage);
+        }
+        
+        private void OnTrainingPlansButtonClicked()
+        {
+            var athletesScreenMessage = new SwitchFrontendStateMessage(FrontendStates.TrainingPlansScreen);
             ServiceLocator.GetService<IMessageService>().Send(athletesScreenMessage);
         }
     }

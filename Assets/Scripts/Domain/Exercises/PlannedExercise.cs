@@ -4,7 +4,7 @@ namespace FormForge.Domain.Exercises
 {
     public class PlannedExercise
     {
-        public Exercise Exercise;
-        public EIntensityType Intensity;
+        public EExerciseType Type { get; set; }
+        public EIntensityType Intensity { get; set; }
     }
 }

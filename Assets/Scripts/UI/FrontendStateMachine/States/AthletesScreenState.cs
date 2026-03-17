@@ -8,10 +8,10 @@ using FormForge.Infrastructure.AssetManagementService;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Infrastructure.UI.Overlays.LoadingOverlay.Messages;
+using FormForge.Infrastructure.UI.Pagination;
 using FormForge.Infrastructure.UI.Screens.Messages;
 using FormForge.Services.AthletesService;
 using FormForge.Statics;
-using FormForge.UI.Screens.Pagination.DataProviders;
 using FormForge.UI.Screens.ViewModels.AthletesScreen;
 using UnityEngine;
 
@@ -39,7 +39,7 @@ namespace FormForge.UI.FrontendStateMachine.States
             IReadOnlyList<AthleteItemViewModel> athleteViewModels = athletes.Select(athlete => 
                 new AthleteItemViewModel(athlete)).ToList();
             
-            var paginatedDataProvider = new AthletesPaginatedDataProvider(athleteViewModels, 
+            var paginatedDataProvider = new PaginatedDataProvider<AthleteItemViewModel>(athleteViewModels, 
                 UIStrings.Athletes.NoAthletesCreatedYet);
             
             var screenViewModel = new AthletesScreenViewModel(paginatedDataProvider, itemPrefab);
@@ -51,7 +51,7 @@ namespace FormForge.UI.FrontendStateMachine.States
 
         private async UniTask<GameObject> LoadItemPrefab()
         {
-            var policy = new BasicAssetPolicy(AddressKeys.UI.Screens.Components.AthleteItemView);
+            var policy = new BasicAssetPolicy(AddressKeys.UI.Screens.Athletes.Components.AthleteItemView);
             return await ServiceLocator.GetService<IAssetManagementService>().
                 LoadAsync<GameObject, UIContext>(policy);
         }

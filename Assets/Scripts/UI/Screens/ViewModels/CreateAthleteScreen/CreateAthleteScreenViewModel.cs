@@ -6,7 +6,7 @@ namespace FormForge.UI.Screens.ViewModels.CreateAthleteScreen
 {
     public class CreateAthleteScreenViewModel : IScreenViewModel
     {
-        public static string s_Address = AddressKeys.UI.Screens.CreateAthleteScreen;
+        public static string s_Address = AddressKeys.UI.Screens.Athletes.CreateAthleteScreen;
         
         public GameObject ItemPrefab
         {
