@@ -15,8 +15,18 @@ MonoBehaviour:
   m_GroupName: Prefabs
   m_GUID: 6b8308c09cc1240f49a6489e2a44a20d
   m_SerializeEntries:
+  - m_GUID: 03f5c2f350d73489a944c87e4cc76dd8
+    m_Address: TrainingPlansScreen2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0aace3436c96b49718c701a41f96d55e
     m_Address: LoadingOverlay
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1a7cd82691f3141bda66b482b440f00d
+    m_Address: TrainingPlanItemView
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -37,6 +47,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6e7f0dc4219e14f05ad13d4c99700a89
     m_Address: AthleteItemView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 74fe2afc046794dcd8fe94ba1276e006
+    m_Address: TrainingPlansScreen
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

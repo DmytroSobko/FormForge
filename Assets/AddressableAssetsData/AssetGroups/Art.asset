@@ -25,13 +25,53 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 232ddcbbfbb0a487b8001a069b996c86
+    m_Address: schedule_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3b6f460005f084796bf9094b2cd3767e
     m_Address: title_panel
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3be09545d2b67430690e9185db0f73c7
+    m_Address: to_do_6
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3d1ac91a979204c65b52742be7568793
     m_Address: dumbbell_icon_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3ed53dd7b2da54d769f70a2edb812fc1
+    m_Address: training_plan_icon_3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4f029ea90539d491b8bbe8bd8fb2eabf
+    m_Address: to_do_5
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4f89e55392674487c879bf94d98c3ee8
+    m_Address: to_do_4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5b53b7a7086624fe8aad4ba9069d3f51
+    m_Address: training_plan_icon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 80d0eb10b30d94b79a7227bd6b700f00
+    m_Address: schedule_3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 91d4a6d0a185744db91f1a48b72db3c7
+    m_Address: training_plan_icon_2
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -50,6 +90,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b3c2a038273bf446581ba31c90420abb
+    m_Address: to_do_3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b66354fe323be49e4a43ae6b86af0048
+    m_Address: to_do_7
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b76cbbef174fb486ea2b7bbaad57f5a9
+    m_Address: to_do_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b7d86ac74d31848bda0337767563fcf1
     m_Address: close_button
     m_ReadOnly: 0
@@ -57,6 +112,16 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d4f09db2a31ce46de885123461be88aa
     m_Address: athlete_type_icons
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d70e727e029c046779ed907c9ea251a7
+    m_Address: schedule_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e05ee89b6a6f7471f93914ffbd5d050e
+    m_Address: to_do
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
