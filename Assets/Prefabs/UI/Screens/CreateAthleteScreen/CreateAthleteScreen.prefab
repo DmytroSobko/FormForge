@@ -1653,7 +1653,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4356524308461691121, guid: 5415fa868e5564f659be1740c7593715, type: 3}
       propertyPath: m_text
-      value: Genetic Lab
+      value: GENETIC LAB
       objectReference: {fileID: 0}
     - target: {fileID: 4356524308461691121, guid: 5415fa868e5564f659be1740c7593715, type: 3}
       propertyPath: m_fontSize

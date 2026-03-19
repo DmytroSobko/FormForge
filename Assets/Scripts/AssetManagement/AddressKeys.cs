@@ -24,10 +24,10 @@ namespace FormForge.AssetManagement
                 {
                     public const string TrainingPlansScreen = "TrainingPlansScreen";
                     public const string CreateTrainingPlanScreen = "CreateTrainingPlanScreen";
-                                    
+                    
                     public static class Components
                     {
-                        public const string TrainingPlanItemView = "TrainingPlanItemView";
+                        public const string TrainingPlanItemView = "ExerciseItemView";
                     }
                 }
             }

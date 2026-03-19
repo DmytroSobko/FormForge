@@ -1,4 +1,4 @@
-namespace Infrastructure.Services.ToastService
+namespace FormForge.Infrastructure.Services.ToastService
 {
     public interface IToastService
     {

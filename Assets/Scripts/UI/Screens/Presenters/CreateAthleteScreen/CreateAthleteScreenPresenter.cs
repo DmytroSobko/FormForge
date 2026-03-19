@@ -4,6 +4,7 @@ using FormForge.Infrastructure.Logging;
 using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.HttpClientService;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
+using FormForge.Infrastructure.Services.ToastService;
 using FormForge.Infrastructure.UI.Overlays.ErrorOverlay.Messages;
 using FormForge.Infrastructure.UI.Overlays.ProcessingOverlay.Messages;
 using FormForge.Infrastructure.UI.Screens.Presenters;
@@ -15,7 +16,6 @@ using FormForge.Services.VisualsService;
 using FormForge.Statics;
 using FormForge.UI.Screens.ViewModels.CreateAthleteScreen;
 using FormForge.UI.Screens.Views.CreateAthleteScreen;
-using Infrastructure.Services.ToastService;
 using UnityEngine;
 
 namespace FormForge.UI.Screens.Presenters.CreateAthleteScreen

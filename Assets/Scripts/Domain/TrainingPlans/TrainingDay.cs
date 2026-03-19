@@ -5,6 +5,13 @@ namespace FormForge.Domain.TrainingPlans
 {
     public class TrainingDay
     {
-        public List<PlannedExercise> Exercises { get; set; }
+        public ETrainingDayOfWeek DayOfWeek { get; }
+        public List<PlannedExercise> Exercises { get; }
+
+        public TrainingDay(ETrainingDayOfWeek dayOfWeek, List<PlannedExercise> exercises)
+        {
+            DayOfWeek = dayOfWeek;
+            Exercises = exercises;
+        }
     }
 }
