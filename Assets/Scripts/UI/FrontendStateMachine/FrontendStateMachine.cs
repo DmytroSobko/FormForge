@@ -28,6 +28,7 @@ namespace FormForge.UI.FrontendStateMachine
                 {FrontendStates.AthletesScreen, new AthletesScreenState()},
                 {FrontendStates.CreateAthleteScreen, new CreateAthleteScreenState()},
                 {FrontendStates.TrainingPlansScreen, new TrainingPlansScreenState()},
+                {FrontendStates.CreateTrainingPlanScreen, new CreateTrainingPlanScreenState()},
             };
             
             m_MessageService = ServiceLocator.GetService<IMessageService>();

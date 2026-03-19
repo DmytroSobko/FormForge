@@ -1,10 +1,9 @@
-using FormForge.Infrastructure.Services;
 using FormForge.Infrastructure.Services.Enums;
 using FormForge.Infrastructure.Services.MessageService.Interfaces;
 using FormForge.Infrastructure.UI.Toast;
 using UnityEngine;
 
-namespace Infrastructure.Services.ToastService
+namespace FormForge.Infrastructure.Services.ToastService
 {
     public class ToastService : IToastService
     {
