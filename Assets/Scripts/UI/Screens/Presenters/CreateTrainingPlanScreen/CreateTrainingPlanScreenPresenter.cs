@@ -94,6 +94,10 @@ namespace FormForge.UI.Screens.Presenters.CreateTrainingPlanScreen
         protected override void OnDispose()
         {
             RemoveListeners();
+            foreach (TrainingPlanDayPresenter dayPresenter in m_TrainingDayPresenters)
+            {
+                dayPresenter.Dispose();
+            }
             base.OnDispose();
         }
 
