@@ -1,5 +1,7 @@
 using System;
 using FormForge.Infrastructure.Collections;
+using FormForge.Infrastructure.Services.MessageService.Interfaces;
+using FormForge.UI.Screens.Messages;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +15,7 @@ namespace FormForge.UI.Screens.Views.CreateTrainingPlanScreen
         private Pool<PoolableObject> m_ExerciseItemsPool;
         
         public event Action AddButtonClicked;
-        
+
         private void Awake()
         {
             m_AddButton.onClick.AddListener(OnAddButtonClicked);
@@ -32,6 +34,11 @@ namespace FormForge.UI.Screens.Views.CreateTrainingPlanScreen
         private void OnAddButtonClicked()
         {
             AddButtonClicked?.Invoke();
+        }
+
+        public void HandleMessage(ExerciseAddedToPlanMessage messageData = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }
